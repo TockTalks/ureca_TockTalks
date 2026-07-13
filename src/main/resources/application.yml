@@ -1,11 +1,11 @@
 spring:
   application:
-    name: talktocks
+    name: tocktalks
 
   datasource:
-    url: jdbc:mysql://localhost:3307/talktocks?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: talktocks
-    password: talktocks
+    url: jdbc:mysql://localhost:3307/tocktalks?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: tocktalks
+    password: tocktalks
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -42,4 +42,4 @@ external-api:
 
 logging:
   level:
-    com.talktocks: DEBUG
+    com.tocktalks: DEBUG

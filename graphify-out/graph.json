@@ -25,10 +25,9 @@
       "source_file": "build.gradle",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 22,
-      "norm_label": "build.gradle",
       "id": "build",
-      "community_name": "Build Configuration"
+      "community": 22,
+      "norm_label": "build.gradle"
     },
     {
       "label": "gradlew",
@@ -40,10 +39,9 @@
         "kind": "file"
       },
       "_origin": "ast",
-      "community": 17,
-      "norm_label": "gradlew",
       "id": "gradlew",
-      "community_name": "Gradle Wrapper Scripts"
+      "community": 17,
+      "norm_label": "gradlew"
     },
     {
       "label": "gradlew script",
@@ -55,10 +53,9 @@
         "kind": "bash_entrypoint"
       },
       "_origin": "ast",
-      "community": 17,
-      "norm_label": "gradlew script",
       "id": "gradlew__entry",
-      "community_name": "Gradle Wrapper Scripts"
+      "community": 17,
+      "norm_label": "gradlew script"
     },
     {
       "label": "warn()",
@@ -70,10 +67,9 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 17,
-      "norm_label": "warn()",
       "id": "gradlew_warn",
-      "community_name": "Gradle Wrapper Scripts"
+      "community": 17,
+      "norm_label": "warn()"
     },
     {
       "label": "die()",
@@ -85,10 +81,9 @@
         "kind": "bash_function"
       },
       "_origin": "ast",
-      "community": 17,
-      "norm_label": "die()",
       "id": "gradlew_die",
-      "community_name": "Gradle Wrapper Scripts"
+      "community": 17,
+      "norm_label": "die()"
     },
     {
       "label": "settings.gradle",
@@ -96,32 +91,29 @@
       "source_file": "settings.gradle",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 24,
-      "norm_label": "settings.gradle",
       "id": "settings",
-      "community_name": "Gradle Project Settings"
+      "community": 24,
+      "norm_label": "settings.gradle"
     },
     {
-      "label": "TalktocksApplication.java",
+      "label": "TockTalksApplication.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_tocktalksapplication",
       "community": 18,
-      "norm_label": "talktocksapplication.java",
-      "id": "src_main_java_com_talktocks_talktocksapplication",
-      "community_name": "Application Entry Point"
+      "norm_label": "tocktalksapplication.java"
     },
     {
-      "label": "TalktocksApplication",
+      "label": "TockTalksApplication",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L6",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication",
       "community": 18,
-      "norm_label": "talktocksapplication",
-      "id": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication",
-      "community_name": "Application Entry Point"
+      "norm_label": "tocktalksapplication"
     },
     {
       "label": "SpringBootApplication",
@@ -129,43 +121,39 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 18,
-      "norm_label": "springbootapplication",
       "id": "springbootapplication",
-      "community_name": "Application Entry Point"
+      "community": 18,
+      "norm_label": "springbootapplication"
     },
     {
       "label": ".main()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L9",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication_main",
       "community": 18,
-      "norm_label": ".main()",
-      "id": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication_main",
-      "community_name": "Application Entry Point"
+      "norm_label": ".main()"
     },
     {
       "label": "Notice.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice",
       "community": 3,
-      "norm_label": "notice.java",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice",
-      "community_name": "Notice Entity"
+      "norm_label": "notice.java"
     },
     {
       "label": "Notice",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
       "community": 3,
-      "norm_label": "notice",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
-      "community_name": "Notice Entity"
+      "norm_label": "notice"
     },
     {
       "label": "Entity",
@@ -173,10 +161,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_entity",
       "community": 3,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_java_entity",
-      "community_name": "Notice Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -184,10 +171,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_table",
       "community": 3,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_java_table",
-      "community_name": "Notice Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -195,10 +181,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_getter",
       "community": 3,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_java_getter",
-      "community_name": "Notice Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -206,32 +191,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_noargsconstructor",
       "community": 3,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_java_noargsconstructor",
-      "community_name": "Notice Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Report.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report",
       "community": 4,
-      "norm_label": "report.java",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report",
-      "community_name": "Report Entity"
+      "norm_label": "report.java"
     },
     {
       "label": "Report",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
       "community": 4,
-      "norm_label": "report",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_report",
-      "community_name": "Report Entity"
+      "norm_label": "report"
     },
     {
       "label": "Entity",
@@ -239,10 +221,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_java_entity",
       "community": 4,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_java_entity",
-      "community_name": "Report Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -250,10 +231,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_java_table",
       "community": 4,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_java_table",
-      "community_name": "Report Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -261,10 +241,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_java_getter",
       "community": 4,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_java_getter",
-      "community_name": "Report Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -272,32 +251,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_java_noargsconstructor",
       "community": 4,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_java_noargsconstructor",
-      "community_name": "Report Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "DailyStats.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats",
       "community": 5,
-      "norm_label": "dailystats.java",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "dailystats.java"
     },
     {
       "label": "DailyStats",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
       "community": 5,
-      "norm_label": "dailystats",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "dailystats"
     },
     {
       "label": "Entity",
@@ -305,10 +281,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_entity",
       "community": 5,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_entity",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -316,10 +291,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_table",
       "community": 5,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_table",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -327,10 +301,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_getter",
       "community": 5,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_getter",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -338,32 +311,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_noargsconstructor",
       "community": 5,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_noargsconstructor",
-      "community_name": "Daily Statistics Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Comment.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment",
       "community": 6,
-      "norm_label": "comment.java",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment",
-      "community_name": "Comment Entity"
+      "norm_label": "comment.java"
     },
     {
       "label": "Comment",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
       "community": 6,
-      "norm_label": "comment",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "community_name": "Comment Entity"
+      "norm_label": "comment"
     },
     {
       "label": "Entity",
@@ -371,10 +341,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_java_entity",
       "community": 6,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_java_entity",
-      "community_name": "Comment Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -382,10 +351,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_java_table",
       "community": 6,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_java_table",
-      "community_name": "Comment Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -393,10 +361,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_java_getter",
       "community": 6,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_java_getter",
-      "community_name": "Comment Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -404,32 +371,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_java_noargsconstructor",
       "community": 6,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_java_noargsconstructor",
-      "community_name": "Comment Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Post.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post",
       "community": 7,
-      "norm_label": "post.java",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post",
-      "community_name": "Post Entity"
+      "norm_label": "post.java"
     },
     {
       "label": "Post",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_post",
       "community": 7,
-      "norm_label": "post",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_post",
-      "community_name": "Post Entity"
+      "norm_label": "post"
     },
     {
       "label": "Entity",
@@ -437,10 +401,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_java_entity",
       "community": 7,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_java_entity",
-      "community_name": "Post Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -448,10 +411,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_java_table",
       "community": 7,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_java_table",
-      "community_name": "Post Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -459,10 +421,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_java_getter",
       "community": 7,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_java_getter",
-      "community_name": "Post Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -470,32 +431,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_java_noargsconstructor",
       "community": 7,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_java_noargsconstructor",
-      "community_name": "Post Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "PostLike.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike",
       "community": 8,
-      "norm_label": "postlike.java",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike",
-      "community_name": "Post Like Entity"
+      "norm_label": "postlike.java"
     },
     {
       "label": "PostLike",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
       "community": 8,
-      "norm_label": "postlike",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
-      "community_name": "Post Like Entity"
+      "norm_label": "postlike"
     },
     {
       "label": "Entity",
@@ -503,10 +461,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_entity",
       "community": 8,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_java_entity",
-      "community_name": "Post Like Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -514,10 +471,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_table",
       "community": 8,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_java_table",
-      "community_name": "Post Like Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -525,10 +481,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_getter",
       "community": 8,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_java_getter",
-      "community_name": "Post Like Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -536,32 +491,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_noargsconstructor",
       "community": 8,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_java_noargsconstructor",
-      "community_name": "Post Like Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "HealthController.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller",
       "community": 16,
-      "norm_label": "healthcontroller.java",
-      "id": "src_main_java_com_talktocks_domain_member_controller_healthcontroller",
-      "community_name": "Health Check Controller"
+      "norm_label": "healthcontroller.java"
     },
     {
       "label": "HealthController",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L6",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller",
       "community": 16,
-      "norm_label": "healthcontroller",
-      "id": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller",
-      "community_name": "Health Check Controller"
+      "norm_label": "healthcontroller"
     },
     {
       "label": "RestController",
@@ -569,21 +521,19 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 16,
-      "norm_label": "restcontroller",
       "id": "restcontroller",
-      "community_name": "Health Check Controller"
+      "community": 16,
+      "norm_label": "restcontroller"
     },
     {
       "label": ".health()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L10",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller_health",
       "community": 16,
-      "norm_label": ".health()",
-      "id": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller_health",
-      "community_name": "Health Check Controller"
+      "norm_label": ".health()"
     },
     {
       "label": "GetMapping",
@@ -591,32 +541,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 16,
-      "norm_label": "getmapping",
       "id": "getmapping",
-      "community_name": "Health Check Controller"
+      "community": 16,
+      "norm_label": "getmapping"
     },
     {
       "label": "FavoriteStock.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock",
       "community": 9,
-      "norm_label": "favoritestock.java",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "favoritestock.java"
     },
     {
       "label": "FavoriteStock",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
       "community": 9,
-      "norm_label": "favoritestock",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "favoritestock"
     },
     {
       "label": "Entity",
@@ -624,10 +571,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_entity",
       "community": 9,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_entity",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -635,10 +581,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_table",
       "community": 9,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_table",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -646,10 +591,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_getter",
       "community": 9,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_getter",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -657,32 +601,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_noargsconstructor",
       "community": 9,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_noargsconstructor",
-      "community_name": "Favorite Stock Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Member.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member",
       "community": 1,
-      "norm_label": "member.java",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member",
-      "community_name": "Member Data Access"
+      "norm_label": "member.java"
     },
     {
       "label": "Member",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_member",
       "community": 1,
-      "norm_label": "member",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "community_name": "Member Data Access"
+      "norm_label": "member"
     },
     {
       "label": "Entity",
@@ -690,10 +631,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_java_entity",
       "community": 1,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_java_entity",
-      "community_name": "Member Data Access"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -701,10 +641,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_java_table",
       "community": 1,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_java_table",
-      "community_name": "Member Data Access"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -712,10 +651,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_java_getter",
       "community": 1,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_java_getter",
-      "community_name": "Member Data Access"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -723,32 +661,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_java_noargsconstructor",
       "community": 1,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_java_noargsconstructor",
-      "community_name": "Member Data Access"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "MemberRepository.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_repository_memberrepository",
       "community": 1,
-      "norm_label": "memberrepository.java",
-      "id": "src_main_java_com_talktocks_domain_member_repository_memberrepository",
-      "community_name": "Member Data Access"
+      "norm_label": "memberrepository.java"
     },
     {
       "label": "MemberRepository",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
       "community": 1,
-      "norm_label": "memberrepository",
-      "id": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository",
-      "community_name": "Member Data Access"
+      "norm_label": "memberrepository"
     },
     {
       "label": "JpaRepository",
@@ -756,43 +691,39 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 1,
-      "norm_label": "jparepository",
       "id": "jparepository",
-      "community_name": "Member Data Access"
+      "community": 1,
+      "norm_label": "jparepository"
     },
     {
       "label": ".findByEmail()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L9",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository_findbyemail",
       "community": 1,
-      "norm_label": ".findbyemail()",
-      "id": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository_findbyemail",
-      "community_name": "Member Data Access"
+      "norm_label": ".findbyemail()"
     },
     {
       "label": "AssetHistory.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory",
       "community": 10,
-      "norm_label": "assethistory.java",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory",
-      "community_name": "Asset History Entity"
+      "norm_label": "assethistory.java"
     },
     {
       "label": "AssetHistory",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
       "community": 10,
-      "norm_label": "assethistory",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "community_name": "Asset History Entity"
+      "norm_label": "assethistory"
     },
     {
       "label": "Entity",
@@ -800,10 +731,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_entity",
       "community": 10,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_entity",
-      "community_name": "Asset History Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -811,10 +741,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_table",
       "community": 10,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_table",
-      "community_name": "Asset History Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -822,10 +751,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_getter",
       "community": 10,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_getter",
-      "community_name": "Asset History Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -833,32 +761,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_noargsconstructor",
       "community": 10,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_noargsconstructor",
-      "community_name": "Asset History Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "RoomRankingArchive.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive",
       "community": 11,
-      "norm_label": "roomrankingarchive.java",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "roomrankingarchive.java"
     },
     {
       "label": "RoomRankingArchive",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
       "community": 11,
-      "norm_label": "roomrankingarchive",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "roomrankingarchive"
     },
     {
       "label": "Entity",
@@ -866,10 +791,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_entity",
       "community": 11,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_entity",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -877,10 +801,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_table",
       "community": 11,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_table",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -888,10 +811,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_getter",
       "community": 11,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_getter",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -899,32 +821,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor",
       "community": 11,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor",
-      "community_name": "Room Ranking Archive"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Room.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room",
       "community": 12,
-      "norm_label": "room.java",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room",
-      "community_name": "Room Entity"
+      "norm_label": "room.java"
     },
     {
       "label": "Room",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room_room",
       "community": 12,
-      "norm_label": "room",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room_room",
-      "community_name": "Room Entity"
+      "norm_label": "room"
     },
     {
       "label": "Entity",
@@ -932,10 +851,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room_java_entity",
       "community": 12,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room_java_entity",
-      "community_name": "Room Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -943,10 +861,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room_java_table",
       "community": 12,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room_java_table",
-      "community_name": "Room Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -954,10 +871,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room_java_getter",
       "community": 12,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room_java_getter",
-      "community_name": "Room Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -965,32 +881,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_room_java_noargsconstructor",
       "community": 12,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_room_entity_room_java_noargsconstructor",
-      "community_name": "Room Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "RoomParticipant.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant",
       "community": 13,
-      "norm_label": "roomparticipant.java",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant",
-      "community_name": "Room Participant Entity"
+      "norm_label": "roomparticipant.java"
     },
     {
       "label": "RoomParticipant",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
       "community": 13,
-      "norm_label": "roomparticipant",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant",
-      "community_name": "Room Participant Entity"
+      "norm_label": "roomparticipant"
     },
     {
       "label": "Entity",
@@ -998,10 +911,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_entity",
       "community": 13,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_entity",
-      "community_name": "Room Participant Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -1009,10 +921,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_table",
       "community": 13,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_table",
-      "community_name": "Room Participant Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -1020,10 +931,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_getter",
       "community": 13,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_getter",
-      "community_name": "Room Participant Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -1031,32 +941,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_noargsconstructor",
       "community": 13,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_noargsconstructor",
-      "community_name": "Room Participant Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Holding.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding",
       "community": 14,
-      "norm_label": "holding.java",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "holding.java"
     },
     {
       "label": "Holding",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
       "community": 14,
-      "norm_label": "holding",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "holding"
     },
     {
       "label": "Entity",
@@ -1064,10 +971,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_entity",
       "community": 14,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding_java_entity",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -1075,10 +981,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_table",
       "community": 14,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding_java_table",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -1086,10 +991,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_getter",
       "community": 14,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding_java_getter",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -1097,32 +1001,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_noargsconstructor",
       "community": 14,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_holding_java_noargsconstructor",
-      "community_name": "Stock Holding Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "Transaction.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction",
       "community": 15,
-      "norm_label": "transaction.java",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction",
-      "community_name": "Transaction Entity"
+      "norm_label": "transaction.java"
     },
     {
       "label": "Transaction",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
       "community": 15,
-      "norm_label": "transaction",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction",
-      "community_name": "Transaction Entity"
+      "norm_label": "transaction"
     },
     {
       "label": "Entity",
@@ -1130,10 +1031,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_entity",
       "community": 15,
-      "norm_label": "entity",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_entity",
-      "community_name": "Transaction Entity"
+      "norm_label": "entity"
     },
     {
       "label": "Table",
@@ -1141,10 +1041,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_table",
       "community": 15,
-      "norm_label": "table",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_table",
-      "community_name": "Transaction Entity"
+      "norm_label": "table"
     },
     {
       "label": "Getter",
@@ -1152,10 +1051,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_getter",
       "community": 15,
-      "norm_label": "getter",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_getter",
-      "community_name": "Transaction Entity"
+      "norm_label": "getter"
     },
     {
       "label": "NoArgsConstructor",
@@ -1163,32 +1061,29 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_noargsconstructor",
       "community": 15,
-      "norm_label": "noargsconstructor",
-      "id": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_noargsconstructor",
-      "community_name": "Transaction Entity"
+      "norm_label": "noargsconstructor"
     },
     {
       "label": "GlobalExceptionHandler.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
       "community": 2,
-      "norm_label": "globalexceptionhandler.java",
-      "id": "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "community_name": "Global Exception Handling"
+      "norm_label": "globalexceptionhandler.java"
     },
     {
       "label": "GlobalExceptionHandler",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L10",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
       "community": 2,
-      "norm_label": "globalexceptionhandler",
-      "id": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler",
-      "community_name": "Global Exception Handling"
+      "norm_label": "globalexceptionhandler"
     },
     {
       "label": "RestControllerAdvice",
@@ -1196,21 +1091,19 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 2,
-      "norm_label": "restcontrolleradvice",
       "id": "restcontrolleradvice",
-      "community_name": "Global Exception Handling"
+      "community": 2,
+      "norm_label": "restcontrolleradvice"
     },
     {
       "label": ".handleIllegalArgument()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L14",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
       "community": 2,
-      "norm_label": ".handleillegalargument()",
-      "id": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
-      "community_name": "Global Exception Handling"
+      "norm_label": ".handleillegalargument()"
     },
     {
       "label": "ResponseEntity",
@@ -1218,10 +1111,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 2,
-      "norm_label": "responseentity",
       "id": "responseentity",
-      "community_name": "Global Exception Handling"
+      "community": 2,
+      "norm_label": "responseentity"
     },
     {
       "label": "ExceptionHandler",
@@ -1229,43 +1121,39 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 2,
-      "norm_label": "exceptionhandler",
       "id": "exceptionhandler",
-      "community_name": "Global Exception Handling"
+      "community": 2,
+      "norm_label": "exceptionhandler"
     },
     {
       "label": ".handleException()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L19",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
       "community": 2,
-      "norm_label": ".handleexception()",
-      "id": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
-      "community_name": "Global Exception Handling"
+      "norm_label": ".handleexception()"
     },
     {
       "label": "SecurityConfig.java",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_security_securityconfig",
       "community": 0,
-      "norm_label": "securityconfig.java",
-      "id": "src_main_java_com_talktocks_global_security_securityconfig",
-      "community_name": "Security Configuration"
+      "norm_label": "securityconfig.java"
     },
     {
       "label": "SecurityConfig",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L13",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
       "community": 0,
-      "norm_label": "securityconfig",
-      "id": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "community_name": "Security Configuration"
+      "norm_label": "securityconfig"
     },
     {
       "label": "Configuration",
@@ -1273,10 +1161,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "configuration",
       "id": "configuration",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "configuration"
     },
     {
       "label": "EnableWebSecurity",
@@ -1284,21 +1171,19 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "enablewebsecurity",
       "id": "enablewebsecurity",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "enablewebsecurity"
     },
     {
       "label": ".passwordEncoder()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L17",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_passwordencoder",
       "community": 0,
-      "norm_label": ".passwordencoder()",
-      "id": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_passwordencoder",
-      "community_name": "Security Configuration"
+      "norm_label": ".passwordencoder()"
     },
     {
       "label": "PasswordEncoder",
@@ -1306,10 +1191,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "passwordencoder",
       "id": "passwordencoder",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "passwordencoder"
     },
     {
       "label": "Bean",
@@ -1317,21 +1201,19 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "bean",
       "id": "bean",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "bean"
     },
     {
       "label": ".filterChain()",
       "file_type": "code",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L22",
       "_origin": "ast",
+      "id": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
       "community": 0,
-      "norm_label": ".filterchain()",
-      "id": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain",
-      "community_name": "Security Configuration"
+      "norm_label": ".filterchain()"
     },
     {
       "label": "HttpSecurity",
@@ -1339,10 +1221,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "httpsecurity",
       "id": "httpsecurity",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "httpsecurity"
     },
     {
       "label": "SecurityFilterChain",
@@ -1350,38 +1231,49 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "community": 0,
-      "norm_label": "securityfilterchain",
       "id": "securityfilterchain",
-      "community_name": "Security Configuration"
+      "community": 0,
+      "norm_label": "securityfilterchain"
     },
     {
       "label": "CLAUDE.md",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude",
       "community": 21,
-      "norm_label": "claude.md",
-      "id": "claude_md",
-      "community_name": "Project Documentation"
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "graphify",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "claude_graphify",
+      "community": 21,
+      "norm_label": "graphify"
     },
     {
       "label": "README.md",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "community": 21,
-      "norm_label": "readme.md",
-      "id": "readme_md",
-      "community_name": "Project Documentation"
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 25,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "ureca_TockTalks",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_ureca_tocktalks",
+      "community": 25,
+      "norm_label": "ureca_tocktalks"
     },
     {
       "label": "docker-compose.yml",
@@ -1394,8 +1286,8 @@
       "contributor": null,
       "community": 23,
       "norm_label": "docker-compose.yml",
-      "id": "docker_compose_yml",
-      "community_name": "Docker Configuration"
+      "community_name": "Docker Configuration",
+      "id": "docker_compose_yml"
     },
     {
       "label": "MySQL Service",
@@ -1408,8 +1300,8 @@
       "contributor": null,
       "community": 19,
       "norm_label": "mysql service",
-      "id": "docker_compose_mysql",
-      "community_name": "Infrastructure Configuration"
+      "community_name": "Infrastructure Configuration",
+      "id": "docker_compose_mysql"
     },
     {
       "label": "Redis Service",
@@ -1422,8 +1314,8 @@
       "contributor": null,
       "community": 19,
       "norm_label": "redis service",
-      "id": "docker_compose_redis",
-      "community_name": "Infrastructure Configuration"
+      "community_name": "Infrastructure Configuration",
+      "id": "docker_compose_redis"
     },
     {
       "label": "application.yml",
@@ -1436,11 +1328,11 @@
       "contributor": null,
       "community": 19,
       "norm_label": "application.yml",
-      "id": "src_main_resources_application_yml",
-      "community_name": "Infrastructure Configuration"
+      "community_name": "Infrastructure Configuration",
+      "id": "src_main_resources_application_yml"
     },
     {
-      "label": "TalkTocks Application",
+      "label": "TockTalks Application",
       "file_type": "concept",
       "source_file": "src/main/resources/application.yml",
       "source_location": null,
@@ -1449,9 +1341,9 @@
       "author": null,
       "contributor": null,
       "community": 20,
-      "norm_label": "talktocks application",
-      "id": "spring_boot_app",
-      "community_name": "External API Integrations"
+      "norm_label": "tocktalks application",
+      "community_name": "External API Integrations",
+      "id": "spring_boot_app"
     },
     {
       "label": "Stock Market API",
@@ -1464,8 +1356,8 @@
       "contributor": null,
       "community": 20,
       "norm_label": "stock market api",
-      "id": "external_api_stock",
-      "community_name": "External API Integrations"
+      "community_name": "External API Integrations",
+      "id": "external_api_stock"
     },
     {
       "label": "Kakao OAuth API",
@@ -1478,8 +1370,8 @@
       "contributor": null,
       "community": 20,
       "norm_label": "kakao oauth api",
-      "id": "external_api_kakao",
-      "community_name": "External API Integrations"
+      "community_name": "External API Integrations",
+      "id": "external_api_kakao"
     }
   ],
   "links": [
@@ -1489,9 +1381,9 @@
       "source_file": "gradlew",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "gradlew",
-      "target": "gradlew__entry"
+      "target": "gradlew__entry",
+      "confidence_score": 1.0
     },
     {
       "relation": "defines",
@@ -1499,9 +1391,9 @@
       "source_file": "gradlew",
       "source_location": "L98",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "gradlew",
-      "target": "gradlew_die"
+      "target": "gradlew_die",
+      "confidence_score": 1.0
     },
     {
       "relation": "defines",
@@ -1509,9 +1401,9 @@
       "source_file": "gradlew",
       "source_location": "L94",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "gradlew",
-      "target": "gradlew_warn"
+      "target": "gradlew_warn",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1520,9 +1412,9 @@
       "source_location": "L128",
       "weight": 1.0,
       "context": "call",
-      "confidence_score": 1.0,
       "source": "gradlew__entry",
-      "target": "gradlew_die"
+      "target": "gradlew_die",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1531,1246 +1423,1256 @@
       "source_location": "L151",
       "weight": 1.0,
       "context": "call",
-      "confidence_score": 1.0,
       "source": "gradlew__entry",
-      "target": "gradlew_warn"
+      "target": "gradlew_warn",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_talktocksapplication",
-      "target": "springbootapplication"
+      "source": "src_main_java_com_tocktalks_tocktalksapplication",
+      "target": "springbootapplication",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_talktocksapplication",
-      "target": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication"
+      "source": "src_main_java_com_tocktalks_tocktalksapplication",
+      "target": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L6",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication",
-      "target": "springbootapplication"
+      "source": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication",
+      "target": "springbootapplication",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/TalktocksApplication.java",
+      "source_file": "src/main/java/com/tocktalks/TockTalksApplication.java",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication",
-      "target": "src_main_java_com_talktocks_talktocksapplication_talktocksapplication_main"
+      "source": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication",
+      "target": "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication_main",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_notice",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_notice_notice"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_notice",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_notice_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_notice_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_notice_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Notice.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Notice.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_notice_java_table"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_notice_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_report",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_report_report"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_report",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_report_report",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_report_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_report_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_report_report",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_report_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_report_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_report_report",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_report_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_report_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/admin/entity/Report.java",
+      "source_file": "src/main/java/com/tocktalks/domain/admin/entity/Report.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_admin_entity_report_report",
-      "target": "src_main_java_com_talktocks_domain_admin_entity_report_java_table"
+      "source": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
+      "target": "src_main_java_com_tocktalks_domain_admin_entity_report_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats",
-      "target": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats"
+      "source": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats",
+      "target": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "target": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_entity"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "target": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "target": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "target": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "target": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "target": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_table"
+      "source": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "target": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_noargsconstructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "target": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_comment",
-      "target": "src_main_java_com_talktocks_domain_community_entity_comment_comment"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_comment",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "target": "src_main_java_com_talktocks_domain_community_entity_comment_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_comment_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "target": "src_main_java_com_talktocks_domain_community_entity_comment_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_comment_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "target": "src_main_java_com_talktocks_domain_community_entity_comment_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_comment_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Comment.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Comment.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "target": "src_main_java_com_talktocks_domain_community_entity_comment_java_table"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_comment_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_post",
-      "target": "src_main_java_com_talktocks_domain_community_entity_post_post"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_post",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_post_post",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_post_post",
-      "target": "src_main_java_com_talktocks_domain_community_entity_post_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_post_post",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_post_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_post_post",
-      "target": "src_main_java_com_talktocks_domain_community_entity_post_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_post_post",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_post_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_post_post",
-      "target": "src_main_java_com_talktocks_domain_community_entity_post_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_post_post",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_post_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/Post.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/Post.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_post_post",
-      "target": "src_main_java_com_talktocks_domain_community_entity_post_java_table"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_post_post",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_post_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_postlike",
-      "target": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_postlike",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
-      "target": "src_main_java_com_talktocks_domain_community_entity_postlike_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
-      "target": "src_main_java_com_talktocks_domain_community_entity_postlike_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
-      "target": "src_main_java_com_talktocks_domain_community_entity_postlike_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/community/entity/PostLike.java",
+      "source_file": "src/main/java/com/tocktalks/domain/community/entity/PostLike.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
-      "target": "src_main_java_com_talktocks_domain_community_entity_postlike_java_table"
+      "source": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
+      "target": "src_main_java_com_tocktalks_domain_community_entity_postlike_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller",
-      "target": "getmapping"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller",
+      "target": "getmapping",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller",
-      "target": "restcontroller"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller",
+      "target": "restcontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller",
-      "target": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller",
+      "target": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L6",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller",
-      "target": "restcontroller"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller",
+      "target": "restcontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L10",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller",
-      "target": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller_health"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller",
+      "target": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller_health",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/controller/HealthController.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/controller/HealthController.java",
       "source_location": "L10",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller_health",
-      "target": "getmapping"
+      "source": "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller_health",
+      "target": "getmapping",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_favoritestock",
-      "target": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_favoritestock",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "target": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "target": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "target": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "target": "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_table"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_member",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_member"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_member",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/entity/Member.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/entity/Member.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_java_table"
+      "source": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_member"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_member"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L9",
       "weight": 1.0,
       "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository_findbyemail",
-      "target": "src_main_java_com_talktocks_domain_member_entity_member_member"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository_findbyemail",
+      "target": "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository",
-      "target": "jparepository"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository",
+      "target": "jparepository",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository",
-      "target": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository",
+      "target": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository",
-      "target": "jparepository"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
+      "target": "jparepository",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
+      "source_file": "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository",
-      "target": "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository_findbyemail"
+      "source": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
+      "target": "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository_findbyemail",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory",
-      "target": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory"
+      "source": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory",
+      "target": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "target": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "target": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "target": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "target": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "target": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "target": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java",
+      "source_file": "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "target": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_table"
+      "source": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "target": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive",
-      "target": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive"
+      "source": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive",
+      "target": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
-      "target": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "target": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
-      "target": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "target": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
-      "target": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "target": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java",
+      "source_file": "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
-      "target": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_table"
+      "source": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "target": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_room",
-      "target": "src_main_java_com_talktocks_domain_room_entity_room_room"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_room",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_room_room",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_room_room",
-      "target": "src_main_java_com_talktocks_domain_room_entity_room_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_room_room",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_room_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_room_room",
-      "target": "src_main_java_com_talktocks_domain_room_entity_room_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_room_room",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_room_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_room_room",
-      "target": "src_main_java_com_talktocks_domain_room_entity_room_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_room_room",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_room_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/Room.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/Room.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_room_room",
-      "target": "src_main_java_com_talktocks_domain_room_entity_room_java_table"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_room_room",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_room_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_roomparticipant",
-      "target": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant",
-      "target": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant",
-      "target": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant",
-      "target": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java",
+      "source_file": "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java",
       "source_location": "L7",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant",
-      "target": "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_table"
+      "source": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant",
+      "target": "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_holding",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_holding_holding"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_holding",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_holding_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_holding_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_holding_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Holding.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Holding.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_holding_java_table"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_holding_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_transaction",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_transaction",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_entity"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_entity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_getter"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_getter",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_noargsconstructor"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_noargsconstructor",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/domain/trade/entity/Transaction.java",
+      "source_file": "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java",
       "source_location": "L8",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction",
-      "target": "src_main_java_com_talktocks_domain_trade_entity_transaction_java_table"
+      "source": "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction",
+      "target": "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_table",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L5",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "target": "exceptionhandler"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
+      "target": "exceptionhandler",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "target": "responseentity"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
+      "target": "responseentity",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "target": "restcontrolleradvice"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
+      "target": "restcontrolleradvice",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L10",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "target": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
+      "target": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L10",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler",
-      "target": "restcontrolleradvice"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
+      "target": "restcontrolleradvice",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L19",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler",
-      "target": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
+      "target": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L14",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler",
-      "target": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
+      "target": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L14",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
-      "target": "exceptionhandler"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
+      "target": "exceptionhandler",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L14",
       "weight": 1.0,
       "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
-      "target": "responseentity"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument",
+      "target": "responseentity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L19",
       "weight": 1.0,
       "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
-      "target": "responseentity"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
+      "target": "responseentity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java",
+      "source_file": "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java",
       "source_location": "L19",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
-      "target": "exceptionhandler"
+      "source": "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
+      "target": "exceptionhandler",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L3",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "bean"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "bean",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L4",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "configuration"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "configuration",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L6",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "enablewebsecurity"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "enablewebsecurity",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L5",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "httpsecurity"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "httpsecurity",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "passwordencoder"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "passwordencoder",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L10",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "securityfilterchain"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "securityfilterchain",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig",
-      "target": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig",
+      "target": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L13",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "target": "configuration"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "target": "configuration",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L13",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "target": "enablewebsecurity"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "target": "enablewebsecurity",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L22",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "target": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "target": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L17",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "target": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_passwordencoder"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "target": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_passwordencoder",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L17",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_passwordencoder",
-      "target": "bean"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_passwordencoder",
+      "target": "bean",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L17",
       "weight": 1.0,
       "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_passwordencoder",
-      "target": "passwordencoder"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_passwordencoder",
+      "target": "passwordencoder",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L22",
       "weight": 1.0,
       "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain",
-      "target": "bean"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
+      "target": "bean",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L22",
       "weight": 1.0,
       "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain",
-      "target": "httpsecurity"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
+      "target": "httpsecurity",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "src/main/java/com/talktocks/global/security/SecurityConfig.java",
+      "source_file": "src/main/java/com/tocktalks/global/security/SecurityConfig.java",
       "source_location": "L22",
       "weight": 1.0,
       "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain",
-      "target": "securityfilterchain"
+      "source": "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
+      "target": "securityfilterchain",
+      "confidence_score": 1.0
     },
     {
-      "relation": "references",
+      "relation": "contains",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "CLAUDE.md",
-      "source_location": null,
+      "source_location": "L1",
       "weight": 1.0,
-      "source": "claude_md",
-      "target": "readme_md"
+      "source": "claude",
+      "target": "claude_graphify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_ureca_tocktalks",
+      "confidence_score": 1.0
     },
     {
       "relation": "shares_data_with",
@@ -2828,5 +2730,5 @@
       "source_file": "docker-compose.yml"
     }
   ],
-  "built_at_commit": "4b77d7536d08b9f0bd35405894be8767acfd2041"
+  "built_at_commit": "1310306ae80c23a1ca7194574231b2ca67ef6837"
 }

@@ -1,15 +1,16 @@
-# Graph Report - .  (2026-07-13)
+# Graph Report - TockTalks  (2026-07-13)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- 24 files · ~3,038 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 129 nodes · 124 edges · 25 communities (23 shown, 2 thin omitted)
+- 131 nodes · 125 edges · 26 communities (22 shown, 4 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 2 edges (avg confidence: 0.95)
-- Token cost: 583 input · 233 output
+- Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4b77d753`
+- Built from commit: `1310306a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -35,6 +36,8 @@
 - Application Entry Point
 - Infrastructure Configuration
 - External API Integrations
+- Project Documentation
+- README.md
 
 ## God Nodes (most connected - your core abstractions)
 1. `Member` - 8 edges
@@ -50,7 +53,7 @@
 
 ## Surprising Connections (you probably didn't know these)
 - `MemberRepository` --references--> `Member`  [EXTRACTED]
-  src/main/java/com/talktocks/domain/member/repository/MemberRepository.java → src/main/java/com/talktocks/domain/member/entity/Member.java
+  src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java → src/main/java/com/tocktalks/domain/member/entity/Member.java
 
 ## Import Cycles
 - None detected.
@@ -58,7 +61,7 @@
 ## Hyperedges (group relationships)
 - **Infrastructure Stack** — docker_compose_mysql, docker_compose_redis, src_main_resources_application_yml [EXTRACTED 0.90]
 
-## Communities (25 total, 2 thin omitted)
+## Communities (26 total, 4 thin omitted)
 
 ### Community 0 - "Security Configuration"
 Cohesion: 0.36
@@ -134,15 +137,15 @@ Nodes (3): gradlew script, die(), warn()
 
 ### Community 20 - "External API Integrations"
 Cohesion: 0.67
-Nodes (3): Kakao OAuth API, Stock Market API, TalkTocks Application
+Nodes (3): Kakao OAuth API, Stock Market API, TockTalks Application
 
 ## Knowledge Gaps
-- **4 isolated node(s):** `MySQL Service`, `Redis Service`, `Stock Market API`, `Kakao OAuth API`
+- **6 isolated node(s):** `graphify`, `ureca_TockTalks`, `MySQL Service`, `Redis Service`, `Stock Market API` (+1 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `MySQL Service`, `Redis Service`, `Stock Market API` to the rest of the system?**
-  _4 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `graphify`, `ureca_TockTalks`, `MySQL Service` to the rest of the system?**
+  _6 weakly-connected nodes found - possible documentation gaps or missing edges._
