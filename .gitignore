@@ -26,7 +26,7 @@ application-local.yml
 application-secret.yml
 
 ### graphify ###
-graphify-out/
+graphify-out/cache/
 
 ### Claude Code (로컬 설정) ###
 .claude/settings.json

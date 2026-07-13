@@ -1,0 +1,117 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1783932087.595788,
+    "ast_hash": "0dfe2c0064c3b47f33a0b6b1a466e37c",
+    "semantic_hash": "0dfe2c0064c3b47f33a0b6b1a466e37c"
+  },
+  "build.gradle": {
+    "mtime": 1783898146.0,
+    "ast_hash": "7d0b8f2ae0f7bf18ac9f3085afbb1bf8",
+    "semantic_hash": "7d0b8f2ae0f7bf18ac9f3085afbb1bf8"
+  },
+  "gradlew": {
+    "mtime": 1783931591.8577554,
+    "ast_hash": "780b1d3e23a3b82154795f73df943a14",
+    "semantic_hash": "780b1d3e23a3b82154795f73df943a14"
+  },
+  "settings.gradle": {
+    "mtime": 1783898150.0,
+    "ast_hash": "9b007c1a5d438ab5e022619646110744",
+    "semantic_hash": "9b007c1a5d438ab5e022619646110744"
+  },
+  "src/main/java/com/talktocks/TalktocksApplication.java": {
+    "mtime": 1783898082.0,
+    "ast_hash": "bbfcdcf2fec93ff9b5dc00f0a42a415e",
+    "semantic_hash": "bbfcdcf2fec93ff9b5dc00f0a42a415e"
+  },
+  "src/main/java/com/talktocks/domain/admin/entity/Notice.java": {
+    "mtime": 1783898138.0,
+    "ast_hash": "1a965157787759b747d9147108fed332",
+    "semantic_hash": "1a965157787759b747d9147108fed332"
+  },
+  "src/main/java/com/talktocks/domain/admin/entity/Report.java": {
+    "mtime": 1783898138.0,
+    "ast_hash": "c660b9844c3ce7253070dd2bd229bfab",
+    "semantic_hash": "c660b9844c3ce7253070dd2bd229bfab"
+  },
+  "src/main/java/com/talktocks/domain/backoffice/entity/DailyStats.java": {
+    "mtime": 1783898138.0,
+    "ast_hash": "36283bac22e57fe322335a4e176f19c5",
+    "semantic_hash": "36283bac22e57fe322335a4e176f19c5"
+  },
+  "src/main/java/com/talktocks/domain/community/entity/Comment.java": {
+    "mtime": 1783898128.0,
+    "ast_hash": "2cb905f44b70766e8676071acd12eec0",
+    "semantic_hash": "2cb905f44b70766e8676071acd12eec0"
+  },
+  "src/main/java/com/talktocks/domain/community/entity/Post.java": {
+    "mtime": 1783898128.0,
+    "ast_hash": "7a62cf58cc1b88271a023c3d7188ed24",
+    "semantic_hash": "7a62cf58cc1b88271a023c3d7188ed24"
+  },
+  "src/main/java/com/talktocks/domain/community/entity/PostLike.java": {
+    "mtime": 1783898128.0,
+    "ast_hash": "231486255e8b37856d44cadbef7a8d85",
+    "semantic_hash": "231486255e8b37856d44cadbef7a8d85"
+  },
+  "src/main/java/com/talktocks/domain/member/controller/HealthController.java": {
+    "mtime": 1783898184.0,
+    "ast_hash": "d7540adf09aee291438a0bc29c7d1d1c",
+    "semantic_hash": "d7540adf09aee291438a0bc29c7d1d1c"
+  },
+  "src/main/java/com/talktocks/domain/member/entity/FavoriteStock.java": {
+    "mtime": 1783898094.0,
+    "ast_hash": "95368708b834fb8ef34cdbccf7fd553d",
+    "semantic_hash": "95368708b834fb8ef34cdbccf7fd553d"
+  },
+  "src/main/java/com/talktocks/domain/member/entity/Member.java": {
+    "mtime": 1783898094.0,
+    "ast_hash": "2ceda1586ff061643732bb4adc059eea",
+    "semantic_hash": "2ceda1586ff061643732bb4adc059eea"
+  },
+  "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java": {
+    "mtime": 1783898184.0,
+    "ast_hash": "5d62ff737fdcd0ccb56c7a003c4a6d5d",
+    "semantic_hash": "5d62ff737fdcd0ccb56c7a003c4a6d5d"
+  },
+  "src/main/java/com/talktocks/domain/portfolio/entity/AssetHistory.java": {
+    "mtime": 1783898120.0,
+    "ast_hash": "8455872c3e9e1f1e7a9d170fd8f5c19c",
+    "semantic_hash": "8455872c3e9e1f1e7a9d170fd8f5c19c"
+  },
+  "src/main/java/com/talktocks/domain/ranking/entity/RoomRankingArchive.java": {
+    "mtime": 1783898120.0,
+    "ast_hash": "d9f4bba977bf57adc28f41fe88ab64b8",
+    "semantic_hash": "d9f4bba977bf57adc28f41fe88ab64b8"
+  },
+  "src/main/java/com/talktocks/domain/room/entity/Room.java": {
+    "mtime": 1783898102.0,
+    "ast_hash": "21c10053d832552b0db97be7e4e4575c",
+    "semantic_hash": "21c10053d832552b0db97be7e4e4575c"
+  },
+  "src/main/java/com/talktocks/domain/room/entity/RoomParticipant.java": {
+    "mtime": 1783898102.0,
+    "ast_hash": "a1483c43f7656823ce8755f6de4f6999",
+    "semantic_hash": "a1483c43f7656823ce8755f6de4f6999"
+  },
+  "src/main/java/com/talktocks/domain/trade/entity/Holding.java": {
+    "mtime": 1783898114.0,
+    "ast_hash": "a62384cb1ab8b8c91be6006f5a0025c6",
+    "semantic_hash": "a62384cb1ab8b8c91be6006f5a0025c6"
+  },
+  "src/main/java/com/talktocks/domain/trade/entity/Transaction.java": {
+    "mtime": 1783898114.0,
+    "ast_hash": "4ede0b19e5d5ab52685888c3e009e5a9",
+    "semantic_hash": "4ede0b19e5d5ab52685888c3e009e5a9"
+  },
+  "src/main/java/com/talktocks/global/exception/GlobalExceptionHandler.java": {
+    "mtime": 1783898200.0,
+    "ast_hash": "d754b309c6f0b3be83e7317464b9db6c",
+    "semantic_hash": "d754b309c6f0b3be83e7317464b9db6c"
+  },
+  "src/main/java/com/talktocks/global/security/SecurityConfig.java": {
+    "mtime": 1783898192.0,
+    "ast_hash": "308d23c678c57ada7ce4c9892fc5a6ed",
+    "semantic_hash": "308d23c678c57ada7ce4c9892fc5a6ed"
+  }
+}
