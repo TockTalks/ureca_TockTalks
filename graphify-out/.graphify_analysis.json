@@ -7,142 +7,142 @@
       "httpsecurity",
       "passwordencoder",
       "securityfilterchain",
-      "src_main_java_com_talktocks_global_security_securityconfig",
-      "src_main_java_com_talktocks_global_security_securityconfig_securityconfig",
-      "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_filterchain",
-      "src_main_java_com_talktocks_global_security_securityconfig_securityconfig_passwordencoder"
+      "src_main_java_com_tocktalks_global_security_securityconfig",
+      "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig",
+      "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_filterchain",
+      "src_main_java_com_tocktalks_global_security_securityconfig_securityconfig_passwordencoder"
     ],
     "1": [
       "jparepository",
-      "src_main_java_com_talktocks_domain_member_entity_member",
-      "src_main_java_com_talktocks_domain_member_entity_member_java_entity",
-      "src_main_java_com_talktocks_domain_member_entity_member_java_getter",
-      "src_main_java_com_talktocks_domain_member_entity_member_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_member_entity_member_java_table",
-      "src_main_java_com_talktocks_domain_member_entity_member_member",
-      "src_main_java_com_talktocks_domain_member_repository_memberrepository",
-      "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository",
-      "src_main_java_com_talktocks_domain_member_repository_memberrepository_memberrepository_findbyemail"
+      "src_main_java_com_tocktalks_domain_member_entity_member",
+      "src_main_java_com_tocktalks_domain_member_entity_member_java_entity",
+      "src_main_java_com_tocktalks_domain_member_entity_member_java_getter",
+      "src_main_java_com_tocktalks_domain_member_entity_member_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_member_entity_member_java_table",
+      "src_main_java_com_tocktalks_domain_member_entity_member_member",
+      "src_main_java_com_tocktalks_domain_member_repository_memberrepository",
+      "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository",
+      "src_main_java_com_tocktalks_domain_member_repository_memberrepository_memberrepository_findbyemail"
     ],
     "2": [
       "exceptionhandler",
       "responseentity",
       "restcontrolleradvice",
-      "src_main_java_com_talktocks_global_exception_globalexceptionhandler",
-      "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler",
-      "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
-      "src_main_java_com_talktocks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument"
+      "src_main_java_com_tocktalks_global_exception_globalexceptionhandler",
+      "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler",
+      "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleexception",
+      "src_main_java_com_tocktalks_global_exception_globalexceptionhandler_globalexceptionhandler_handleillegalargument"
     ],
     "3": [
-      "src_main_java_com_talktocks_domain_admin_entity_notice",
-      "src_main_java_com_talktocks_domain_admin_entity_notice_java_entity",
-      "src_main_java_com_talktocks_domain_admin_entity_notice_java_getter",
-      "src_main_java_com_talktocks_domain_admin_entity_notice_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_admin_entity_notice_java_table",
-      "src_main_java_com_talktocks_domain_admin_entity_notice_notice"
+      "src_main_java_com_tocktalks_domain_admin_entity_notice",
+      "src_main_java_com_tocktalks_domain_admin_entity_notice_java_entity",
+      "src_main_java_com_tocktalks_domain_admin_entity_notice_java_getter",
+      "src_main_java_com_tocktalks_domain_admin_entity_notice_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_admin_entity_notice_java_table",
+      "src_main_java_com_tocktalks_domain_admin_entity_notice_notice"
     ],
     "4": [
-      "src_main_java_com_talktocks_domain_admin_entity_report",
-      "src_main_java_com_talktocks_domain_admin_entity_report_java_entity",
-      "src_main_java_com_talktocks_domain_admin_entity_report_java_getter",
-      "src_main_java_com_talktocks_domain_admin_entity_report_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_admin_entity_report_java_table",
-      "src_main_java_com_talktocks_domain_admin_entity_report_report"
+      "src_main_java_com_tocktalks_domain_admin_entity_report",
+      "src_main_java_com_tocktalks_domain_admin_entity_report_java_entity",
+      "src_main_java_com_tocktalks_domain_admin_entity_report_java_getter",
+      "src_main_java_com_tocktalks_domain_admin_entity_report_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_admin_entity_report_java_table",
+      "src_main_java_com_tocktalks_domain_admin_entity_report_report"
     ],
     "5": [
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats",
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_entity",
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_getter",
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_java_table"
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats",
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_entity",
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_getter",
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_java_table"
     ],
     "6": [
-      "src_main_java_com_talktocks_domain_community_entity_comment",
-      "src_main_java_com_talktocks_domain_community_entity_comment_comment",
-      "src_main_java_com_talktocks_domain_community_entity_comment_java_entity",
-      "src_main_java_com_talktocks_domain_community_entity_comment_java_getter",
-      "src_main_java_com_talktocks_domain_community_entity_comment_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_community_entity_comment_java_table"
+      "src_main_java_com_tocktalks_domain_community_entity_comment",
+      "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
+      "src_main_java_com_tocktalks_domain_community_entity_comment_java_entity",
+      "src_main_java_com_tocktalks_domain_community_entity_comment_java_getter",
+      "src_main_java_com_tocktalks_domain_community_entity_comment_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_community_entity_comment_java_table"
     ],
     "7": [
-      "src_main_java_com_talktocks_domain_community_entity_post",
-      "src_main_java_com_talktocks_domain_community_entity_post_java_entity",
-      "src_main_java_com_talktocks_domain_community_entity_post_java_getter",
-      "src_main_java_com_talktocks_domain_community_entity_post_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_community_entity_post_java_table",
-      "src_main_java_com_talktocks_domain_community_entity_post_post"
+      "src_main_java_com_tocktalks_domain_community_entity_post",
+      "src_main_java_com_tocktalks_domain_community_entity_post_java_entity",
+      "src_main_java_com_tocktalks_domain_community_entity_post_java_getter",
+      "src_main_java_com_tocktalks_domain_community_entity_post_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_community_entity_post_java_table",
+      "src_main_java_com_tocktalks_domain_community_entity_post_post"
     ],
     "8": [
-      "src_main_java_com_talktocks_domain_community_entity_postlike",
-      "src_main_java_com_talktocks_domain_community_entity_postlike_java_entity",
-      "src_main_java_com_talktocks_domain_community_entity_postlike_java_getter",
-      "src_main_java_com_talktocks_domain_community_entity_postlike_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_community_entity_postlike_java_table",
-      "src_main_java_com_talktocks_domain_community_entity_postlike_postlike"
+      "src_main_java_com_tocktalks_domain_community_entity_postlike",
+      "src_main_java_com_tocktalks_domain_community_entity_postlike_java_entity",
+      "src_main_java_com_tocktalks_domain_community_entity_postlike_java_getter",
+      "src_main_java_com_tocktalks_domain_community_entity_postlike_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_community_entity_postlike_java_table",
+      "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike"
     ],
     "9": [
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock",
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_entity",
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_getter",
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_member_entity_favoritestock_java_table"
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock",
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_entity",
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_getter",
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_member_entity_favoritestock_java_table"
     ],
     "10": [
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory",
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_entity",
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_getter",
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_java_table"
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory",
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_entity",
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_getter",
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_java_table"
     ],
     "11": [
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive",
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_entity",
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_getter",
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_java_table",
-      "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive"
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive",
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_entity",
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_getter",
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_java_table",
+      "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive"
     ],
     "12": [
-      "src_main_java_com_talktocks_domain_room_entity_room",
-      "src_main_java_com_talktocks_domain_room_entity_room_java_entity",
-      "src_main_java_com_talktocks_domain_room_entity_room_java_getter",
-      "src_main_java_com_talktocks_domain_room_entity_room_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_room_entity_room_java_table",
-      "src_main_java_com_talktocks_domain_room_entity_room_room"
+      "src_main_java_com_tocktalks_domain_room_entity_room",
+      "src_main_java_com_tocktalks_domain_room_entity_room_java_entity",
+      "src_main_java_com_tocktalks_domain_room_entity_room_java_getter",
+      "src_main_java_com_tocktalks_domain_room_entity_room_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_room_entity_room_java_table",
+      "src_main_java_com_tocktalks_domain_room_entity_room_room"
     ],
     "13": [
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant",
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_entity",
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_getter",
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant_java_table",
-      "src_main_java_com_talktocks_domain_room_entity_roomparticipant_roomparticipant"
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant",
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_entity",
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_getter",
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_java_table",
+      "src_main_java_com_tocktalks_domain_room_entity_roomparticipant_roomparticipant"
     ],
     "14": [
-      "src_main_java_com_talktocks_domain_trade_entity_holding",
-      "src_main_java_com_talktocks_domain_trade_entity_holding_holding",
-      "src_main_java_com_talktocks_domain_trade_entity_holding_java_entity",
-      "src_main_java_com_talktocks_domain_trade_entity_holding_java_getter",
-      "src_main_java_com_talktocks_domain_trade_entity_holding_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_trade_entity_holding_java_table"
+      "src_main_java_com_tocktalks_domain_trade_entity_holding",
+      "src_main_java_com_tocktalks_domain_trade_entity_holding_holding",
+      "src_main_java_com_tocktalks_domain_trade_entity_holding_java_entity",
+      "src_main_java_com_tocktalks_domain_trade_entity_holding_java_getter",
+      "src_main_java_com_tocktalks_domain_trade_entity_holding_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_trade_entity_holding_java_table"
     ],
     "15": [
-      "src_main_java_com_talktocks_domain_trade_entity_transaction",
-      "src_main_java_com_talktocks_domain_trade_entity_transaction_java_entity",
-      "src_main_java_com_talktocks_domain_trade_entity_transaction_java_getter",
-      "src_main_java_com_talktocks_domain_trade_entity_transaction_java_noargsconstructor",
-      "src_main_java_com_talktocks_domain_trade_entity_transaction_java_table",
-      "src_main_java_com_talktocks_domain_trade_entity_transaction_transaction"
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction",
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_entity",
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_getter",
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_noargsconstructor",
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_table",
+      "src_main_java_com_tocktalks_domain_trade_entity_transaction_transaction"
     ],
     "16": [
       "getmapping",
       "restcontroller",
-      "src_main_java_com_talktocks_domain_member_controller_healthcontroller",
-      "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller",
-      "src_main_java_com_talktocks_domain_member_controller_healthcontroller_healthcontroller_health"
+      "src_main_java_com_tocktalks_domain_member_controller_healthcontroller",
+      "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller",
+      "src_main_java_com_tocktalks_domain_member_controller_healthcontroller_healthcontroller_health"
     ],
     "17": [
       "gradlew",
@@ -152,9 +152,9 @@
     ],
     "18": [
       "springbootapplication",
-      "src_main_java_com_talktocks_talktocksapplication",
-      "src_main_java_com_talktocks_talktocksapplication_talktocksapplication",
-      "src_main_java_com_talktocks_talktocksapplication_talktocksapplication_main"
+      "src_main_java_com_tocktalks_tocktalksapplication",
+      "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication",
+      "src_main_java_com_tocktalks_tocktalksapplication_tocktalksapplication_main"
     ],
     "19": [
       "docker_compose_mysql",
@@ -209,52 +209,52 @@
   },
   "gods": [
     {
-      "id": "src_main_java_com_talktocks_domain_member_entity_member_member",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_member_member",
       "label": "Member",
       "degree": 8
     },
     {
-      "id": "src_main_java_com_talktocks_domain_admin_entity_notice_notice",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_notice_notice",
       "label": "Notice",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_admin_entity_report_report",
+      "id": "src_main_java_com_tocktalks_domain_admin_entity_report_report",
       "label": "Report",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_backoffice_entity_dailystats_dailystats",
+      "id": "src_main_java_com_tocktalks_domain_backoffice_entity_dailystats_dailystats",
       "label": "DailyStats",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_community_entity_comment_comment",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_comment_comment",
       "label": "Comment",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_community_entity_post_post",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_post_post",
       "label": "Post",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_community_entity_postlike_postlike",
+      "id": "src_main_java_com_tocktalks_domain_community_entity_postlike_postlike",
       "label": "PostLike",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_member_entity_favoritestock_favoritestock",
+      "id": "src_main_java_com_tocktalks_domain_member_entity_favoritestock_favoritestock",
       "label": "FavoriteStock",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_portfolio_entity_assethistory_assethistory",
+      "id": "src_main_java_com_tocktalks_domain_portfolio_entity_assethistory_assethistory",
       "label": "AssetHistory",
       "degree": 5
     },
     {
-      "id": "src_main_java_com_talktocks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
+      "id": "src_main_java_com_tocktalks_domain_ranking_entity_roomrankingarchive_roomrankingarchive",
       "label": "RoomRankingArchive",
       "degree": 5
     }
@@ -264,8 +264,8 @@
       "source": "MemberRepository",
       "target": "Member",
       "source_files": [
-        "src/main/java/com/talktocks/domain/member/repository/MemberRepository.java",
-        "src/main/java/com/talktocks/domain/member/entity/Member.java"
+        "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java",
+        "src/main/java/com/tocktalks/domain/member/entity/Member.java"
       ],
       "confidence": "EXTRACTED",
       "relation": "references",

@@ -50,7 +50,7 @@
 
 ## Surprising Connections (you probably didn't know these)
 - `MemberRepository` --references--> `Member`  [EXTRACTED]
-  src/main/java/com/talktocks/domain/member/repository/MemberRepository.java → src/main/java/com/talktocks/domain/member/entity/Member.java
+  src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java → src/main/java/com/tocktalks/domain/member/entity/Member.java
 
 ## Import Cycles
 - None detected.
@@ -134,7 +134,7 @@ Nodes (3): gradlew script, die(), warn()
 
 ### Community 20 - "External API Integrations"
 Cohesion: 0.67
-Nodes (3): Kakao OAuth API, Stock Market API, TalkTocks Application
+Nodes (3): Kakao OAuth API, Stock Market API, TockTalks Application
 
 ## Knowledge Gaps
 - **4 isolated node(s):** `MySQL Service`, `Redis Service`, `Stock Market API`, `Kakao OAuth API`
