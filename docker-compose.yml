@@ -3,27 +3,27 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: talktocks-mysql
+    container_name: tocktalks-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: talktocks
-      MYSQL_USER: talktocks
-      MYSQL_PASSWORD: talktocks
+      MYSQL_DATABASE: tocktalks
+      MYSQL_USER: tocktalks
+      MYSQL_PASSWORD: tocktalks
     ports:
       - "3307:3306"
     volumes:
-      - talktocks-mysql-data:/var/lib/mysql
+      - tocktalks-mysql-data:/var/lib/mysql
 
   redis:
     image: redis:7-alpine
-    container_name: talktocks-redis
+    container_name: tocktalks-redis
     restart: always
     ports:
       - "6379:6379"
     volumes:
-      - talktocks-redis-data:/data
+      - tocktalks-redis-data:/data
 
 volumes:
-  talktocks-mysql-data:
-  talktocks-redis-data:
+  tocktalks-mysql-data:
+  tocktalks-redis-data:
