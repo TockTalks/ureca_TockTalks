@@ -58,3 +58,101 @@
 - Kakao OAuth2 (소셜 로그인)
 
 ## 🏗️ 아키텍처
+
+```
+Client (WebSocket + REST)
+        │
+        ▼
+Spring Boot Application
+   ├── Auth        (JWT 발급/검증)
+   ├── Room         (방 생성/참가/랭킹)
+   ├── Trade        (매수/매도, 동시성 제어)
+   ├── Price         (외부 시세 API 연동, Redis 캐싱)
+   ├── Ranking      (Redis Sorted Set 실시간 랭킹)
+   ├── Community    (게시글/댓글/인증카드)
+   └── Backoffice   (통계 대시보드)
+        │
+        ├── MySQL (영속 데이터)
+        └── Redis  (실시간 캐시 · Pub/Sub)
+```
+
+## 📁 프로젝트 구조
+
+```
+talktocks/
+├── src/main/java/com/talktocks/
+│   ├── global/            # 공통 설정 (Security, Exception 등)
+│   └── domain/
+│       ├── member/        # 회원
+│       ├── room/          # 방(모의투자 배틀)
+│       ├── trade/         # 매수/매도, 거래내역
+│       ├── price/         # 실시간 시세
+│       ├── ranking/       # 랭킹
+│       ├── portfolio/     # 포트폴리오
+│       ├── community/     # 게시글/댓글
+│       ├── admin/         # 관리자
+│       └── backoffice/    # 통계 대시보드
+├── docker-compose.yml     # 로컬 MySQL + Redis
+└── Dockerfile
+```
+
+## 🚀 시작하기
+
+### 1. 저장소 클론
+
+```bash
+git clone https://github.com/TockTalks/ureca_TockTalks.git
+cd ureca_TockTalks
+```
+
+### 2. 환경변수 설정
+
+프로젝트 루트에 `.env` 파일을 만들고 API 키를 채워주세요.
+
+```bash
+STOCK_API_APP_KEY=your_key
+STOCK_API_APP_SECRET=your_secret
+KAKAO_CLIENT_ID=your_client_id
+KAKAO_REDIRECT_URI=your_redirect_uri
+```
+
+### 3. MySQL / Redis 실행
+
+```bash
+docker-compose up -d
+```
+
+### 4. 애플리케이션 실행
+
+IntelliJ에서 `TalktocksApplication` 실행, 또는:
+
+```bash
+./gradlew bootRun
+```
+
+### 5. 확인
+
+```
+http://localhost:8080/api/health
+```
+
+## 🗺️ 개발 로드맵
+
+- [x] 프로젝트 뼈대 세팅 (도메인 구조, ERD, Docker 환경)
+- [ ] **1차** — 회원가입/로그인, 기본방 모의투자, 실시간 시세, 랭킹, 커뮤니티
+- [ ] **2차** — 유저 방 개설/참가, 방별 배틀 시스템, 방 아카이브
+- [ ] **챌린지** — 백오피스 통계 대시보드
+
+## 👥 팀원
+
+| 이름 | GitHub | 역할 |
+|---|---|---|
+| | | |
+| | | |
+| | | |
+| | | |
+| | | |
+
+## 📄 라이선스
+
+이 프로젝트는 백엔드 부트캠프 미니프로젝트로 제작되었습니다.
