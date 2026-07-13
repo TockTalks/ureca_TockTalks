@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📈 톡톡스 (TalkTocks)
+# 📈 톡톡스 (TockTalks)
 ### (S)TOCK + TALKS
 
 **실시간 시세 기반 모의투자 배틀 & 투자 커뮤니티**
