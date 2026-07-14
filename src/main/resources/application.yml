@@ -25,6 +25,10 @@ spring:
 server:
   port: 8080
 
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173
+
 jwt:
   secret: change-this-secret-key-before-deploy
   access-token-expire-ms: 3600000      # 1시간
@@ -40,8 +44,8 @@ external-api:
   oauth:
     kakao:
       client-id: ${KAKAO_CLIENT_ID:}
+      client-secret: ${KAKAO_CLIENT_SECRET:}
       redirect-uri: ${KAKAO_REDIRECT_URI:}
-
 logging:
   level:
     com.tocktalks: DEBUG
