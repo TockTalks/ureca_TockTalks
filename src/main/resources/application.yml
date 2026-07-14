@@ -35,6 +35,8 @@ external-api:
   stock:
     app-key: ${STOCK_API_APP_KEY:}
     app-secret: ${STOCK_API_APP_SECRET:}
+    rest-base-url: ${STOCK_API_REST_BASE_URL:}
+    websocket-url: ${STOCK_API_WEBSOCKET_URL:}
   oauth:
     kakao:
       client-id: ${KAKAO_CLIENT_ID:}
