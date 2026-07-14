@@ -27,7 +27,7 @@
 
 **톡톡스**는 실제 증권/암호화폐 시세를 실시간으로 반영한 모의투자 서비스입니다.
 
-기존 모의투자 서비스와 다르게, 유저가 직접 **"방(Room)"** 을 만들어 시드머니와 기간을 정하고, 같은 조건에서 시작한 사람들끼리 수익률로 경쟁합니다. 거래 내역은 커뮤니티에 **투자 인증 카드**로 공유할 수 있어 신뢰도 있는 투자 인증 문화를 만듭니다.
+기존 모의투자 서비스와 다르게, 유저가 직접 **"방(Room)"**을 만들어 시드머니와 기간을 정하고, 같은 조건에서 시작한 사람들끼리 수익률로 경쟁합니다. 거래 내역은 커뮤니티에 **투자 인증 카드**로 공유할 수 있어 신뢰도 있는 투자 인증 문화를 만듭니다.
 
 ## ✨ 주요 기능
 
@@ -57,23 +57,32 @@
 - 한국투자증권 Open API / 업비트·바이낸스 (실시간 시세)
 - Kakao OAuth2 (소셜 로그인)
 
-## 🏗️ 아키텍처
+## 🏗️ 소프트웨어 아키텍처
 
+```mermaid
+flowchart TD
+    A[클라이언트<br/>웹 · 모바일] --> B[Controller 계층<br/>도메인별 API]
+    B --> C[Service 계층<br/>비즈니스 로직 · 트랜잭션]
+    C --> D[Repository 계층<br/>JPA 데이터 접근]
+    D --> E[(MySQL<br/>영속 데이터)]
+    C -.-> F[(Redis<br/>캐시 · Pub/Sub)]
 ```
-Client (WebSocket + REST)
-        │
-        ▼
-Spring Boot Application
-   ├── Auth        (JWT 발급/검증)
-   ├── Room         (방 생성/참가/랭킹)
-   ├── Trade        (매수/매도, 동시성 제어)
-   ├── Price         (외부 시세 API 연동, Redis 캐싱)
-   ├── Ranking      (Redis Sorted Set 실시간 랭킹)
-   ├── Community    (게시글/댓글/인증카드)
-   └── Backoffice   (통계 대시보드)
-        │
-        ├── MySQL (영속 데이터)
-        └── Redis  (실시간 캐시 · Pub/Sub)
+
+## 🖥️ 시스템 아키텍처
+
+```mermaid
+flowchart TD
+    Client[클라이언트] --> App
+    CI[GitHub Actions<br/>CI/CD] --> App
+
+    subgraph Docker[Docker 환경 - 서버]
+        App[Spring Boot App]
+        App --> MySQL[(MySQL)]
+        App --> Redis[(Redis)]
+    end
+
+    App --> Kakao[카카오 로그인 API]
+    App --> StockAPI[시세 API<br/>증권사 · 업비트 등]
 ```
 
 ## 📁 프로젝트 구조
