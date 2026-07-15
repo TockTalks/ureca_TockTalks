@@ -8,6 +8,7 @@ import com.tocktalks.domain.auth.dto.SignupRequest;
 import com.tocktalks.domain.auth.dto.TokenResponse;
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
+import com.tocktalks.domain.room.service.RoomService;
 import com.tocktalks.global.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,7 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
+    private final RoomService roomService;
 
     @Transactional
     public TokenResponse signup(SignupRequest request) {
@@ -36,6 +38,7 @@ public class AuthService {
                 request.email(),
                 passwordEncoder.encode(request.password()),
                 request.nickname()));
+        roomService.joinDefaultRoom(member.getId());
 
         String accessToken = jwtProvider.createAccessToken(member.getId(), member.getRole());
         String refreshToken = jwtProvider.createRefreshToken(member.getId(), member.getRole());
@@ -72,6 +75,7 @@ public class AuthService {
                     resolveEmail(userInfo, providerSub),
                     resolveNickname(userInfo),
                     providerSub));
+            roomService.joinDefaultRoom(member.getId());
             isNewMember = true;
         }
 
