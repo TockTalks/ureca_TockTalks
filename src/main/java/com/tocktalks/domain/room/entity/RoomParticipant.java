@@ -26,6 +26,28 @@ public class RoomParticipant {
     @Column(name = "initial_seed_money", nullable = false)
     private Long initialSeedMoney;
 
+    @Column(nullable = false, length = 20)
+    private String status; // ACTIVE / ENDED
+
     @Column(name = "joined_at", nullable = false)
     private LocalDateTime joinedAt;
+
+    @Column(name = "ended_at")
+    private LocalDateTime endedAt;
+
+    public static RoomParticipant join(Long roomId, Long memberId, Long seedMoney) {
+        RoomParticipant participant = new RoomParticipant();
+        participant.roomId = roomId;
+        participant.memberId = memberId;
+        participant.balance = seedMoney;
+        participant.initialSeedMoney = seedMoney;
+        participant.status = "ACTIVE";
+        participant.joinedAt = LocalDateTime.now();
+        return participant;
+    }
+
+    public void end() {
+        this.status = "ENDED";
+        this.endedAt = LocalDateTime.now();
+    }
 }
