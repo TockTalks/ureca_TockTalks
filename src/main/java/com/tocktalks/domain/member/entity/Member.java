@@ -53,4 +53,17 @@ public class Member {
         member.updatedAt = LocalDateTime.now();
         return member;
     }
+
+    public static Member ofLocal(String email, String encodedPassword, String nickname) {
+        Member member = new Member();
+        member.email = email;
+        member.password = encodedPassword;
+        member.nickname = nickname;
+        member.provider = "local";
+        member.role = "user";
+        member.status = "active";
+        member.createdAt = LocalDateTime.now();
+        member.updatedAt = LocalDateTime.now();
+        return member;
+    }
 }
