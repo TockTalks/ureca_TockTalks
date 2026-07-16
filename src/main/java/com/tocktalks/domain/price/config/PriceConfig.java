@@ -9,8 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @EnableConfigurationProperties(KisApiProperties.class)
 public class PriceConfig {
     @Bean
-    public WebClient kisWebClient(WebClient.Builder webClientBuilder, KisApiProperties kisApiProperties) {
-        return webClientBuilder
+    public WebClient kisWebClient(KisApiProperties kisApiProperties) {
+        return WebClient.builder()
                 .baseUrl(kisApiProperties.restBaseUrl())
                 .defaultHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
                 .build();
