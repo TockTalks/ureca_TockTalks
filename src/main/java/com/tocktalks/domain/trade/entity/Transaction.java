@@ -8,7 +8,15 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transaction")
+@Table(
+        name = "transaction",
+        indexes = {
+                @Index(
+                        name = "idx_transaction_participant_executed",
+                        columnList = "room_participant_id, executed_at"
+                )
+        }
+)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Transaction {
