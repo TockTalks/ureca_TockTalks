@@ -10,4 +10,7 @@ public record KisPriceEnvelope (
         @JsonProperty("msg1") String message,
         @JsonProperty("output") KisPriceResponse output
 ) {
+    public boolean isSuccess() {
+        return "0".equals(returnCode);
+    }
 }
