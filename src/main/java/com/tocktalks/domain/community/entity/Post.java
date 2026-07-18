@@ -2,6 +2,8 @@ package com.tocktalks.domain.community.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,6 +30,12 @@ public class Post {
     @Column(name = "transaction_id")
     private Long transactionId;
 
+    @Column(name = "profit_amount", precision = 20, scale = 2)
+    private BigDecimal profitAmount;
+
+    @Column(name = "profit_rate", precision = 10, scale = 4)
+    private BigDecimal profitRate;
+
     @Column(name = "like_count", nullable = false)
     private Integer likeCount;
 
@@ -39,4 +47,53 @@ public class Post {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    private Post(Long memberId, String content, String stockCode,
+                 Long transactionId, BigDecimal profitAmount, BigDecimal profitRate){
+        this.memberId = memberId;
+        this.content = content;
+        this.stockCode = stockCode;
+        this.transactionId = transactionId;
+        this.profitAmount = profitAmount;
+        this.profitRate = profitRate;
+        this.likeCount = 0;
+        this.commentCount = 0;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public static Post createTextPost(Long memberId, String content, String stockCode) {
+        return new Post(memberId, content, stockCode, null, null, null);
+    }
+
+    public static Post createWithCertificate(Long memberId, String content, String stockCode,
+                                     Long transactionId, BigDecimal profitAmount, BigDecimal profitRate) {
+        return new Post(memberId, content, stockCode, transactionId, profitAmount, profitRate);
+    }
+
+    public void updateContent(String content, String stockCode){
+        this.content = content;
+        this.stockCode = stockCode;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public boolean isOwnedBy(Long memberId){
+        return this.memberId.equals(memberId);
+    }
+
+    public void increaseLikeCount(){
+        this.likeCount++;
+    }
+
+    public void decreaseLikeCount(){
+        if(this.likeCount > 0) this.likeCount--;
+    }
+
+    public void increaseCommentCount(){
+        this.commentCount++;
+    }
+
+    public void decreaseCommentCount(){
+        if(this.likeCount > 0) this.commentCount--;
+    }
 }
