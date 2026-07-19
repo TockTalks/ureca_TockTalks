@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
         uniqueConstraints = @UniqueConstraint(
                 name = "uk_post_like_post_member",
                 columnNames = {"post_id", "member_id"}
-                ))
+        ))
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,10 +28,14 @@ public class PostLike {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Builder
     private PostLike(Long postId, Long memberId){
         this.postId = postId;
         this.memberId = memberId;
         this.createdAt = LocalDateTime.now();
     }
+
+    public static PostLike create(Long postId, Long memberId){
+        return new PostLike(postId, memberId);
+    }
+
 }
