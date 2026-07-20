@@ -25,20 +25,24 @@ public class JwtProvider {
         this.key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
     }
 
+    private static final String TOKEN_TYPE_ACCESS = "access";
+    private static final String TOKEN_TYPE_REFRESH = "refresh";
+
     public String createAccessToken(Long memberId, String role) {
-        return createToken(memberId, role, jwtProperties.getAccessTokenExpireMs());
+        return createToken(memberId, role, TOKEN_TYPE_ACCESS, jwtProperties.getAccessTokenExpireMs());
     }
 
     public String createRefreshToken(Long memberId, String role) {
-        return createToken(memberId, role, jwtProperties.getRefreshTokenExpireMs());
+        return createToken(memberId, role, TOKEN_TYPE_REFRESH, jwtProperties.getRefreshTokenExpireMs());
     }
 
-    private String createToken(Long memberId, String role, long expireMs) {
+    private String createToken(Long memberId, String role, String tokenType, long expireMs) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expireMs);
         return Jwts.builder()
                 .subject(String.valueOf(memberId))
                 .claim("role", role)
+                .claim("type", tokenType)
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(key)
@@ -51,6 +55,10 @@ public class JwtProvider {
 
     public String getRole(String token) {
         return parseClaims(token).get("role", String.class);
+    }
+
+    public boolean isRefreshToken(String token) {
+        return TOKEN_TYPE_REFRESH.equals(parseClaims(token).get("type", String.class));
     }
 
     public boolean validateToken(String token) {

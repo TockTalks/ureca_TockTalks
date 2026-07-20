@@ -1,8 +1,8 @@
 package com.tocktalks.domain.admin.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "report")
@@ -30,5 +30,9 @@ public class Report {
     private String status; // pending / resolved
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
+    
+    public void resolve() {
+        this.status = "resolved";
+    }
 }
