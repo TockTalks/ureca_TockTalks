@@ -1,0 +1,171 @@
+package com.tocktalks.domain.trade.controller;
+
+import com.tocktalks.domain.trade.dto.response.TradeHistoryResponse;
+import com.tocktalks.domain.trade.entity.TradeType;
+import com.tocktalks.domain.trade.service.TradeHistoryService;
+import com.tocktalks.global.exception.GlobalExceptionHandler;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication
+        .UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request
+        .MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result
+        .MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result
+        .MockMvcResultMatchers.status;
+
+class TradeControllerTest {
+
+    private TradeHistoryService tradeHistoryService;
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+        tradeHistoryService =
+                mock(TradeHistoryService.class);
+
+        TradeController tradeController =
+                new TradeController(tradeHistoryService);
+
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(tradeController)
+                .setControllerAdvice(
+                        new GlobalExceptionHandler()
+                )
+                .build();
+    }
+
+    @Test
+    void 로그인_회원의_거래_내역을_조회한다()
+            throws Exception {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        memberId,
+                        null,
+                        List.of()
+                );
+
+        TradeHistoryResponse response =
+                new TradeHistoryResponse(
+                        30L,
+                        "005930",
+                        "삼성전자",
+                        TradeType.SELL,
+                        2L,
+                        new BigDecimal("75000.00"),
+                        new BigDecimal("10000.00"),
+                        new BigDecimal("7.1429"),
+                        LocalDateTime.of(
+                                2026,
+                                7,
+                                20,
+                                12,
+                                0
+                        )
+                );
+
+        Page<TradeHistoryResponse> page =
+                new PageImpl<>(
+                        List.of(response),
+                        PageRequest.of(0, 20),
+                        1
+                );
+
+        when(tradeHistoryService.getTradeHistory(
+                eq(memberId),
+                eq(roomParticipantId),
+                any(Pageable.class)
+        )).thenReturn(page);
+
+        mockMvc.perform(
+                        get("/api/trades")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        roomParticipantId.toString()
+                                )
+                                .param("page", "0")
+                                .param("size", "20")
+                )
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$.content[0].transactionId")
+                                .value(30L)
+                )
+                .andExpect(
+                        jsonPath("$.content[0].stockCode")
+                                .value("005930")
+                )
+                .andExpect(
+                        jsonPath("$.content[0].stockName")
+                                .value("삼성전자")
+                )
+                .andExpect(
+                        jsonPath("$.content[0].type")
+                                .value("SELL")
+                )
+                .andExpect(
+                        jsonPath("$.content[0].quantity")
+                                .value(2L)
+                )
+                .andExpect(
+                        jsonPath("$.content[0].price")
+                                .value(75000.00)
+                )
+                .andExpect(
+                        jsonPath("$.content[0].profitAmount")
+                                .value(10000.00)
+                )
+                .andExpect(
+                        jsonPath("$.content[0].profitRate")
+                                .value(7.1429)
+                );
+
+        verify(tradeHistoryService).getTradeHistory(
+                eq(memberId),
+                eq(roomParticipantId),
+                any(Pageable.class)
+        );
+    }
+
+    @Test
+    void 인증되지_않은_사용자는_거래_내역을_조회할_수_없다()
+            throws Exception {
+        mockMvc.perform(
+                        get("/api/trades")
+                                .param(
+                                        "roomParticipantId",
+                                        "20"
+                                )
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(
+                        jsonPath("$.message")
+                                .value("인증된 사용자가 아닙니다.")
+                );
+
+        verifyNoInteractions(tradeHistoryService);
+    }
+}
