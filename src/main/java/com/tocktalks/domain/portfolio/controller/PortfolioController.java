@@ -23,7 +23,7 @@ public class PortfolioController {
     }
     
     //2. 보유 종목 및 평가손익 조회 (trade 연동 전까지 사용할 임시)
-    @GetMapping("/{roomParticipantId}/history")
+    @GetMapping("/{roomParticipantId}/holdings")
     public ResponseEntity<?> getHoldingMock(@PathVariable Long roomParticipantId) {
         //TODO: Trade 도메인 PR이 머지되면 실제 로직으로 교체 예정
         //(임시) 프론트엔드가 먼저 UI 작업을 할 수 있도록 가짜 JSON 형태 리턴
