@@ -31,6 +31,12 @@ dependencies {
     // WebSocket (실시간 시세/랭킹)
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+    // JSON 처리 (Jackson) - RedisConfig의 ObjectMapper 등에서 필요
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // WebClient (외부 시세 API REST 호출용 - 한국투자증권 Open API)
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
     // JPA / MySQL
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -58,4 +64,13 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperty 'file.encoding', 'UTF-8'
 }
