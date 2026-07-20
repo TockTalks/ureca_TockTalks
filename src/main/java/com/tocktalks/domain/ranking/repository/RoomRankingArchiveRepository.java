@@ -1,6 +1,8 @@
 package com.tocktalks.domain.ranking.repository;
 
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
