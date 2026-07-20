@@ -2,6 +2,7 @@ package com.tocktalks.domain.trade.service;
 
 import com.tocktalks.domain.price.dto.response.KisPriceResponse;
 import com.tocktalks.domain.price.service.KisPriceService;
+import com.tocktalks.domain.trade.entity.StockCodeValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class KisCurrentPriceProvider
 
     @Override
     public BigDecimal getCurrentPrice(String stockCode) {
-        validateStockCode(stockCode);
+        StockCodeValidator.validate(stockCode);
 
         KisPriceResponse response =
                 kisPriceService.getCurrentPrice(stockCode);
@@ -51,11 +52,5 @@ public class KisCurrentPriceProvider
         return currentPrice;
     }
 
-    private void validateStockCode(String stockCode) {
-        if (stockCode == null || stockCode.isBlank()) {
-            throw new IllegalArgumentException(
-                    "종목 코드는 필수입니다."
-            );
-        }
-    }
+
 }

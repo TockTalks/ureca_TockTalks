@@ -111,4 +111,19 @@ class KisCurrentPriceProviderTest {
                 null
         );
     }
+
+    @Test
+    void 종목_코드가_6자리_숫자가_아니면_KIS를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                currentPriceProvider.getCurrentPrice(
+                        "00A930"
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "종목 코드는 6자리 숫자여야 합니다."
+                );
+
+        verifyNoInteractions(kisPriceService);
+    }
 }
