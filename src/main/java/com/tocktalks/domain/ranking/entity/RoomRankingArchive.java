@@ -34,7 +34,7 @@ public class RoomRankingArchive {
     private LocalDateTime createdAt;
 
     public static RoomRankingArchive of(Long roomId, Long memberId, Long finalAsset,
-                                         BigDecimal finalReturnRate, Integer finalRank) {
+                                        BigDecimal finalReturnRate, Integer finalRank) {
         RoomRankingArchive archive = new RoomRankingArchive();
         archive.roomId = roomId;
         archive.memberId = memberId;
