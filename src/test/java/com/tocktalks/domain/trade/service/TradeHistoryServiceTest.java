@@ -175,4 +175,44 @@ class TradeHistoryServiceTest {
 
         verifyNoInteractions(transactionRepository);
     }
+
+    @Test
+    void 회원_ID가_올바르지_않으면_거래_내역_Repository를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                tradeHistoryService.getTradeHistory(
+                        0L,
+                        20L,
+                        PageRequest.of(0, 10)
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "회원 ID가 올바르지 않습니다."
+                );
+
+        verifyNoInteractions(
+                roomParticipantRepository,
+                transactionRepository
+        );
+    }
+
+    @Test
+    void 방_참가자_ID가_올바르지_않으면_거래_내역_Repository를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                tradeHistoryService.getTradeHistory(
+                        10L,
+                        0L,
+                        PageRequest.of(0, 10)
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "방 참가자 ID가 올바르지 않습니다."
+                );
+
+        verifyNoInteractions(
+                roomParticipantRepository,
+                transactionRepository
+        );
+    }
 }
