@@ -30,6 +30,9 @@ app:
     allowed-origins: http://localhost:5173,http://127.0.0.1:5173
   room:
     default-seed-money: 10000000  # 1천만원
+  login-attempt:
+    max-attempts: 5
+    lock-duration-ms: 300000  # 5분
 
 jwt:
   secret: change-this-secret-key-before-deploy

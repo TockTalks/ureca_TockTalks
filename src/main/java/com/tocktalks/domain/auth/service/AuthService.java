@@ -28,6 +28,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RoomService roomService;
     private final RefreshTokenService refreshTokenService;
+    private final LoginAttemptService loginAttemptService;
 
     @Transactional
     public TokenResponse signup(SignupRequest request) {
@@ -45,14 +46,20 @@ public class AuthService {
     }
 
     public TokenResponse loginWithLocal(LoginRequest request) {
+        if (loginAttemptService.isLocked(request.email())) {
+            throw new IllegalArgumentException("로그인 시도 횟수를 초과했습니다. 잠시 후 다시 시도해주세요.");
+        }
+
         Member member = memberRepository.findByEmail(request.email())
                 .filter(m -> PROVIDER_LOCAL.equals(m.getProvider()))
-                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
+                .orElse(null);
 
-        if (!passwordEncoder.matches(request.password(), member.getPassword())) {
+        if (member == null || !passwordEncoder.matches(request.password(), member.getPassword())) {
+            loginAttemptService.recordFailure(request.email());
             throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 
+        loginAttemptService.reset(request.email());
         return issueTokens(member, false);
     }
 
