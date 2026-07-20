@@ -15,6 +15,7 @@ import org.springframework.security.authentication
 import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -48,6 +49,9 @@ class TradeControllerTest {
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(tradeController)
+                .setCustomArgumentResolvers(
+                        new PageableHandlerMethodArgumentResolver()
+                )
                 .setControllerAdvice(
                         new GlobalExceptionHandler()
                 )

@@ -230,6 +230,7 @@ class TransactionRepositoryTest {
                         member_id,
                         balance,
                         initial_seed_money,
+                        status,
                         joined_at
                     ) VALUES (
                         :id,
@@ -237,6 +238,7 @@ class TransactionRepositoryTest {
                         :memberId,
                         :balance,
                         :initialSeedMoney,
+                        :status,
                         :joinedAt
                     )
                     """)
@@ -245,6 +247,7 @@ class TransactionRepositoryTest {
                 .setParameter("memberId", memberId)
                 .setParameter("balance", 1_000_000L)
                 .setParameter("initialSeedMoney", 1_000_000L)
+                .setParameter("status", "ACTIVE")
                 .setParameter(
                         "joinedAt",
                         java.time.LocalDateTime.now()
