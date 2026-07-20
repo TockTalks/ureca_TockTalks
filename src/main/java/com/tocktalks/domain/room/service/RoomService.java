@@ -4,6 +4,7 @@ import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
+import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
@@ -39,6 +40,7 @@ public class RoomService {
     private final RoomRankingArchiveRepository roomRankingArchiveRepository;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
+    private final RankingService rankingService;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
@@ -157,8 +159,23 @@ public class RoomService {
     }
 
     private void archiveAndClose(Room room) {
-        List<RoomParticipant> ranked = roomParticipantRepository
-                .findByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE).stream()
+        List<RoomParticipant> participants = roomParticipantRepository
+                .findByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE);
+
+        if (!roomRankingArchiveRepository.existsByRoomId(room.getId())
+                && rankingService.finalizeRanking(room.getId()).isEmpty()) {
+            // Redis에 실시간 랭킹 데이터가 없는 방(트레이드가 아직 없는 지금 같은 경우)은
+            // 현금 잔고 기준으로 폴백 계산한다. trade 도메인이 붙어 RankingService.updateRanking()이
+            // 호출되기 시작하면 이 폴백 없이 실시간 랭킹 데이터로 자동 전환된다.
+            archiveFromCashBalance(room.getId(), participants);
+        }
+
+        participants.forEach(RoomParticipant::end);
+        room.close();
+    }
+
+    private void archiveFromCashBalance(Long roomId, List<RoomParticipant> participants) {
+        List<RoomParticipant> ranked = participants.stream()
                 .sorted(Comparator.comparing(RoomParticipant::getBalance).reversed()
                         .thenComparing(RoomParticipant::getMemberId))
                 .toList();
@@ -173,11 +190,8 @@ public class RoomService {
                     .multiply(BigDecimal.valueOf(100));
 
             roomRankingArchiveRepository.save(RoomRankingArchive.of(
-                    room.getId(), participant.getMemberId(), finalAsset, finalReturnRate, i + 1));
-            participant.end();
+                    roomId, participant.getMemberId(), finalAsset, finalReturnRate, i + 1));
         }
-
-        room.close();
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
