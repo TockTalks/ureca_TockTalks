@@ -94,6 +94,6 @@ public class Post {
     }
 
     public void decreaseCommentCount(){
-        if(this.likeCount > 0) this.commentCount--;
+        if(this.commentCount > 0) this.commentCount--;
     }
 }
