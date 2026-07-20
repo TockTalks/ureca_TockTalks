@@ -18,6 +18,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleException(Exception e) {
+
+        e.printStackTrace(); // 실제 에러의 상세 내용 표시를 위한 임시 코드
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("message", "서버 내부 오류가 발생했습니다."));
     }
