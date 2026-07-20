@@ -32,6 +32,9 @@ class HoldingQueryServiceTest {
     @Mock
     private HoldingRepository holdingRepository;
 
+    @Mock
+    private CurrentPriceProvider currentPriceProvider;
+
     @InjectMocks
     private HoldingQueryService holdingQueryService;
 
@@ -70,6 +73,14 @@ class HoldingQueryServiceTest {
                 roomParticipantId
         )).thenReturn(List.of(naver, samsung));
 
+        when(currentPriceProvider.getCurrentPrice(
+                "005930"
+        )).thenReturn(new BigDecimal("75000"));
+
+        when(currentPriceProvider.getCurrentPrice(
+                "035420"
+        )).thenReturn(new BigDecimal("180000"));
+
         List<HoldingResponse> result =
                 holdingQueryService.getHoldings(
                         memberId,
@@ -83,19 +94,43 @@ class HoldingQueryServiceTest {
                         "035420"
                 );
 
-        assertThat(result.getFirst().stockName())
+        HoldingResponse samsungResponse =
+                result.getFirst();
+
+        assertThat(samsungResponse.stockName())
                 .isEqualTo("삼성전자");
-        assertThat(result.getFirst().quantity())
+
+        assertThat(samsungResponse.quantity())
                 .isEqualTo(10L);
-        assertThat(result.getFirst().avgPrice())
+
+        assertThat(samsungResponse.avgPrice())
                 .isEqualByComparingTo("70000.00");
-        assertThat(result.getFirst().updatedAt())
+
+        assertThat(samsungResponse.currentPrice())
+                .isEqualByComparingTo("75000.00");
+
+        assertThat(samsungResponse.valuationAmount())
+                .isEqualByComparingTo("750000.00");
+
+        assertThat(samsungResponse.profitLoss())
+                .isEqualByComparingTo("50000.00");
+
+        assertThat(samsungResponse.profitRate())
+                .isEqualByComparingTo("7.1429");
+
+        assertThat(samsungResponse.updatedAt())
                 .isNotNull();
 
         verify(holdingRepository)
                 .findAllByRoomParticipantId(
                         roomParticipantId
                 );
+
+        verify(currentPriceProvider)
+                .getCurrentPrice("005930");
+
+        verify(currentPriceProvider)
+                .getCurrentPrice("035420");
     }
 
     @Test
@@ -118,7 +153,10 @@ class HoldingQueryServiceTest {
                         "보유 종목을 조회할 수 있는 참가자 정보를 찾을 수 없습니다."
                 );
 
-        verifyNoInteractions(holdingRepository);
+        verifyNoInteractions(
+                holdingRepository,
+                currentPriceProvider
+        );
     }
 
     @Test
@@ -147,6 +185,9 @@ class HoldingQueryServiceTest {
                         "보유 종목을 조회할 수 있는 참가자 정보를 찾을 수 없습니다."
                 );
 
-        verifyNoInteractions(holdingRepository);
+        verifyNoInteractions(
+                holdingRepository,
+                currentPriceProvider
+        );
     }
 }

@@ -184,6 +184,10 @@ class TradeControllerTest {
                         "삼성전자",
                         10L,
                         new BigDecimal("70000.00"),
+                        new BigDecimal("75000.00"),
+                        new BigDecimal("750000.00"),
+                        new BigDecimal("50000.00"),
+                        new BigDecimal("7.1429"),
                         LocalDateTime.of(
                                 2026,
                                 7,
@@ -230,6 +234,22 @@ class TradeControllerTest {
                 .andExpect(
                         jsonPath("$[0].avgPrice")
                                 .value(70000.00)
+                )
+                .andExpect(
+                        jsonPath("$[0].currentPrice")
+                                .value(75000.00)
+                )
+                .andExpect(
+                        jsonPath("$[0].valuationAmount")
+                                .value(750000.00)
+                )
+                .andExpect(
+                        jsonPath("$[0].profitLoss")
+                                .value(50000.00)
+                )
+                .andExpect(
+                        jsonPath("$[0].profitRate")
+                                .value(7.1429)
                 );
 
         verify(holdingQueryService).getHoldings(
