@@ -121,4 +121,21 @@ class TransactionTest {
                         "평균 매입가는 0보다 커야 합니다."
                 );
     }
+
+    @Test
+    void 숫자가_아닌_문자가_포함된_종목_코드로_거래를_생성할_수_없다() {
+        assertThatThrownBy(() ->
+                Transaction.createBuy(
+                        1L,
+                        "00A930",
+                        "삼성전자",
+                        10L,
+                        new BigDecimal("70000")
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "종목 코드는 6자리 숫자여야 합니다."
+                );
+    }
 }
