@@ -72,6 +72,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         String payload = message.getPayload();
+        System.out.println("[KIS 수신] " + payload);   // 임시 디버깅용
 
         if (payload.startsWith("0") || payload.startsWith("1")) {
             handleRealtimeData(payload);
@@ -88,9 +89,18 @@ public class KisWebSocketClient extends TextWebSocketHandler {
 
         String trId = parts[1];
         if (TR_ID_CCNL_KRX.equals(trId)) {
-            KisRealtimePriceMessage priceMessage = KisRealtimePriceMessage.from(parts[3]);
-            redisTemplate.opsForValue().set("price:latest:" + priceMessage.stockCode(), priceMessage.currentPrice());
-            pricePublisher.publish(priceMessage.stockCode(), priceMessage.currentPrice());
+            try {
+                KisRealtimePriceMessage priceMessage = KisRealtimePriceMessage.from(parts[3]);
+                System.out.println("[파싱 완료] " + priceMessage.stockCode() + " = " + priceMessage.currentPrice());
+
+                redisTemplate.opsForValue().set("price:latest:" + priceMessage.stockCode(), priceMessage.currentPrice());
+                pricePublisher.publish(priceMessage.stockCode(), priceMessage.currentPrice());
+
+                System.out.println("[발행 완료]");
+            } catch (Exception e) {
+                System.out.println("[handleRealtimeData 예외 발생]");
+                e.printStackTrace();
+            }
         }
     }
 

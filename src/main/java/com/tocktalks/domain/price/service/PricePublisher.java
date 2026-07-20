@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PricePublisher {
 
-    private static final String CHANNEL_PREFIX = "price";
+    private static final String CHANNEL_PREFIX = "price:";
     private final StringRedisTemplate redisTemplate;
 
     public PricePublisher(StringRedisTemplate redisTemplate) {
