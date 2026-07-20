@@ -27,6 +27,7 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final RoomService roomService;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public TokenResponse signup(SignupRequest request) {
@@ -40,9 +41,7 @@ public class AuthService {
                 request.nickname()));
         roomService.joinDefaultRoom(member.getId());
 
-        String accessToken = jwtProvider.createAccessToken(member.getId(), member.getRole());
-        String refreshToken = jwtProvider.createRefreshToken(member.getId(), member.getRole());
-        return new TokenResponse(accessToken, refreshToken, member.getId(), member.getNickname(), true);
+        return issueTokens(member, true);
     }
 
     public TokenResponse loginWithLocal(LoginRequest request) {
@@ -54,9 +53,32 @@ public class AuthService {
             throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 
+        return issueTokens(member, false);
+    }
+
+    public TokenResponse reissue(String refreshToken) {
+        if (!jwtProvider.validateToken(refreshToken) || !jwtProvider.isRefreshToken(refreshToken)) {
+            throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
+        }
+
+        Long memberId = jwtProvider.getMemberId(refreshToken);
+        if (!refreshTokenService.matches(memberId, refreshToken)) {
+            throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
+        }
+
+        Member member = getMember(memberId);
+        return issueTokens(member, false);
+    }
+
+    public void logout(Long memberId) {
+        refreshTokenService.delete(memberId);
+    }
+
+    private TokenResponse issueTokens(Member member, boolean isNewMember) {
         String accessToken = jwtProvider.createAccessToken(member.getId(), member.getRole());
         String refreshToken = jwtProvider.createRefreshToken(member.getId(), member.getRole());
-        return new TokenResponse(accessToken, refreshToken, member.getId(), member.getNickname(), false);
+        refreshTokenService.save(member.getId(), refreshToken);
+        return new TokenResponse(accessToken, refreshToken, member.getId(), member.getNickname(), isNewMember);
     }
 
     @Transactional
@@ -79,10 +101,7 @@ public class AuthService {
             isNewMember = true;
         }
 
-        String accessToken = jwtProvider.createAccessToken(member.getId(), member.getRole());
-        String refreshToken = jwtProvider.createRefreshToken(member.getId(), member.getRole());
-
-        return new TokenResponse(accessToken, refreshToken, member.getId(), member.getNickname(), isNewMember);
+        return issueTokens(member, isNewMember);
     }
 
     private String resolveEmail(KakaoUserInfoResponse userInfo, String providerSub) {
@@ -95,6 +114,10 @@ public class AuthService {
     public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    public boolean isEmailAvailable(String email) {
+        return memberRepository.findByEmail(email).isEmpty();
     }
 
     private String resolveNickname(KakaoUserInfoResponse userInfo) {
