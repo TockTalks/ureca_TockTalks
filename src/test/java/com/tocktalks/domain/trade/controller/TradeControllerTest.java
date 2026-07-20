@@ -4,6 +4,8 @@ import com.tocktalks.domain.trade.dto.response.TradeHistoryResponse;
 import com.tocktalks.domain.trade.entity.TradeType;
 import com.tocktalks.domain.trade.service.TradeHistoryService;
 import com.tocktalks.global.exception.GlobalExceptionHandler;
+import com.tocktalks.domain.trade.dto.response.HoldingResponse;
+import com.tocktalks.domain.trade.service.HoldingQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,7 @@ import static org.springframework.test.web.servlet.result
 class TradeControllerTest {
 
     private TradeHistoryService tradeHistoryService;
+    private HoldingQueryService holdingQueryService;
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -44,8 +47,14 @@ class TradeControllerTest {
         tradeHistoryService =
                 mock(TradeHistoryService.class);
 
+        holdingQueryService =
+                mock(HoldingQueryService.class);
+
         TradeController tradeController =
-                new TradeController(tradeHistoryService);
+                new TradeController(
+                        tradeHistoryService,
+                        holdingQueryService
+                );
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(tradeController)
@@ -155,6 +164,81 @@ class TradeControllerTest {
     }
 
     @Test
+    void 로그인_회원의_보유_종목을_조회한다()
+            throws Exception {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        memberId,
+                        null,
+                        List.of()
+                );
+
+        HoldingResponse response =
+                new HoldingResponse(
+                        30L,
+                        roomParticipantId,
+                        "005930",
+                        "삼성전자",
+                        10L,
+                        new BigDecimal("70000.00"),
+                        LocalDateTime.of(
+                                2026,
+                                7,
+                                20,
+                                12,
+                                0
+                        )
+                );
+
+        when(holdingQueryService.getHoldings(
+                memberId,
+                roomParticipantId
+        )).thenReturn(List.of(response));
+
+        mockMvc.perform(
+                        get("/api/trades/holdings")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        roomParticipantId.toString()
+                                )
+                )
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$[0].holdingId")
+                                .value(30L)
+                )
+                .andExpect(
+                        jsonPath("$[0].roomParticipantId")
+                                .value(roomParticipantId)
+                )
+                .andExpect(
+                        jsonPath("$[0].stockCode")
+                                .value("005930")
+                )
+                .andExpect(
+                        jsonPath("$[0].stockName")
+                                .value("삼성전자")
+                )
+                .andExpect(
+                        jsonPath("$[0].quantity")
+                                .value(10L)
+                )
+                .andExpect(
+                        jsonPath("$[0].avgPrice")
+                                .value(70000.00)
+                );
+
+        verify(holdingQueryService).getHoldings(
+                memberId,
+                roomParticipantId
+        );
+    }
+
+    @Test
     void 인증되지_않은_사용자는_거래_내역을_조회할_수_없다()
             throws Exception {
         mockMvc.perform(
@@ -170,6 +254,9 @@ class TradeControllerTest {
                                 .value("인증된 사용자가 아닙니다.")
                 );
 
-        verifyNoInteractions(tradeHistoryService);
+        verifyNoInteractions(
+                tradeHistoryService,
+                holdingQueryService
+        );
     }
 }

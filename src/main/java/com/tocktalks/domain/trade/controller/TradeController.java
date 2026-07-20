@@ -1,6 +1,8 @@
 package com.tocktalks.domain.trade.controller;
 
+import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.TradeHistoryResponse;
+import com.tocktalks.domain.trade.service.HoldingQueryService;
 import com.tocktalks.domain.trade.service.TradeHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/trades")
 @RequiredArgsConstructor
 public class TradeController {
 
     private final TradeHistoryService tradeHistoryService;
+    private final HoldingQueryService holdingQueryService;
 
     @GetMapping
     public ResponseEntity<Page<TradeHistoryResponse>>
@@ -35,6 +40,22 @@ public class TradeController {
                         memberId,
                         roomParticipantId,
                         pageable
+                )
+        );
+    }
+
+    @GetMapping("/holdings")
+    public ResponseEntity<List<HoldingResponse>>
+    getHoldings(
+            Authentication authentication,
+            @RequestParam Long roomParticipantId
+    ) {
+        Long memberId = extractMemberId(authentication);
+
+        return ResponseEntity.ok(
+                holdingQueryService.getHoldings(
+                        memberId,
+                        roomParticipantId
                 )
         );
     }
