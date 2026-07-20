@@ -99,6 +99,11 @@ public class AuthService {
                     providerSub));
             roomService.joinDefaultRoom(member.getId());
             isNewMember = true;
+        } else {
+            String latestNickname = extractNickname(userInfo);
+            if (latestNickname != null && !latestNickname.equals(member.getNickname())) {
+                member.updateNickname(latestNickname);
+            }
         }
 
         return issueTokens(member, isNewMember);
@@ -121,10 +126,16 @@ public class AuthService {
     }
 
     private String resolveNickname(KakaoUserInfoResponse userInfo) {
-        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null
-                && userInfo.kakaoAccount().profile().nickname() != null) {
+        String nickname = extractNickname(userInfo);
+        return nickname != null ? nickname : "카카오사용자";
+    }
+
+    // 카카오가 닉네임을 안 내려준 경우(동의 철회 등) null을 반환한다.
+    // 신규 가입 시엔 resolveNickname()의 기본값으로, 기존 회원 동기화 시엔 null이면 기존 닉네임을 유지하는 용도로 쓰인다.
+    private String extractNickname(KakaoUserInfoResponse userInfo) {
+        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null) {
             return userInfo.kakaoAccount().profile().nickname();
         }
-        return "카카오사용자";
+        return null;
     }
 }
