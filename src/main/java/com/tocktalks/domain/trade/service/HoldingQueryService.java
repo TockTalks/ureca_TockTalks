@@ -22,6 +22,8 @@ public class HoldingQueryService {
 
     private final HoldingRepository holdingRepository;
 
+    private final CurrentPriceProvider currentPriceProvider;
+
     public List<HoldingResponse> getHoldings(
             Long memberId,
             Long roomParticipantId
@@ -45,7 +47,15 @@ public class HoldingQueryService {
                                 Holding::getStockCode
                         )
                 )
-                .map(HoldingResponse::from)
+                .map(holding ->
+                        HoldingResponse.from(
+                                holding,
+                                currentPriceProvider
+                                        .getCurrentPrice(
+                                                holding.getStockCode()
+                                        )
+                        )
+                )
                 .toList();
     }
 
