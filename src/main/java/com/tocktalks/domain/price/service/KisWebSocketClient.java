@@ -4,6 +4,7 @@ import com.tocktalks.domain.price.config.KisApiProperties;
 import com.tocktalks.domain.price.dto.request.KisRealtimeSubscribeRequest;
 import com.tocktalks.domain.price.dto.response.KisRealtimePriceMessage;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.PongMessage;
 import org.springframework.web.socket.TextMessage;
@@ -21,6 +22,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Service
 public class KisWebSocketClient extends TextWebSocketHandler {
 
     private static final String TR_ID_CCNL_KRX = "H0STCNT0";
@@ -31,6 +33,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     private final StringRedisTemplate redisTemplate;
     private final ObjectMapper objectMapper;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private final PricePublisher pricePublisher;
 
     private WebSocketSession session;
     private long reconnectDelaySeconds = 1;
@@ -38,11 +41,13 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     public KisWebSocketClient(KisApiProperties kisApiProperties,
                               KisAuthService kisAuthService,
                               StringRedisTemplate redisTemplate,
-                              ObjectMapper objectMapper) {
+                              ObjectMapper objectMapper,
+                              PricePublisher pricePublisher) {
         this.kisApiProperties = kisApiProperties;
         this.kisAuthService = kisAuthService;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
+        this.pricePublisher = pricePublisher;
     }
 
     public void connect() {
@@ -85,6 +90,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         if (TR_ID_CCNL_KRX.equals(trId)) {
             KisRealtimePriceMessage priceMessage = KisRealtimePriceMessage.from(parts[3]);
             redisTemplate.opsForValue().set("price:latest:" + priceMessage.stockCode(), priceMessage.currentPrice());
+            pricePublisher.publish(priceMessage.stockCode(), priceMessage.currentPrice());
         }
     }
 
