@@ -29,4 +29,15 @@ public class CommentLike {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    private CommentLike(Long commentId, Long memberId){
+        this.commentId = commentId;
+        this.memberId = memberId;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public static CommentLike create(Long commentId, Long memberId){
+        return new CommentLike(commentId, memberId);
+    }
+
 }

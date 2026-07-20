@@ -3,6 +3,7 @@ package com.tocktalks.domain.community.controller;
 import com.tocktalks.domain.community.dto.request.PostCreateRequest;
 import com.tocktalks.domain.community.dto.request.PostUpdateRequest;
 import com.tocktalks.domain.community.dto.response.PostResponse;
+import com.tocktalks.domain.community.service.PostLikeService;
 import com.tocktalks.domain.community.service.PostService;
 import com.tocktalks.global.security.LoginMemberId;
 import jakarta.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final PostLikeService postLikeService;
 
     @PostMapping
     public ResponseEntity<PostResponse> createPost(
@@ -63,4 +65,13 @@ public class PostController {
         postService.deletePost(postId, memberId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{postId}/like")
+    public ResponseEntity<Boolean> toggleLike(
+            @PathVariable Long postId,
+            @LoginMemberId Long memberId
+    ){
+        return ResponseEntity.ok(postLikeService.toggleLike(postId, memberId));
+    }
+
 }
