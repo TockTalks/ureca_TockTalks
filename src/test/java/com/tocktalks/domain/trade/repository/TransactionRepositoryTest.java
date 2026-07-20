@@ -217,4 +217,76 @@ class TransactionRepositoryTest {
                 .extracting(Transaction::getStockCode)
                 .containsExactly("005930");
     }
+
+    @Test
+    void 회원이_소유한_거래만_조회한다() {
+        Long roomParticipantId = 100L;
+        Long memberId = 200L;
+
+        entityManager.createNativeQuery("""
+                    INSERT INTO room_participant (
+                        id,
+                        room_id,
+                        member_id,
+                        balance,
+                        initial_seed_money,
+                        status,
+                        joined_at
+                    ) VALUES (
+                        :id,
+                        :roomId,
+                        :memberId,
+                        :balance,
+                        :initialSeedMoney,
+                        :status,
+                        :joinedAt
+                    )
+                    """)
+                .setParameter("id", roomParticipantId)
+                .setParameter("roomId", 1L)
+                .setParameter("memberId", memberId)
+                .setParameter("balance", 1_000_000L)
+                .setParameter("initialSeedMoney", 1_000_000L)
+                .setParameter("status", "ACTIVE")
+                .setParameter(
+                        "joinedAt",
+                        java.time.LocalDateTime.now()
+                )
+                .executeUpdate();
+
+        Transaction transaction = Transaction.createSell(
+                roomParticipantId,
+                "005930",
+                "삼성전자",
+                2L,
+                new BigDecimal("75000"),
+                new BigDecimal("70000")
+        );
+
+        Transaction savedTransaction =
+                transactionRepository.saveAndFlush(transaction);
+
+        Long transactionId = savedTransaction.getId();
+
+        entityManager.clear();
+
+        Optional<Transaction> ownedTransaction =
+                transactionRepository.findOwnedByIdAndMemberId(
+                        transactionId,
+                        memberId
+                );
+
+        Optional<Transaction> otherMemberTransaction =
+                transactionRepository.findOwnedByIdAndMemberId(
+                        transactionId,
+                        201L
+                );
+
+        assertThat(ownedTransaction).isPresent();
+        assertThat(ownedTransaction.get().getId())
+                .isEqualTo(transactionId);
+        assertThat(ownedTransaction.get().getType())
+                .isEqualTo(TradeType.SELL);
+        assertThat(otherMemberTransaction).isEmpty();
+    }
 }
