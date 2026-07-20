@@ -1,6 +1,7 @@
 package com.tocktalks.domain.price.config;
 
 import com.tocktalks.domain.price.service.PriceRedisSubscriber;
+import com.tocktalks.domain.ranking.service.RankingSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -15,12 +16,14 @@ public class PriceRedisConfig {
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer(
             RedisConnectionFactory connectionFactory,
-            PriceRedisSubscriber priceRedisSubscriber) {
+            PriceRedisSubscriber priceRedisSubscriber,
+            RankingSubscriber rankingSubscriber) {
 
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setTopicSerializer(RedisSerializer.string());
         container.addMessageListener(priceRedisSubscriber, new PatternTopic("price:*"));
+        container.addMessageListener(rankingSubscriber, new PatternTopic("ranking:update:*"));
 
         return container;
     }
