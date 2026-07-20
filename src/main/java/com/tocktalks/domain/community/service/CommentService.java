@@ -41,7 +41,7 @@ public class CommentService {
     }
 
     public Page<CommentResponse> getComments(Long postId, Long viewerId, Pageable pageable){
-        Page<Comment> comments = commentRepository.findByPostIdOrderByCreatedAyAsc(postId, pageable);
+        Page<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtAsc(postId, pageable);
 
         List<Long> commentIds = comments.getContent().stream().map(Comment::getId).toList();
         Map<Long, Boolean> likedMap = commentLikeRepository
