@@ -1,6 +1,7 @@
 package com.tocktalks.domain.auth.controller;
 
 import com.tocktalks.domain.auth.client.KakaoOAuthClient;
+import com.tocktalks.domain.auth.dto.EmailCheckResponse;
 import com.tocktalks.domain.auth.dto.KakaoLoginRequest;
 import com.tocktalks.domain.auth.dto.LoginRequest;
 import com.tocktalks.domain.auth.dto.SignupRequest;
@@ -8,8 +9,11 @@ import com.tocktalks.domain.auth.dto.TokenResponse;
 import com.tocktalks.domain.auth.service.AuthService;
 import com.tocktalks.domain.member.entity.Member;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Validated
 public class AuthController {
 
     private final AuthService authService;
@@ -31,6 +36,11 @@ public class AuthController {
     @PostMapping("/kakao/login")
     public TokenResponse kakaoLogin(@RequestBody @Valid KakaoLoginRequest request) {
         return authService.loginWithKakao(request.code());
+    }
+
+    @GetMapping("/check-email")
+    public EmailCheckResponse checkEmail(@RequestParam @NotBlank @Email String email) {
+        return new EmailCheckResponse(authService.isEmailAvailable(email));
     }
 
     @PostMapping("/signup")
