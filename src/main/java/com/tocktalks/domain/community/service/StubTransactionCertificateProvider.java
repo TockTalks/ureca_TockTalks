@@ -1,11 +1,9 @@
 package com.tocktalks.domain.community.service;
 
 import java.math.BigDecimal;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnMissingBean(TransactionCertificateProvider.class)
 public class StubTransactionCertificateProvider implements TransactionCertificateProvider {
 
     @Override
