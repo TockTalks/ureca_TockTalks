@@ -124,13 +124,16 @@ public class Holding {
         }
     }
 
-    private static void validateStock(String stockCode, String stockName) {
-        if (stockCode == null || stockCode.isBlank()) {
-            throw new IllegalArgumentException("종목 코드는 필수입니다.");
-        }
+    private static void validateStock(
+            String stockCode,
+            String stockName
+    ) {
+        StockCodeValidator.validate(stockCode);
 
         if (stockName == null || stockName.isBlank()) {
-            throw new IllegalArgumentException("종목명은 필수입니다.");
+            throw new IllegalArgumentException(
+                    "종목명은 필수입니다."
+            );
         }
     }
 
