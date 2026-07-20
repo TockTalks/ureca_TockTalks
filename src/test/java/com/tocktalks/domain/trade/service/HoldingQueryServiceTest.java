@@ -257,4 +257,81 @@ class HoldingQueryServiceTest {
                 currentPriceProvider
         );
     }
+
+    @Test
+    void 보유_종목이_없으면_평가_합계는_0이다() {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        RoomParticipant participant =
+                mock(RoomParticipant.class);
+
+        when(participant.getMemberId())
+                .thenReturn(memberId);
+
+        when(roomParticipantRepository.findById(
+                roomParticipantId
+        )).thenReturn(Optional.of(participant));
+
+        when(holdingRepository.findAllByRoomParticipantId(
+                roomParticipantId
+        )).thenReturn(List.of());
+
+        HoldingSummaryResponse result =
+                holdingQueryService.getHoldingSummary(
+                        memberId,
+                        roomParticipantId
+                );
+
+        assertThat(result.totalValuation())
+                .isEqualByComparingTo("0.00");
+
+        assertThat(result.totalProfitLoss())
+                .isEqualByComparingTo("0.00");
+
+        assertThat(result.holdings())
+                .isEmpty();
+
+        verifyNoInteractions(currentPriceProvider);
+    }
+
+    @Test
+    void 회원_ID가_올바르지_않으면_Repository를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                holdingQueryService.getHoldings(
+                        0L,
+                        20L
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "회원 ID가 올바르지 않습니다."
+                );
+
+        verifyNoInteractions(
+                roomParticipantRepository,
+                holdingRepository,
+                currentPriceProvider
+        );
+    }
+
+    @Test
+    void 방_참가자_ID가_올바르지_않으면_Repository를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                holdingQueryService.getHoldings(
+                        10L,
+                        0L
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "방 참가자 ID가 올바르지 않습니다."
+                );
+
+        verifyNoInteractions(
+                roomParticipantRepository,
+                holdingRepository,
+                currentPriceProvider
+        );
+    }
 }
