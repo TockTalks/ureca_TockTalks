@@ -146,19 +146,7 @@ IntelliJ에서 `TockTalksApplication` 실행, 또는:
 http://localhost:8080/api/health
 ```
 
-## 🛑 종료하기
-
-```bash
-# 1. 애플리케이션 종료
-#    bootRun을 실행한 터미널에서 Ctrl+C
-#    (IntelliJ로 실행했다면 Stop 버튼)
-
-# 2. MySQL / Redis 컨테이너 종료
-docker-compose down       # 컨테이너만 종료, 데이터는 volume에 보존
-docker-compose down -v    # 데이터까지 완전히 초기화하고 싶을 때만
-```
-
-## 🖇️ 프론트엔드
+## 프론트엔드
 
 프론트엔드는 별도 저장소 [`ureca_TockTalks-frontend`](https://github.com/TockTalks/ureca_TockTalks-frontend)에서 관리합니다. React + Vite + TypeScript 기반이며, 로컬 dev 서버(`:5173`)는 `/api` 요청을 이 백엔드(`:8080`)로 프록시합니다. 실행/종료 방법은 해당 레포의 README를 참고하세요.
 
