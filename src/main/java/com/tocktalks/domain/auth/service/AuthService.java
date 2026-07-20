@@ -97,6 +97,10 @@ public class AuthService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
+    public boolean isEmailAvailable(String email) {
+        return memberRepository.findByEmail(email).isEmpty();
+    }
+
     private String resolveNickname(KakaoUserInfoResponse userInfo) {
         if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null
                 && userInfo.kakaoAccount().profile().nickname() != null) {
