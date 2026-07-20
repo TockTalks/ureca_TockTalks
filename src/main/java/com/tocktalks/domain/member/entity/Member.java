@@ -40,4 +40,30 @@ public class Member {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public static Member ofKakao(String email, String nickname, String providerSub) {
+        Member member = new Member();
+        member.email = email;
+        member.nickname = nickname;
+        member.provider = "kakao";
+        member.providerSub = providerSub;
+        member.role = "user";
+        member.status = "active";
+        member.createdAt = LocalDateTime.now();
+        member.updatedAt = LocalDateTime.now();
+        return member;
+    }
+
+    public static Member ofLocal(String email, String encodedPassword, String nickname) {
+        Member member = new Member();
+        member.email = email;
+        member.password = encodedPassword;
+        member.nickname = nickname;
+        member.provider = "local";
+        member.role = "user";
+        member.status = "active";
+        member.createdAt = LocalDateTime.now();
+        member.updatedAt = LocalDateTime.now();
+        return member;
+    }
 }
