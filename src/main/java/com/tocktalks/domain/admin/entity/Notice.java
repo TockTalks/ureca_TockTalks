@@ -26,4 +26,13 @@ public class Notice {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public static Notice create(Long adminId, String title, String content) {
+        Notice notice = new Notice();
+        notice.adminId = adminId;
+        notice.title = title;
+        notice.content = content;
+        notice.createdAt = LocalDateTime.now();
+        return notice;
+    }
 }
