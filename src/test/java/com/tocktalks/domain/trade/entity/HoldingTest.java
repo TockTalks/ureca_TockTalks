@@ -104,4 +104,21 @@ class HoldingTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("거래 수량은 1 이상이어야 합니다.");
     }
+
+    @Test
+    void 자리_숫자가_아닌_종목_코드로_Holding을_생성할_수_없다() {
+        assertThatThrownBy(() ->
+                Holding.create(
+                        1L,
+                        "5930",
+                        "삼성전자",
+                        10L,
+                        new BigDecimal("70000")
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "종목 코드는 6자리 숫자여야 합니다."
+                );
+    }
 }
