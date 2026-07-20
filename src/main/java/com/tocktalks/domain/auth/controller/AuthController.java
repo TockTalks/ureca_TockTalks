@@ -4,6 +4,7 @@ import com.tocktalks.domain.auth.client.KakaoOAuthClient;
 import com.tocktalks.domain.auth.dto.EmailCheckResponse;
 import com.tocktalks.domain.auth.dto.KakaoLoginRequest;
 import com.tocktalks.domain.auth.dto.LoginRequest;
+import com.tocktalks.domain.auth.dto.ReissueRequest;
 import com.tocktalks.domain.auth.dto.SignupRequest;
 import com.tocktalks.domain.auth.dto.TokenResponse;
 import com.tocktalks.domain.auth.service.AuthService;
@@ -63,5 +64,15 @@ public class AuthController {
                 "nickname", member.getNickname(),
                 "role", member.getRole()
         );
+    }
+
+    @PostMapping("/reissue")
+    public TokenResponse reissue(@RequestBody @Valid ReissueRequest request) {
+        return authService.reissue(request.refreshToken());
+    }
+
+    @PostMapping("/logout")
+    public void logout(Authentication authentication) {
+        authService.logout((Long) authentication.getPrincipal());
     }
 }
