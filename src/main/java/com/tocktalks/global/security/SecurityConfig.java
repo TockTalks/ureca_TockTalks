@@ -32,7 +32,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/health", "/ws/**").permitAll()
-                .requestMatchers("/api/auth/kakao/**", "/api/auth/signup", "/api/auth/login", "/api/auth/check-email").permitAll()
+                .requestMatchers("/api/auth/kakao/**", "/api/auth/signup", "/api/auth/login",
+                        "/api/auth/check-email", "/api/auth/reissue").permitAll()
                 .requestMatchers("/api/auth/me").authenticated()
                 // "/api/rooms/*"가 한 세그먼트라 "/mine"도 매칭되므로, permitAll 와일드카드보다 먼저 인증을 걸어야 한다
                 .requestMatchers(HttpMethod.GET, "/api/rooms/mine").authenticated()
