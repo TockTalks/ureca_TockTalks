@@ -3,7 +3,6 @@ package com.tocktalks.domain.ranking.service;
 import com.tocktalks.domain.ranking.dto.response.RankingDto;
 import com.tocktalks.domain.ranking.type.RankingType;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.boot.models.MemberResolutionException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -62,13 +61,18 @@ public class RankingRedisService {
                 .toList();
     }
 
+    // 아직 랭킹 데이터가 없는 회원(비로그인, 미참여 등)이면 null을 반환한다.
     public RankingDto getMyRank(Long roomId, Long memberId, RankingType type){
+        if(memberId == null){
+            return null;
+        }
+
         String key = keyOf(roomId, type);
         Long rank = redisTemplate.opsForZSet().reverseRank(key, String.valueOf(memberId));
         Double score = redisTemplate.opsForZSet().score(key, String.valueOf(memberId));
 
         if(rank == null || score == null){
-            throw new MemberResolutionException("해당 맴버의 랭킹 정보가 없습니다.");
+            return null;
         }
         return new RankingDto(memberId, score, rank.intValue() + 1);
     }
