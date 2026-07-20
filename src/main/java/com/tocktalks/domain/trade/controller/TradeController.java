@@ -2,6 +2,7 @@ package com.tocktalks.domain.trade.controller;
 
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.TradeHistoryResponse;
+import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 import com.tocktalks.domain.trade.service.TradeHistoryService;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,22 @@ public class TradeController {
 
         return ResponseEntity.ok(
                 holdingQueryService.getHoldings(
+                        memberId,
+                        roomParticipantId
+                )
+        );
+    }
+
+    @GetMapping("/holdings/summary")
+    public ResponseEntity<HoldingSummaryResponse>
+    getHoldingSummary(
+            Authentication authentication,
+            @RequestParam Long roomParticipantId
+    ) {
+        Long memberId = extractMemberId(authentication);
+
+        return ResponseEntity.ok(
+                holdingQueryService.getHoldingSummary(
                         memberId,
                         roomParticipantId
                 )
