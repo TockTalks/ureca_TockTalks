@@ -1,0 +1,44 @@
+<!-- WebSocketConfig가 제대로 설정되서 STOMP 연결이 제대로 되는지 확인하기 위한 테스트 코드-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>실시간 시세 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+</head>
+<body>
+<h1>실시간 시세 테스트</h1>
+<input id="stockCode" value="005930" />
+<button onclick="subscribeStock()">구독</button>
+<ul id="log"></ul>
+
+<script>
+    const client = new StompJs.Client({
+        brokerURL: 'ws://localhost:8080/ws',
+        onConnect: () => {
+            log('STOMP 연결 성공');
+        },
+        onStompError: (frame) => {
+            log('에러: ' + frame.headers['message']);
+        }
+    });
+
+    function log(msg) {
+        const li = document.createElement('li');
+        li.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
+        document.getElementById('log').prepend(li);
+    }
+
+    function subscribeStock() {
+        const stockCode = document.getElementById('stockCode').value;
+        client.subscribe('/topic/price/' + stockCode, (message) => {
+            log(stockCode + ': ' + message.body);
+        });
+        log(stockCode + ' 구독 시작');
+    }
+
+    client.activate();
+</script>
+</body>
+</html>
