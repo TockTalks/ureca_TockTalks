@@ -5,6 +5,7 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.entity.Holding;
 import com.tocktalks.domain.trade.repository.HoldingRepository;
+import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -131,6 +132,72 @@ class HoldingQueryServiceTest {
 
         verify(currentPriceProvider)
                 .getCurrentPrice("035420");
+    }
+
+    @Test
+    void 보유_종목의_평가금액과_평가손익_합계를_계산한다() {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        RoomParticipant participant =
+                mock(RoomParticipant.class);
+
+        when(participant.getMemberId())
+                .thenReturn(memberId);
+
+        Holding samsung = Holding.create(
+                roomParticipantId,
+                "005930",
+                "삼성전자",
+                10L,
+                new BigDecimal("70000")
+        );
+
+        Holding naver = Holding.create(
+                roomParticipantId,
+                "035420",
+                "NAVER",
+                3L,
+                new BigDecimal("200000")
+        );
+
+        when(roomParticipantRepository.findById(
+                roomParticipantId
+        )).thenReturn(Optional.of(participant));
+
+        when(holdingRepository.findAllByRoomParticipantId(
+                roomParticipantId
+        )).thenReturn(List.of(naver, samsung));
+
+        when(currentPriceProvider.getCurrentPrice(
+                "005930"
+        )).thenReturn(new BigDecimal("75000"));
+
+        when(currentPriceProvider.getCurrentPrice(
+                "035420"
+        )).thenReturn(new BigDecimal("180000"));
+
+        HoldingSummaryResponse result =
+                holdingQueryService.getHoldingSummary(
+                        memberId,
+                        roomParticipantId
+                );
+
+        assertThat(result.totalValuation())
+                .isEqualByComparingTo("1290000.00");
+
+        assertThat(result.totalProfitLoss())
+                .isEqualByComparingTo("-10000.00");
+
+        assertThat(result.holdings())
+                .hasSize(2);
+
+        assertThat(result.holdings())
+                .extracting(HoldingResponse::stockCode)
+                .containsExactly(
+                        "005930",
+                        "035420"
+                );
     }
 
     @Test

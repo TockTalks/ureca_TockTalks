@@ -5,6 +5,7 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.entity.Holding;
 import com.tocktalks.domain.trade.repository.HoldingRepository;
+import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +58,19 @@ public class HoldingQueryService {
                         )
                 )
                 .toList();
+    }
+
+    public HoldingSummaryResponse getHoldingSummary(
+            Long memberId,
+            Long roomParticipantId
+    ) {
+        List<HoldingResponse> holdings =
+                getHoldings(
+                        memberId,
+                        roomParticipantId
+                );
+
+        return HoldingSummaryResponse.from(holdings);
     }
 
     private IllegalArgumentException participantNotFound() {

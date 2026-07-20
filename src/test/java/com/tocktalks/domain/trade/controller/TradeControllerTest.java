@@ -5,6 +5,7 @@ import com.tocktalks.domain.trade.entity.TradeType;
 import com.tocktalks.domain.trade.service.TradeHistoryService;
 import com.tocktalks.global.exception.GlobalExceptionHandler;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
+import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -253,6 +254,96 @@ class TradeControllerTest {
                 );
 
         verify(holdingQueryService).getHoldings(
+                memberId,
+                roomParticipantId
+        );
+    }
+
+    @Test
+    void 로그인_회원의_보유_종목_합계를_조회한다()
+            throws Exception {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        memberId,
+                        null,
+                        List.of()
+                );
+
+        HoldingResponse holding =
+                new HoldingResponse(
+                        30L,
+                        roomParticipantId,
+                        "005930",
+                        "삼성전자",
+                        10L,
+                        new BigDecimal("70000.00"),
+                        new BigDecimal("75000.00"),
+                        new BigDecimal("750000.00"),
+                        new BigDecimal("50000.00"),
+                        new BigDecimal("7.1429"),
+                        LocalDateTime.of(
+                                2026,
+                                7,
+                                20,
+                                12,
+                                0
+                        )
+                );
+
+        HoldingSummaryResponse summary =
+                new HoldingSummaryResponse(
+                        new BigDecimal("750000.00"),
+                        new BigDecimal("50000.00"),
+                        List.of(holding)
+                );
+
+        when(holdingQueryService.getHoldingSummary(
+                memberId,
+                roomParticipantId
+        )).thenReturn(summary);
+
+        mockMvc.perform(
+                        get("/api/trades/holdings/summary")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        roomParticipantId.toString()
+                                )
+                )
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$.totalValuation")
+                                .value(750000.00)
+                )
+                .andExpect(
+                        jsonPath("$.totalProfitLoss")
+                                .value(50000.00)
+                )
+                .andExpect(
+                        jsonPath("$.holdings[0].stockCode")
+                                .value("005930")
+                )
+                .andExpect(
+                        jsonPath("$.holdings[0].stockName")
+                                .value("삼성전자")
+                )
+                .andExpect(
+                        jsonPath("$.holdings[0].currentPrice")
+                                .value(75000.00)
+                )
+                .andExpect(
+                        jsonPath("$.holdings[0].valuationAmount")
+                                .value(750000.00)
+                )
+                .andExpect(
+                        jsonPath("$.holdings[0].profitLoss")
+                                .value(50000.00)
+                );
+
+        verify(holdingQueryService).getHoldingSummary(
                 memberId,
                 roomParticipantId
         );
