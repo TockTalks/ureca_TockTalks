@@ -6,7 +6,10 @@ import com.tocktalks.domain.price.service.KisWebSocketClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import com.tocktalks.domain.price.dto.response.StockInfo;
+import com.tocktalks.domain.price.service.StockMasterService;
 
+import java.util.List;
 import java.io.IOException;
 
 @RestController
@@ -14,10 +17,12 @@ public class PriceController {
 
     private final KisPriceService kisPriceService;
     private final KisWebSocketClient kisWebSocketClient;
+    private final StockMasterService stockMasterService;
 
-    public PriceController(KisPriceService kisPriceService, KisWebSocketClient kisWebSocketClient) {
+    public PriceController(KisPriceService kisPriceService, KisWebSocketClient kisWebSocketClient, StockMasterService stockMasterService) {
         this.kisPriceService = kisPriceService;
         this.kisWebSocketClient = kisWebSocketClient;
+        this.stockMasterService = stockMasterService;
     }
 
     @GetMapping("/api/price/{stockCode}")
@@ -30,5 +35,10 @@ public class PriceController {
         kisWebSocketClient.connect();
         kisWebSocketClient.subscribe(stockCode);
         return "구독 요청 완료: " + stockCode;
+    }
+
+    @GetMapping("/api/price/stocks")
+    public List<StockInfo> getStocks() {
+        return stockMasterService.getAllStocks();
     }
 }

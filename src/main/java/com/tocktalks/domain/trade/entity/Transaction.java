@@ -145,11 +145,7 @@ public class Transaction {
             String stockCode,
             String stockName
     ) {
-        if (stockCode == null || stockCode.isBlank()) {
-            throw new IllegalArgumentException(
-                    "종목 코드는 필수입니다."
-            );
-        }
+        StockCodeValidator.validate(stockCode);
 
         if (stockName == null || stockName.isBlank()) {
             throw new IllegalArgumentException(
