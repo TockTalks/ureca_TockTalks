@@ -21,6 +21,8 @@ public class PriceRedisSubscriber implements MessageListener {
         String stockCode = channel.substring(CHANNEL_PREFIX.length());
         String currentPrice = new String(message.getBody());
 
+        System.out.println("[Redis 구독 수신] " + channel + " = " + currentPrice);
+
         messagingTemplate.convertAndSend("/topic/price/" + stockCode, currentPrice);
     }
 }
