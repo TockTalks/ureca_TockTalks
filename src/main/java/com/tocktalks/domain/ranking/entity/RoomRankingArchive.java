@@ -32,4 +32,16 @@ public class RoomRankingArchive {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public static RoomRankingArchive of(Long roomId, Long memberId, Long finalAsset,
+                                        BigDecimal finalReturnRate, Integer finalRank) {
+        RoomRankingArchive archive = new RoomRankingArchive();
+        archive.roomId = roomId;
+        archive.memberId = memberId;
+        archive.finalAsset = finalAsset;
+        archive.finalReturnRate = finalReturnRate;
+        archive.finalRank = finalRank;
+        archive.createdAt = LocalDateTime.now();
+        return archive;
+    }
 }
