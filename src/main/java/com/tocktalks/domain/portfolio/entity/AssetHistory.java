@@ -22,4 +22,14 @@ public class AssetHistory {
 
     @Column(name = "snapshot_date", nullable = false)
     private LocalDate snapshotDate;
+    
+    private AssetHistory(Long roomParticipantId, Long totalAsset, LocalDate snapshotDate) {
+        this.roomParticipantId = roomParticipantId;
+        this.totalAsset = totalAsset;
+        this.snapshotDate = snapshotDate;
+    }
+    
+    public static AssetHistory create(Long roomParticipantId, Long totalAsset) {
+        return new AssetHistory(roomParticipantId, totalAsset, LocalDate.now());
+    }
 }

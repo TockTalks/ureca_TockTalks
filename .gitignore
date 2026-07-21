@@ -32,3 +32,4 @@ graphify-out/cache/
 .claude/settings.json
 .claude/settings.local.json
 .claude/
+AGENTS.md
