@@ -26,7 +26,7 @@ public class BuyTradeProcessor {
             BigDecimal price
     ) {
         Holding holding = holdingRepository
-                .findForUpdate(
+                .findByRoomParticipantIdAndStockCode(
                         roomParticipantId,
                         stockCode
                 )

@@ -42,7 +42,8 @@ class BuyTradeProcessorTest {
                 new BigDecimal("70000")
         );
 
-        when(holdingRepository.findForUpdate(
+        when(holdingRepository
+                .findByRoomParticipantIdAndStockCode(
                 1L,
                 "005930"
         )).thenReturn(Optional.of(existingHolding));
@@ -79,7 +80,8 @@ class BuyTradeProcessorTest {
 
     @Test
     void 처음_매수하는_종목의_보유_정보와_거래_내역을_저장한다() {
-        when(holdingRepository.findForUpdate(
+        when(holdingRepository
+                .findByRoomParticipantIdAndStockCode(
                 1L,
                 "005930"
         )).thenReturn(Optional.empty());

@@ -44,7 +44,8 @@ class SellTradeProcessorTest {
                 new BigDecimal("70000")
         );
 
-        when(holdingRepository.findForUpdate(
+        when(holdingRepository
+                .findByRoomParticipantIdAndStockCode(
                 1L,
                 "005930"
         )).thenReturn(Optional.of(holding));
@@ -89,7 +90,8 @@ class SellTradeProcessorTest {
                 new BigDecimal("70000")
         );
 
-        when(holdingRepository.findForUpdate(
+        when(holdingRepository
+                .findByRoomParticipantIdAndStockCode(
                 1L,
                 "005930"
         )).thenReturn(Optional.of(holding));
@@ -130,7 +132,8 @@ class SellTradeProcessorTest {
                 new BigDecimal("70000")
         );
 
-        when(holdingRepository.findForUpdate(
+        when(holdingRepository
+                .findByRoomParticipantIdAndStockCode(
                 1L,
                 "005930"
         )).thenReturn(Optional.of(holding));
