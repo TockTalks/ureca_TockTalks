@@ -23,7 +23,7 @@ public class FavoriteStockController {
             @LoginMemberId Long memberId,
             @RequestBody FavoriteStockRequest request
     ) {
-        favoriteStockService.addFavorite(memberId, request.stockCode(), request.stockName());
+        favoriteStockService.addFavorite(memberId, request.stockCode());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
