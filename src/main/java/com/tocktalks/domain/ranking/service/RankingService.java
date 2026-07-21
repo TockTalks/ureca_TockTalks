@@ -41,6 +41,12 @@ public class RankingService {
         return new RankingListResponse(top, my);
     }
 
+    // Redis에 데이터가 없으면(트레이드가 없었던 방 등) 빈 리스트를 반환한다.
+    // RoomService가 이 경우 현금 잔고 기반으로 폴백 처리한다.
+    public List<RankingDto> getAllRanking(Long roomId, RankingType type){
+        return rankingRedisService.getAll(roomId, type);
+    }
+
     // Redis에 실시간 랭킹 데이터가 있으면 그걸로 아카이브하고 저장된 목록을 반환한다.
     // 이미 아카이브된 방이거나 Redis에 데이터가 없으면(트레이드가 없었던 방 등) 빈 리스트를 반환하며,
     // 호출부(RoomService)가 후자의 경우 현금 잔고 기반으로 폴백 처리한다.
