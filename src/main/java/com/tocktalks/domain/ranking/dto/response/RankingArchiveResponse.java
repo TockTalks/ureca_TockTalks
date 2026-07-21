@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 public record RankingArchiveResponse (
         Long memberId,
-        Long final_asset,
+        Long finalAsset,
         BigDecimal finalReturnRate,
         Integer finalRank
 ) {
