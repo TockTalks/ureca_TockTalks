@@ -7,6 +7,11 @@ import com.tocktalks.global.exception.GlobalExceptionHandler;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
+import com.tocktalks.domain.trade.dto.request.TradeOrderRequest;
+import com.tocktalks.domain.trade.dto.response.TradeExecutionResponse;
+import com.tocktalks.domain.trade.service.BuyTradeService;
+import com.tocktalks.domain.trade.service.SellTradeService;
+import org.springframework.http.MediaType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -19,6 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -42,6 +48,8 @@ class TradeControllerTest {
     private TradeHistoryService tradeHistoryService;
     private HoldingQueryService holdingQueryService;
     private MockMvc mockMvc;
+    private BuyTradeService buyTradeService;
+    private SellTradeService sellTradeService;
 
     @BeforeEach
     void setUp() {
@@ -51,10 +59,18 @@ class TradeControllerTest {
         holdingQueryService =
                 mock(HoldingQueryService.class);
 
+        buyTradeService =
+                mock(BuyTradeService.class);
+
+        sellTradeService =
+                mock(SellTradeService.class);
+
         TradeController tradeController =
                 new TradeController(
                         tradeHistoryService,
-                        holdingQueryService
+                        holdingQueryService,
+                        buyTradeService,
+                        sellTradeService
                 );
 
         mockMvc = MockMvcBuilders
@@ -367,7 +383,249 @@ class TradeControllerTest {
 
         verifyNoInteractions(
                 tradeHistoryService,
-                holdingQueryService
+                holdingQueryService,
+                buyTradeService,
+                sellTradeService
         );
+    }
+
+    @Test
+    void 로그인_회원이_종목을_매수한다()
+            throws Exception {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        memberId,
+                        null,
+                        List.of()
+                );
+
+        TradeExecutionResponse response =
+                new TradeExecutionResponse(
+                        30L,
+                        roomParticipantId,
+                        "005930",
+                        "삼성전자",
+                        TradeType.BUY,
+                        3L,
+                        new BigDecimal("75000.00"),
+                        225_000L,
+                        775_000L,
+                        null,
+                        null,
+                        LocalDateTime.of(
+                                2026,
+                                7,
+                                21,
+                                10,
+                                0
+                        )
+                );
+
+        when(buyTradeService.buy(
+                eq(memberId),
+                eq(roomParticipantId),
+                any(TradeOrderRequest.class)
+        )).thenReturn(response);
+
+        mockMvc.perform(
+                        post("/api/trades/buy")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        roomParticipantId.toString()
+                                )
+                                .contentType(
+                                        MediaType.APPLICATION_JSON
+                                )
+                                .content("""
+                                    {
+                                      "stockCode": "005930",
+                                      "quantity": 3
+                                    }
+                                    """)
+                )
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$.transactionId")
+                                .value(30L)
+                )
+                .andExpect(
+                        jsonPath("$.type")
+                                .value("BUY")
+                )
+                .andExpect(
+                        jsonPath("$.stockCode")
+                                .value("005930")
+                )
+                .andExpect(
+                        jsonPath("$.stockName")
+                                .value("삼성전자")
+                )
+                .andExpect(
+                        jsonPath("$.quantity")
+                                .value(3L)
+                )
+                .andExpect(
+                        jsonPath("$.price")
+                                .value(75000.00)
+                )
+                .andExpect(
+                        jsonPath("$.tradeAmount")
+                                .value(225_000L)
+                )
+                .andExpect(
+                        jsonPath("$.balance")
+                                .value(775_000L)
+                );
+
+        verify(buyTradeService).buy(
+                eq(memberId),
+                eq(roomParticipantId),
+                eq(
+                        new TradeOrderRequest(
+                                "005930",
+                                3L
+                        )
+                )
+        );
+    }
+
+    @Test
+    void 로그인_회원이_종목을_매도한다()
+            throws Exception {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        memberId,
+                        null,
+                        List.of()
+                );
+
+        TradeExecutionResponse response =
+                new TradeExecutionResponse(
+                        31L,
+                        roomParticipantId,
+                        "005930",
+                        "삼성전자",
+                        TradeType.SELL,
+                        3L,
+                        new BigDecimal("75000.00"),
+                        225_000L,
+                        1_225_000L,
+                        new BigDecimal("15000.00"),
+                        new BigDecimal("7.1429"),
+                        LocalDateTime.of(
+                                2026,
+                                7,
+                                21,
+                                10,
+                                0
+                        )
+                );
+
+        when(sellTradeService.sell(
+                eq(memberId),
+                eq(roomParticipantId),
+                any(TradeOrderRequest.class)
+        )).thenReturn(response);
+
+        mockMvc.perform(
+                        post("/api/trades/sell")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        roomParticipantId.toString()
+                                )
+                                .contentType(
+                                        MediaType.APPLICATION_JSON
+                                )
+                                .content("""
+                                    {
+                                      "stockCode": "005930",
+                                      "quantity": 3
+                                    }
+                                    """)
+                )
+                .andExpect(status().isOk())
+                .andExpect(
+                        jsonPath("$.transactionId")
+                                .value(31L)
+                )
+                .andExpect(
+                        jsonPath("$.type")
+                                .value("SELL")
+                )
+                .andExpect(
+                        jsonPath("$.stockCode")
+                                .value("005930")
+                )
+                .andExpect(
+                        jsonPath("$.quantity")
+                                .value(3L)
+                )
+                .andExpect(
+                        jsonPath("$.tradeAmount")
+                                .value(225_000L)
+                )
+                .andExpect(
+                        jsonPath("$.balance")
+                                .value(1_225_000L)
+                )
+                .andExpect(
+                        jsonPath("$.profitAmount")
+                                .value(15000.00)
+                )
+                .andExpect(
+                        jsonPath("$.profitRate")
+                                .value(7.1429)
+                );
+
+        verify(sellTradeService).sell(
+                eq(memberId),
+                eq(roomParticipantId),
+                eq(
+                        new TradeOrderRequest(
+                                "005930",
+                                3L
+                        )
+                )
+        );
+    }
+
+    @Test
+    void 매수_요청값이_올바르지_않으면_서비스를_호출하지_않는다()
+            throws Exception {
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        10L,
+                        null,
+                        List.of()
+                );
+
+        mockMvc.perform(
+                        post("/api/trades/buy")
+                                .principal(authentication)
+                                .param(
+                                        "roomParticipantId",
+                                        "20"
+                                )
+                                .contentType(
+                                        MediaType.APPLICATION_JSON
+                                )
+                                .content("""
+                                    {
+                                      "stockCode": "005930",
+                                      "quantity": 0
+                                    }
+                                    """)
+                )
+                .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(buyTradeService);
     }
 }
