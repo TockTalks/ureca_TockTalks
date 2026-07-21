@@ -25,4 +25,14 @@ public class FavoriteStock {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public static FavoriteStock of(Long memberId, String stockCode, String stockName) {
+        FavoriteStock favoriteStock = new FavoriteStock();
+        favoriteStock.memberId = memberId;
+        favoriteStock.stockCode = stockCode;
+        favoriteStock.stockName = stockName;
+        favoriteStock.createdAt = LocalDateTime.now();
+
+        return favoriteStock;
+    }
 }
