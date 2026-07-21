@@ -11,6 +11,7 @@ import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.room.service.RoomService;
 import com.tocktalks.global.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,13 +101,22 @@ public class AuthService {
                 .orElse(null);
 
         if (member == null) {
-            member = memberRepository.save(Member.ofKakao(
-                    resolveEmail(userInfo, providerSub),
-                    resolveNickname(userInfo),
-                    providerSub));
-            roomService.joinDefaultRoom(member.getId());
-            isNewMember = true;
-        } else {
+            try {
+                member = memberRepository.save(Member.ofKakao(
+                        resolveEmail(userInfo, providerSub),
+                        resolveNickname(userInfo),
+                        providerSub));
+                roomService.joinDefaultRoom(member.getId());
+                isNewMember = true;
+            } catch (DataIntegrityViolationException e) {
+                // 동시에 들어온 다른 로그인 요청이 먼저 같은 provider_sub로 회원을 생성한 경우.
+                // uk_member_provider_sub 유니크 제약 위반이므로 새로 만들지 않고 그 회원으로 로그인 처리한다.
+                member = memberRepository.findByProviderAndProviderSub(PROVIDER_KAKAO, providerSub)
+                        .orElseThrow(() -> e);
+            }
+        }
+
+        if (!isNewMember) {
             String latestNickname = extractNickname(userInfo);
             if (latestNickname != null && !latestNickname.equals(member.getNickname())) {
                 member.updateNickname(latestNickname);

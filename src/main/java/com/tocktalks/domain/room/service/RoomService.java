@@ -96,6 +96,11 @@ public class RoomService {
         RoomParticipant participant = roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, memberId, PARTICIPANT_ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException("참가 중인 방이 아닙니다."));
+
+        // 나가는 시점의 총자산(현금+보유종목 평가액)을 Redis 랭킹에 확정 반영한다.
+        // 한 번 나가면 이 방에 다시 못 들어오므로, 이 값이 그 사람의 최종 결과로 남는다.
+        tradeRankingService.updateRanking(participant);
+
         participant.end();
     }
 
@@ -214,10 +219,10 @@ public class RoomService {
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
-        roomParticipantRepository.findByRoomIdAndMemberIdAndStatus(room.getId(), memberId, PARTICIPANT_ACTIVE)
-                .ifPresent(p -> {
-                    throw new IllegalArgumentException("이미 참가 중인 방입니다.");
-                });
+        // 상태 무관하게 한 번이라도 참가한 적 있으면 재입장 불가 (한 번 나간 방은 다시 못 들어옴)
+        if (roomParticipantRepository.existsByRoomIdAndMemberId(room.getId(), memberId)) {
+            throw new IllegalArgumentException("이미 참가했거나 나간 적이 있는 방입니다.");
+        }
         if (room.getMaxParticipants() != null
                 && roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE) >= room.getMaxParticipants()) {
             throw new IllegalArgumentException("정원이 가득 찼습니다.");
