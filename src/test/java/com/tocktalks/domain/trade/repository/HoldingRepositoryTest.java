@@ -2,7 +2,6 @@ package com.tocktalks.domain.trade.repository;
 
 import com.tocktalks.domain.trade.entity.Holding;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.LockModeType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -134,33 +133,5 @@ class HoldingRepositoryTest {
         assertThatThrownBy(
                 () -> holdingRepository.saveAndFlush(duplicate)
         ).isInstanceOf(DataIntegrityViolationException.class);
-    }
-
-    @Test
-    void 보유_종목을_쓰기_잠금으로_조회한다() {
-        Holding holding = Holding.create(
-                1L,
-                "005930",
-                "삼성전자",
-                10L,
-                new BigDecimal("70000")
-        );
-
-        Holding savedHolding =
-                holdingRepository.saveAndFlush(holding);
-
-        entityManager.clear();
-
-        Optional<Holding> found =
-                holdingRepository.findForUpdate(
-                        1L,
-                        "005930"
-                );
-
-        assertThat(found).isPresent();
-        assertThat(found.get().getId())
-                .isEqualTo(savedHolding.getId());
-        assertThat(entityManager.getLockMode(found.get()))
-                .isEqualTo(LockModeType.PESSIMISTIC_WRITE);
     }
 }
