@@ -2,8 +2,8 @@ package com.tocktalks.domain.room.service;
 
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
-import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
-import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
+import com.tocktalks.domain.ranking.service.RankingService;
+import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
@@ -18,8 +18,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +34,8 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
     private final RoomParticipantRepository roomParticipantRepository;
-    private final RoomRankingArchiveRepository roomRankingArchiveRepository;
+    private final TradeRankingService tradeRankingService;
+    private final RankingService rankingService;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
 
@@ -157,25 +156,26 @@ public class RoomService {
     }
 
     private void archiveAndClose(Room room) {
-        List<RoomParticipant> ranked = roomParticipantRepository
-                .findByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE).stream()
-                .sorted(Comparator.comparing(RoomParticipant::getBalance).reversed()
-                        .thenComparing(RoomParticipant::getMemberId))
-                .toList();
+        List<RoomParticipant> participants =
+                roomParticipantRepository
+                        .findByRoomIdAndStatus(
+                                room.getId(),
+                                PARTICIPANT_ACTIVE
+                        );
 
-        for (int i = 0; i < ranked.size(); i++) {
-            RoomParticipant participant = ranked.get(i);
-            // NOTE: 아직 trade/price 도메인이 없어 보유 종목 평가액을 반영하지 못한다.
-            // 지금은 현금 잔고(balance)를 최종 자산으로 취급하고, 매수/매도 기능이 붙으면 확장해야 한다.
-            Long finalAsset = participant.getBalance();
-            BigDecimal finalReturnRate = BigDecimal.valueOf(finalAsset - participant.getInitialSeedMoney())
-                    .divide(BigDecimal.valueOf(participant.getInitialSeedMoney()), 4, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal.valueOf(100));
-
-            roomRankingArchiveRepository.save(RoomRankingArchive.of(
-                    room.getId(), participant.getMemberId(), finalAsset, finalReturnRate, i + 1));
-            participant.end();
+        for (RoomParticipant participant : participants) {
+            tradeRankingService.updateRanking(
+                    participant
+            );
         }
+
+        rankingService.finalizeRanking(
+                room.getId()
+        );
+
+        participants.forEach(
+                RoomParticipant::end
+        );
 
         room.close();
     }
