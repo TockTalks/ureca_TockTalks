@@ -28,6 +28,7 @@ public class KakaoOAuthClient {
                 .queryParam("client_id", kakaoOAuthProperties.getClientId())
                 .queryParam("redirect_uri", kakaoOAuthProperties.getRedirectUri())
                 .queryParam("response_type", "code")
+                .queryParam("scope", "profile_nickname,account_email")
                 .build()
                 .toUriString();
     }

@@ -28,6 +28,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final RoomService roomService;
     private final RefreshTokenService refreshTokenService;
+    private final LoginAttemptService loginAttemptService;
 
     @Transactional
     public TokenResponse signup(SignupRequest request) {
@@ -45,14 +46,20 @@ public class AuthService {
     }
 
     public TokenResponse loginWithLocal(LoginRequest request) {
+        if (loginAttemptService.isLocked(request.email())) {
+            throw new IllegalArgumentException("로그인 시도 횟수를 초과했습니다. 잠시 후 다시 시도해주세요.");
+        }
+
         Member member = memberRepository.findByEmail(request.email())
                 .filter(m -> PROVIDER_LOCAL.equals(m.getProvider()))
-                .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
+                .orElse(null);
 
-        if (!passwordEncoder.matches(request.password(), member.getPassword())) {
+        if (member == null || !passwordEncoder.matches(request.password(), member.getPassword())) {
+            loginAttemptService.recordFailure(request.email());
             throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 
+        loginAttemptService.reset(request.email());
         return issueTokens(member, false);
     }
 
@@ -99,6 +106,11 @@ public class AuthService {
                     providerSub));
             roomService.joinDefaultRoom(member.getId());
             isNewMember = true;
+        } else {
+            String latestNickname = extractNickname(userInfo);
+            if (latestNickname != null && !latestNickname.equals(member.getNickname())) {
+                member.updateNickname(latestNickname);
+            }
         }
 
         return issueTokens(member, isNewMember);
@@ -121,10 +133,16 @@ public class AuthService {
     }
 
     private String resolveNickname(KakaoUserInfoResponse userInfo) {
-        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null
-                && userInfo.kakaoAccount().profile().nickname() != null) {
+        String nickname = extractNickname(userInfo);
+        return nickname != null ? nickname : "카카오사용자";
+    }
+
+    // 카카오가 닉네임을 안 내려준 경우(동의 철회 등) null을 반환한다.
+    // 신규 가입 시엔 resolveNickname()의 기본값으로, 기존 회원 동기화 시엔 null이면 기존 닉네임을 유지하는 용도로 쓰인다.
+    private String extractNickname(KakaoUserInfoResponse userInfo) {
+        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null) {
             return userInfo.kakaoAccount().profile().nickname();
         }
-        return "카카오사용자";
+        return null;
     }
 }
