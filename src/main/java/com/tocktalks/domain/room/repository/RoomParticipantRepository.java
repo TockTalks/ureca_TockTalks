@@ -20,6 +20,12 @@ public interface RoomParticipantRepository
             String status
     );
 
+    // 상태 무관하게 한 번이라도 참가한 적 있는지 확인 (한 번 나간 방은 재입장 불가 정책)
+    boolean existsByRoomIdAndMemberId(
+            Long roomId,
+            Long memberId
+    );
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("""
             SELECT rp
