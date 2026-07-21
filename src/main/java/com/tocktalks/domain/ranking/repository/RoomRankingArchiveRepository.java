@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoomRankingArchiveRepository extends JpaRepository<RoomRankingArchive, Long> {
-    //테스트
+
     List<RoomRankingArchive> findByRoomIdOrderByFinalRankAsc(Long roomId);
 
     List<RoomRankingArchive> findByRoomIdOrderByFinalAssetDesc(Long roomId);
