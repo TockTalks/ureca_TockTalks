@@ -4,6 +4,7 @@ import com.tocktalks.domain.auth.client.KakaoOAuthClient;
 import com.tocktalks.domain.auth.dto.KakaoTokenResponse;
 import com.tocktalks.domain.auth.dto.KakaoUserInfoResponse;
 import com.tocktalks.domain.auth.dto.LoginRequest;
+import com.tocktalks.domain.auth.dto.MemberUpdateRequest;
 import com.tocktalks.domain.auth.dto.SignupRequest;
 import com.tocktalks.domain.auth.dto.TokenResponse;
 import com.tocktalks.domain.member.entity.Member;
@@ -136,6 +137,26 @@ public class AuthService {
     public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    @Transactional
+    public void updateMember(Long memberId, MemberUpdateRequest request) {
+        Member member = getMember(memberId);
+
+        if (request.nickname() != null && !request.nickname().isBlank()) {
+            member.updateNickname(request.nickname());
+        }
+
+        if (request.newPassword() != null && !request.newPassword().isBlank()) {
+            if (!PROVIDER_LOCAL.equals(member.getProvider())) {
+                throw new IllegalArgumentException("소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.");
+            }
+            if (request.currentPassword() == null
+                    || !passwordEncoder.matches(request.currentPassword(), member.getPassword())) {
+                throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+            }
+            member.updatePassword(passwordEncoder.encode(request.newPassword()));
+        }
     }
 
     public boolean isEmailAvailable(String email) {

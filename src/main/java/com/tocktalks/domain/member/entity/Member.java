@@ -61,6 +61,11 @@ public class Member {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void updatePassword(String encodedPassword) {
+        this.password = encodedPassword;
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public static Member ofLocal(String email, String encodedPassword, String nickname) {
         Member member = new Member();
         member.email = email;
