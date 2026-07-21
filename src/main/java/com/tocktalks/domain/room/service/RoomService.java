@@ -2,11 +2,8 @@ package com.tocktalks.domain.room.service;
 
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
-import com.tocktalks.domain.ranking.dto.response.RankingDto;
-import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
-import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.service.RankingService;
-import com.tocktalks.domain.ranking.type.RankingType;
+import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
@@ -21,8 +18,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -39,7 +34,8 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
     private final RoomParticipantRepository roomParticipantRepository;
-    private final RoomRankingArchiveRepository roomRankingArchiveRepository;
+    private final TradeRankingService tradeRankingService;
+    private final RankingService rankingService;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
     private final RankingService rankingService;
@@ -182,39 +178,28 @@ public class RoomService {
     }
 
     private void archiveAndClose(Room room) {
-        List<RoomParticipant> participants = roomParticipantRepository
-                .findByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE);
+        List<RoomParticipant> participants =
+                roomParticipantRepository
+                        .findByRoomIdAndStatus(
+                                room.getId(),
+                                PARTICIPANT_ACTIVE
+                        );
 
-        if (!roomRankingArchiveRepository.existsByRoomId(room.getId())
-                && rankingService.finalizeRanking(room.getId()).isEmpty()) {
-            // Redis에 실시간 랭킹 데이터가 없는 방(트레이드가 아직 없는 지금 같은 경우)은
-            // 현금 잔고 기준으로 폴백 계산한다. trade 도메인이 붙어 RankingService.updateRanking()이
-            // 호출되기 시작하면 이 폴백 없이 실시간 랭킹 데이터로 자동 전환된다.
-            archiveFromCashBalance(room.getId(), participants);
+        for (RoomParticipant participant : participants) {
+            tradeRankingService.updateRanking(
+                    participant
+            );
         }
 
-        participants.forEach(RoomParticipant::end);
+        rankingService.finalizeRanking(
+                room.getId()
+        );
+
+        participants.forEach(
+                RoomParticipant::end
+        );
+
         room.close();
-    }
-
-    private void archiveFromCashBalance(Long roomId, List<RoomParticipant> participants) {
-        List<RoomParticipant> ranked = participants.stream()
-                .sorted(Comparator.comparing(RoomParticipant::getBalance).reversed()
-                        .thenComparing(RoomParticipant::getMemberId))
-                .toList();
-
-        for (int i = 0; i < ranked.size(); i++) {
-            RoomParticipant participant = ranked.get(i);
-            // NOTE: 아직 trade/price 도메인이 없어 보유 종목 평가액을 반영하지 못한다.
-            // 지금은 현금 잔고(balance)를 최종 자산으로 취급하고, 매수/매도 기능이 붙으면 확장해야 한다.
-            Long finalAsset = participant.getBalance();
-            BigDecimal finalReturnRate = BigDecimal.valueOf(finalAsset - participant.getInitialSeedMoney())
-                    .divide(BigDecimal.valueOf(participant.getInitialSeedMoney()), 4, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal.valueOf(100));
-
-            roomRankingArchiveRepository.save(RoomRankingArchive.of(
-                    roomId, participant.getMemberId(), finalAsset, finalReturnRate, i + 1));
-        }
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
