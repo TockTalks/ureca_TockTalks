@@ -2,7 +2,9 @@ package com.tocktalks.domain.room.service;
 
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
+import com.tocktalks.domain.ranking.dto.response.RankingDto;
 import com.tocktalks.domain.ranking.service.RankingService;
+import com.tocktalks.domain.ranking.type.RankingType;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
@@ -116,7 +118,28 @@ public class RoomService {
         return RoomResponse.of(room, roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE));
     }
 
+    // Redis에 실시간 랭킹 데이터가 있으면(trade 도메인이 updateRanking()을 호출하기 시작하면)
+    // 그걸 우선 쓰고, 없으면(지금처럼 트레이드가 아직 없는 방) 현금 잔고로 폴백한다.
     public List<RoomRankingResponse> getRanking(Long roomId) {
+        List<RankingDto> live = rankingService.getAllRanking(roomId, RankingType.TOTAL_ASSET);
+        return live.isEmpty() ? getRankingFromCashBalance(roomId) : toRoomRankingResponses(live);
+    }
+
+    private List<RoomRankingResponse> toRoomRankingResponses(List<RankingDto> live) {
+        Map<Long, String> nicknameByMemberId = memberRepository
+                .findAllById(live.stream().map(RankingDto::memberId).toList()).stream()
+                .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        return live.stream()
+                .map(dto -> new RoomRankingResponse(
+                        dto.rank(),
+                        dto.memberId(),
+                        nicknameByMemberId.get(dto.memberId()),
+                        dto.score().longValue()))
+                .toList();
+    }
+
+    private List<RoomRankingResponse> getRankingFromCashBalance(Long roomId) {
         List<RoomParticipant> ranked = roomParticipantRepository
                 .findByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE).stream()
                 .sorted(Comparator.comparing(RoomParticipant::getBalance).reversed()
