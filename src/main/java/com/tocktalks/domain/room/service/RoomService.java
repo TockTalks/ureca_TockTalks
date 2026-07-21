@@ -2,7 +2,9 @@ package com.tocktalks.domain.room.service;
 
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
+import com.tocktalks.domain.ranking.dto.response.RankingDto;
 import com.tocktalks.domain.ranking.service.RankingService;
+import com.tocktalks.domain.ranking.type.RankingType;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
@@ -38,7 +40,6 @@ public class RoomService {
     private final RankingService rankingService;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
-    private final RankingService rankingService;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
