@@ -16,6 +16,7 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.room.repository.RoomRepository;
 import com.tocktalks.global.config.RoomProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -222,6 +223,16 @@ public class RoomService {
 
     private Room getOrCreateDefaultRoom() {
         return roomRepository.findByIsDefaultTrue()
-                .orElseGet(() -> roomRepository.save(Room.createDefault(roomProperties.getDefaultSeedMoney())));
+                .orElseGet(this::createDefaultRoom);
+    }
+
+    private Room createDefaultRoom() {
+        try {
+            return roomRepository.save(Room.createDefault(roomProperties.getDefaultSeedMoney()));
+        } catch (DataIntegrityViolationException e) {
+            // 동시에 들어온 다른 요청이 먼저 기본방을 생성한 경우.
+            // uk_room_default_marker 유니크 제약 위반이므로 새로 만들지 않고 그 방을 그대로 쓴다.
+            return roomRepository.findByIsDefaultTrue().orElseThrow(() -> e);
+        }
     }
 }

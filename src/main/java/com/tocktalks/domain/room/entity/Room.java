@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "room")
+@Table(name = "room", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_room_default_marker", columnNames = {"default_marker"})
+})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Room {
@@ -23,6 +25,13 @@ public class Room {
 
     @Column(name = "is_default", nullable = false)
     private boolean isDefault;
+
+    // is_default=true인 행이 동시에 두 개 생기는 걸 막기 위한 마커.
+    // 기본방일 때만 1, 그 외에는 null (MySQL unique 제약은 null을 여러 개 허용하므로
+    // "true인 행이 최대 하나"를 DB 레벨에서 보장할 수 있다). isDefault 자체엔 unique를 걸 수 없다
+    // (false인 행이 여러 개라 항상 위반되므로).
+    @Column(name = "default_marker")
+    private Integer defaultMarker;
 
     @Column(name = "is_public", nullable = false)
     private boolean isPublic;
@@ -52,6 +61,7 @@ public class Room {
         Room room = new Room();
         room.name = "기본방";
         room.isDefault = true;
+        room.defaultMarker = 1;
         room.isPublic = true;
         room.seedMoney = seedMoney;
         room.status = "ongoing";
