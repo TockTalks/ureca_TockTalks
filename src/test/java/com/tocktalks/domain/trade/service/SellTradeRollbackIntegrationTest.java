@@ -54,6 +54,9 @@ class SellTradeRollbackIntegrationTest {
     @MockitoBean
     private CurrentPriceProvider currentPriceProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 잔액_입금에_실패하면_보유_종목과_거래_내역이_모두_롤백된다() {

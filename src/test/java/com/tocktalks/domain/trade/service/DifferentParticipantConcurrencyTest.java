@@ -64,6 +64,9 @@ class DifferentParticipantConcurrencyTest {
     @MockitoBean
     private StockNameProvider stockNameProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 다른_참가자의_주문은_서로를_잠그지_않고_동시에_처리된다()

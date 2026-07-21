@@ -58,6 +58,9 @@ class BuyTradeRollbackIntegrationTest {
     @MockitoBean
     private StockNameProvider stockNameProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 거래_저장에_실패하면_잔액과_보유_종목이_모두_롤백된다() {

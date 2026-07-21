@@ -65,6 +65,9 @@ class BuyTradeConcurrencyTest {
     @MockitoBean
     private StockNameProvider stockNameProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 동시에_잔액보다_많이_매수해도_한_건만_체결된다()

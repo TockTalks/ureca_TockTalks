@@ -70,6 +70,9 @@ class BuySellConcurrencyTest {
     @MockitoBean
     private StockNameProvider stockNameProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 같은_참가자의_매수와_매도가_동시에_실행되어도_정합성이_유지된다()

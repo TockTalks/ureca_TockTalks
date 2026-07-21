@@ -45,6 +45,10 @@ class BuyTradeServiceTest {
     private BuyTradeProcessor
             buyTradeProcessor;
 
+    @Mock
+    private TradeRankingService
+            tradeRankingService;
+
     @InjectMocks
     private BuyTradeService buyTradeService;
 
@@ -142,6 +146,9 @@ class BuyTradeServiceTest {
                 3L,
                 new BigDecimal("75000")
         );
+
+        verify(tradeRankingService)
+                .updateRanking(participant);
     }
 
     @Test
@@ -196,7 +203,10 @@ class BuyTradeServiceTest {
         assertThat(participant.getBalance())
                 .isEqualTo(100_000L);
 
-        verifyNoInteractions(buyTradeProcessor);
+        verifyNoInteractions(
+                buyTradeProcessor,
+                tradeRankingService
+        );
     }
 
     @Test
@@ -230,7 +240,8 @@ class BuyTradeServiceTest {
                 roomRepository,
                 currentPriceProvider,
                 stockNameProvider,
-                buyTradeProcessor
+                buyTradeProcessor,
+                tradeRankingService
         );
     }
 
@@ -278,7 +289,8 @@ class BuyTradeServiceTest {
         verifyNoInteractions(
                 currentPriceProvider,
                 stockNameProvider,
-                buyTradeProcessor
+                buyTradeProcessor,
+                tradeRankingService
         );
     }
 
@@ -303,7 +315,8 @@ class BuyTradeServiceTest {
                 roomRepository,
                 currentPriceProvider,
                 stockNameProvider,
-                buyTradeProcessor
+                buyTradeProcessor,
+                tradeRankingService
         );
     }
 }
