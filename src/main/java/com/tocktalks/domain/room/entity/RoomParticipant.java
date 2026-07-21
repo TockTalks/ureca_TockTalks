@@ -50,4 +50,40 @@ public class RoomParticipant {
         this.status = "ENDED";
         this.endedAt = LocalDateTime.now();
     }
+
+    public void withdraw(long amount) {
+        validateAmount(amount);
+
+        if (this.balance < amount) {
+            throw new IllegalArgumentException(
+                    "거래 잔액이 부족합니다."
+            );
+        }
+
+        this.balance -= amount;
+    }
+
+    public void deposit(long amount) {
+        validateAmount(amount);
+
+        try {
+            this.balance = Math.addExact(
+                    this.balance,
+                    amount
+            );
+        } catch (ArithmeticException exception) {
+            throw new IllegalArgumentException(
+                    "거래 잔액이 허용 범위를 초과합니다.",
+                    exception
+            );
+        }
+    }
+
+    private static void validateAmount(long amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException(
+                    "거래 금액은 1원 이상이어야 합니다."
+            );
+        }
+    }
 }
