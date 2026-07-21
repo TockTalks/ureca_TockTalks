@@ -1,15 +1,23 @@
 package com.tocktalks.domain.portfolio.service;
 
 import com.tocktalks.domain.portfolio.dto.AssetHistoryResponse;
+import com.tocktalks.domain.portfolio.dto.PortfolioDetailResponse;
+import com.tocktalks.domain.portfolio.dto.PortfolioHoldingResponse;
+import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
 import com.tocktalks.domain.portfolio.entity.AssetHistory;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
+import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
+import com.tocktalks.domain.room.repository.RoomRepository;
+import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.tocktalks.domain.trade.service.TradeAssetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,9 +31,45 @@ public class PortfolioService {
     
     private final AssetHistoryRepository assetHistoryRepository;
     private final RoomParticipantRepository roomParticipantRepository;
+    private final RoomRepository roomRepository;
     
     private final HoldingQueryService holdingQueryService;
-    
+    private final TradeAssetService tradeAssetService;
+
+    //내 포트폴리오 목록 조회
+    @Transactional(readOnly = true)
+    public List<PortfolioSummaryResponse> getPortfolios(Long memberId) {
+        List<RoomParticipant> participants = roomParticipantRepository.findByMemberId(memberId);
+
+        return participants.stream()
+                .map(this::toSummary)
+                .collect(Collectors.toList());
+    }
+
+    //포트폴리오 상세 조회
+    @Transactional(readOnly = true)
+    public PortfolioDetailResponse getPortfolioDetail(Long memberId, long roomParticipantId) {
+        //1. 권한 검증 (내 포트폴리오만 볼 수 있어야 함)
+        RoomParticipant participant = roomParticipantRepository.findById(roomParticipantId)
+                .orElseThrow(() -> new IllegalArgumentException("참가자 정보를 찾을 수 없습니다."));
+
+        if (!participant.getMemberId().equals(memberId)) {
+            throw new IllegalArgumentException("해당 포트폴리오를 조회할 권한이 없습니다.");
+        }
+
+        //2. 보유 종목 조회
+        List<HoldingResponse> holdingResponses = holdingQueryService.getHoldings(memberId, roomParticipantId);
+        HoldingSummaryResponse holdingSummary = HoldingSummaryResponse.from(holdingResponses);
+
+        List<PortfolioHoldingResponse> holdings = holdingResponses.stream()
+                .map(PortfolioHoldingResponse::from)
+                .toList();
+
+        //3. 요약 정보 조립 후 holdings와 합쳐서 반환
+        PortfolioSummaryResponse summary = toSummary(participant, holdingSummary);
+        return PortfolioDetailResponse.of(summary, holdings);
+    }
+
     @Transactional(readOnly = true)
     public List<AssetHistoryResponse> getAssetHistory(Long memberId, Long roomParticipantId) {
         //1. 권한 검증 (내 자산 히스토리만 볼 수 있어야 함)
@@ -81,5 +125,26 @@ public class PortfolioService {
             }
         }
         log.info("일일 자산 스냅샷 저장이 완료되었습니다.");
+    }
+
+    //RoomParticipant -> PortfolioSummaryResponse 변환 헬퍼 (목록, 상세 공용)
+    private PortfolioSummaryResponse toSummary(RoomParticipant participant) {
+        HoldingSummaryResponse holdingSummary = holdingQueryService.getHoldingSummary(
+                participant.getMemberId(), participant.getId()
+        );
+        return toSummary(participant, holdingSummary);
+    }
+
+    private PortfolioSummaryResponse toSummary(RoomParticipant participant, HoldingSummaryResponse holdingSummary) {
+        Room room = roomRepository.findById(participant.getRoomId())
+                .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
+
+        long totalAssetValue = tradeAssetService.calculateTotalAsset(participant);
+        long stockValuation = holdingSummary.totalValuation().longValue();
+
+        return PortfolioSummaryResponse.of(
+                participant, room, totalAssetValue, stockValuation,
+                holdingSummary.holdings().size()
+        );
     }
 }
