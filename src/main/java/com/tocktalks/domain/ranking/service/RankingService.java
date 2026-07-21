@@ -31,7 +31,8 @@ public class RankingService {
         Integer newRank = rankingRedisService.getRank(roomId, memberId, RankingType.RETURN_RATE);
 
         if (!Objects.equals(prevRank, newRank)) {
-            rankingPublisher.publish(roomId, new RankingUpdateEvent(memberId, newRank));
+            List<RankingDto> topN = rankingRedisService.getTopN(roomId, RankingType.RETURN_RATE, 10);
+            rankingPublisher.publish(roomId, new RankingUpdateEvent(memberId, newRank, topN));
         }
     }
 
