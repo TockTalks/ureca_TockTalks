@@ -33,6 +33,9 @@ public class BuyTradeService {
     private final BuyTradeProcessor
             buyTradeProcessor;
 
+    private final TradeRankingService
+            tradeRankingService;
+
     @Transactional
     public TradeExecutionResponse buy(
             Long memberId,
@@ -97,6 +100,10 @@ public class BuyTradeService {
                         request.quantity(),
                         currentPrice
                 );
+
+        tradeRankingService.updateRanking(
+                participant
+        );
 
         return TradeExecutionResponse.from(
                 transaction,

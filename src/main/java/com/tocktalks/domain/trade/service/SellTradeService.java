@@ -30,6 +30,9 @@ public class SellTradeService {
     private final SellTradeProcessor
             sellTradeProcessor;
 
+    private final TradeRankingService
+            tradeRankingService;
+
     @Transactional
     public TradeExecutionResponse sell(
             Long memberId,
@@ -88,6 +91,10 @@ public class SellTradeService {
                 );
 
         participant.deposit(tradeAmount);
+
+        tradeRankingService.updateRanking(
+                participant
+        );
 
         return TradeExecutionResponse.from(
                 transaction,

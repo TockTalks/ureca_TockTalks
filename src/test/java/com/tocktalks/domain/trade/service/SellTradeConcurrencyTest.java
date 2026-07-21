@@ -62,6 +62,9 @@ class SellTradeConcurrencyTest {
     @MockitoBean
     private CurrentPriceProvider currentPriceProvider;
 
+    @MockitoBean
+    private TradeRankingService tradeRankingService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 한_주를_동시에_두_번_매도해도_한_건만_체결된다()
