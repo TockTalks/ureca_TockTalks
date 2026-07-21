@@ -16,6 +16,7 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.room.repository.RoomRepository;
 import com.tocktalks.global.config.RoomProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -176,7 +178,14 @@ public class RoomService {
     @Transactional
     public void closeExpiredRooms() {
         List<Room> expiredRooms = roomRepository.findByStatusAndEndAtBefore(STATUS_ONGOING, LocalDateTime.now());
-        expiredRooms.forEach(this::archiveAndClose);
+        for (Room room : expiredRooms) {
+            try {
+                archiveAndClose(room);
+            } catch (Exception e) {
+                // 특정 방(예: 시세 조회 실패)에서 터져도 다른 만료된 방들은 계속 정상 종료되도록 격리한다.
+                log.error("방 종료 처리 실패 (roomId={})", room.getId(), e);
+            }
+        }
     }
 
     private void archiveAndClose(Room room) {
