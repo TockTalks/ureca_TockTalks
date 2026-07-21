@@ -1,4 +1,140 @@
 package com.tocktalks.domain.trade.service;
 
+import com.tocktalks.domain.room.entity.Room;
+import com.tocktalks.domain.room.entity.RoomParticipant;
+import com.tocktalks.domain.room.repository.RoomParticipantRepository;
+import com.tocktalks.domain.room.repository.RoomRepository;
+import com.tocktalks.domain.trade.dto.request.TradeOrderRequest;
+import com.tocktalks.domain.trade.dto.response.TradeExecutionResponse;
+import com.tocktalks.domain.trade.entity.StockCodeValidator;
+import com.tocktalks.domain.trade.entity.Transaction;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Service
+@RequiredArgsConstructor
 public class BuyTradeService {
+
+    private final RoomParticipantRepository
+            roomParticipantRepository;
+
+    private final RoomRepository roomRepository;
+
+    private final CurrentPriceProvider
+            currentPriceProvider;
+
+    private final StockNameProvider
+            stockNameProvider;
+
+    private final BuyTradeProcessor
+            buyTradeProcessor;
+
+    @Transactional
+    public TradeExecutionResponse buy(
+            Long memberId,
+            Long roomParticipantId,
+            TradeOrderRequest request
+    ) {
+        validateId(memberId, "회원 ID");
+        validateId(
+                roomParticipantId,
+                "방 참가자 ID"
+        );
+        validateRequest(request);
+
+        RoomParticipant participant =
+                roomParticipantRepository
+                        .findActiveForUpdate(
+                                roomParticipantId,
+                                memberId
+                        )
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "거래 가능한 참가자 정보를 찾을 수 없습니다."
+                                )
+                        );
+
+        Room room = roomRepository
+                .findById(participant.getRoomId())
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "거래할 방 정보를 찾을 수 없습니다."
+                        )
+                );
+
+        TradeAvailabilityValidator.validate(
+                room,
+                LocalDateTime.now()
+        );
+
+        BigDecimal currentPrice =
+                currentPriceProvider.getCurrentPrice(
+                        request.stockCode()
+                );
+
+        String stockName =
+                stockNameProvider.getStockName(
+                        request.stockCode()
+                );
+
+        long tradeAmount =
+                TradeAmountCalculator.calculate(
+                        currentPrice,
+                        request.quantity()
+                );
+
+        participant.withdraw(tradeAmount);
+
+        Transaction transaction =
+                buyTradeProcessor.process(
+                        roomParticipantId,
+                        request.stockCode(),
+                        stockName,
+                        request.quantity(),
+                        currentPrice
+                );
+
+        return TradeExecutionResponse.from(
+                transaction,
+                tradeAmount,
+                participant.getBalance()
+        );
+    }
+
+    private void validateRequest(
+            TradeOrderRequest request
+    ) {
+        if (request == null) {
+            throw new IllegalArgumentException(
+                    "매수 요청은 필수입니다."
+            );
+        }
+
+        StockCodeValidator.validate(
+                request.stockCode()
+        );
+
+        if (request.quantity() == null
+                || request.quantity() <= 0) {
+            throw new IllegalArgumentException(
+                    "거래 수량은 1 이상이어야 합니다."
+            );
+        }
+    }
+
+    private void validateId(
+            Long id,
+            String fieldName
+    ) {
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException(
+                    fieldName
+                            + "가 올바르지 않습니다."
+            );
+        }
+    }
 }

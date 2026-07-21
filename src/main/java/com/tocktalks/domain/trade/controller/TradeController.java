@@ -3,6 +3,13 @@ package com.tocktalks.domain.trade.controller;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.TradeHistoryResponse;
 import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
+import com.tocktalks.domain.trade.dto.request.TradeOrderRequest;
+import com.tocktalks.domain.trade.dto.response.TradeExecutionResponse;
+import com.tocktalks.domain.trade.service.BuyTradeService;
+import com.tocktalks.domain.trade.service.SellTradeService;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 import com.tocktalks.domain.trade.service.TradeHistoryService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +32,8 @@ public class TradeController {
 
     private final TradeHistoryService tradeHistoryService;
     private final HoldingQueryService holdingQueryService;
+    private final BuyTradeService buyTradeService;
+    private final SellTradeService sellTradeService;
 
     @GetMapping
     public ResponseEntity<Page<TradeHistoryResponse>>
@@ -73,6 +82,46 @@ public class TradeController {
                 holdingQueryService.getHoldingSummary(
                         memberId,
                         roomParticipantId
+                )
+        );
+    }
+
+    @PostMapping("/buy")
+    public ResponseEntity<TradeExecutionResponse>
+    buy(
+            Authentication authentication,
+            @RequestParam Long roomParticipantId,
+            @Valid @RequestBody
+            TradeOrderRequest request
+    ) {
+        Long memberId =
+                extractMemberId(authentication);
+
+        return ResponseEntity.ok(
+                buyTradeService.buy(
+                        memberId,
+                        roomParticipantId,
+                        request
+                )
+        );
+    }
+
+    @PostMapping("/sell")
+    public ResponseEntity<TradeExecutionResponse>
+    sell(
+            Authentication authentication,
+            @RequestParam Long roomParticipantId,
+            @Valid @RequestBody
+            TradeOrderRequest request
+    ) {
+        Long memberId =
+                extractMemberId(authentication);
+
+        return ResponseEntity.ok(
+                sellTradeService.sell(
+                        memberId,
+                        roomParticipantId,
+                        request
                 )
         );
     }
