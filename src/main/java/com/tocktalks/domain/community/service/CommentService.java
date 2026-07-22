@@ -87,4 +87,13 @@ public class CommentService {
                 .orElseThrow(() -> new CommunityException(CommunityErrorCode.POST_NOT_FOUND));
     }
 
+    @Transactional
+    public void deleteCommentByAdmin(Long commentId){
+        Comment comment = getCommentOrThrow(commentId);
+        Post post = getPostOrThrow(comment.getPostId());
+
+        commentRepository.delete(comment);
+        post.decreaseCommentCount();
+    }
+
 }
