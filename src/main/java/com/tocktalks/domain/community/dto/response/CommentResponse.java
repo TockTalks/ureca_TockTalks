@@ -11,6 +11,7 @@ public record CommentResponse(
         String content,
         int likeCount,
         boolean likedByMe,
+        boolean edited,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
@@ -22,6 +23,7 @@ public record CommentResponse(
                 comment.getContent(),
                 comment.getLikeCount(),
                 likedByMe,
+                comment.isEdited(),
                 comment.getCreatedAt(),
                 comment.getUpdatedAt()
         );

@@ -96,4 +96,11 @@ public class PostService {
         }
         return post;
     }
+
+    @Transactional
+    public void deletePostByAdmin(Long postId){
+        Post post = getPostOrThrow(postId);
+        postRepository.delete(post);
+    }
+
 }
