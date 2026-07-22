@@ -144,6 +144,11 @@ public class AuthService {
         Member member = getMember(memberId);
 
         if (request.nickname() != null && !request.nickname().isBlank()) {
+            // 카카오 계정은 로그인할 때마다 카카오 최신 닉네임으로 덮어써지므로(loginWithKakao 참고)
+            // 여기서 직접 바꿔봤자 다음 로그인에 되돌아간다. 아예 변경을 막는다.
+            if (!PROVIDER_LOCAL.equals(member.getProvider())) {
+                throw new IllegalArgumentException("소셜 로그인 계정은 닉네임을 변경할 수 없습니다. 카카오 계정의 닉네임을 변경해주세요.");
+            }
             member.updateNickname(request.nickname());
         }
 

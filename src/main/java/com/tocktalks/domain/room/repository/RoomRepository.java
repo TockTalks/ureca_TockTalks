@@ -15,4 +15,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findByIsPublicTrueAndIsDefaultFalseAndStatus(String status);
 
     List<Room> findByStatusAndEndAtBefore(String status, LocalDateTime endAt);
+
+    long countByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 }
