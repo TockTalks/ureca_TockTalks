@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClientException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -28,6 +29,11 @@ public class HoldingQueryService {
     private final HoldingRepository holdingRepository;
 
     private final CurrentPriceProvider currentPriceProvider;
+
+    private static final String LATEST_PRICE_KEY_PREFIX =
+            "price:latest:";
+
+    private final StringRedisTemplate redisTemplate;
 
     public List<HoldingResponse> getHoldings(
             Long memberId,
@@ -77,13 +83,39 @@ public class HoldingQueryService {
     private BigDecimal getValuationPrice(
             Holding holding
     ) {
+        String cacheKey =
+                LATEST_PRICE_KEY_PREFIX + holding.getStockCode();
+
         try {
-            return currentPriceProvider.getCurrentPrice(
-                    holding.getStockCode()
+            BigDecimal currentPrice =
+                    currentPriceProvider.getCurrentPrice(
+                            holding.getStockCode()
+                    );
+
+            redisTemplate.opsForValue().set(
+                    cacheKey,
+                    currentPrice.toPlainString()
             );
-        } catch (WebClientException exception) {
+
+            return currentPrice;
+        } catch (WebClientException | IllegalStateException exception) {
+            BigDecimal cachedPrice = getCachedPrice(cacheKey);
+
+            if (cachedPrice != null) {
+                log.warn(
+                        "KIS 현재가 조회 실패로 마지막 정상 시세를 사용합니다. "
+                                + "stockCode={}, roomParticipantId={}, cachedPrice={}, message={}",
+                        holding.getStockCode(),
+                        holding.getRoomParticipantId(),
+                        cachedPrice,
+                        exception.getMessage()
+                );
+
+                return cachedPrice;
+            }
+
             log.warn(
-                    "KIS 현재가 조회 실패로 평균 매입가를 임시 사용합니다. "
+                    "KIS 현재가와 캐시가 없어 평균 매입가를 임시 사용합니다. "
                             + "stockCode={}, roomParticipantId={}, message={}",
                     holding.getStockCode(),
                     holding.getRoomParticipantId(),
@@ -91,6 +123,32 @@ public class HoldingQueryService {
             );
 
             return holding.getAvgPrice();
+        }
+    }
+
+    private BigDecimal getCachedPrice(String cacheKey) {
+        try {
+            String cachedValue =
+                    redisTemplate.opsForValue().get(cacheKey);
+
+            if (cachedValue == null || cachedValue.isBlank()) {
+                return null;
+            }
+
+            BigDecimal cachedPrice =
+                    new BigDecimal(cachedValue.trim());
+
+            return cachedPrice.compareTo(BigDecimal.ZERO) > 0
+                    ? cachedPrice
+                    : null;
+        } catch (RuntimeException exception) {
+            log.warn(
+                    "캐시된 현재가를 읽지 못했습니다. cacheKey={}, message={}",
+                    cacheKey,
+                    exception.getMessage()
+            );
+
+            return null;
         }
     }
 
