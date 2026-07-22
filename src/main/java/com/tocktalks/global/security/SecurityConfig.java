@@ -33,7 +33,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exception -> exception
                     .authenticationEntryPoint((request, response, authenticationException) ->
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)))
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
+                    .accessDeniedHandler((request, response, accessDeniedException) ->
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN)))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/health", "/ws/**").permitAll()
                 .requestMatchers("/api/auth/kakao/**", "/api/auth/signup", "/api/auth/login",
