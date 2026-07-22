@@ -2,7 +2,7 @@ package com.tocktalks.domain.portfolio.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "asset_history")
@@ -20,16 +20,16 @@ public class AssetHistory {
     @Column(name = "total_asset", nullable = false)
     private Long totalAsset;
 
-    @Column(name = "snapshot_date", nullable = false)
-    private LocalDate snapshotDate;
+    @Column(name = "recorded_at", nullable = false)
+    private LocalDateTime recordedAt;
     
-    private AssetHistory(Long roomParticipantId, Long totalAsset, LocalDate snapshotDate) {
+    private AssetHistory(Long roomParticipantId, Long totalAsset, LocalDateTime recordedAt) {
         this.roomParticipantId = roomParticipantId;
         this.totalAsset = totalAsset;
-        this.snapshotDate = snapshotDate;
+        this.recordedAt = recordedAt;
     }
     
     public static AssetHistory create(Long roomParticipantId, Long totalAsset) {
-        return new AssetHistory(roomParticipantId, totalAsset, LocalDate.now());
+        return new AssetHistory(roomParticipantId, totalAsset, LocalDateTime.now());
     }
 }
