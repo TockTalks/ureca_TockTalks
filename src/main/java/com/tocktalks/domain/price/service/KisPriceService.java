@@ -3,24 +3,50 @@ package com.tocktalks.domain.price.service;
 import com.tocktalks.domain.price.config.KisApiProperties;
 import com.tocktalks.domain.price.dto.response.KisPriceEnvelope;
 import com.tocktalks.domain.price.dto.response.KisPriceResponse;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import tools.jackson.databind.ObjectMapper;
+
+import java.time.Duration;
 
 @Service
 public class KisPriceService {
     private static final String TR_ID_INQUIRE_PRICE = "FHKST01010100";
+    private static final String CACHE_KEY_PREFIX = "price:rest:";
+    private static final Duration CACHE_TTL = Duration.ofSeconds(3);
 
     private final WebClient kisWebClient;
     private final KisApiProperties kisApiProperties;
     private final KisAuthService kisAuthService;
+    private final StringRedisTemplate redisTemplate;
+    private final ObjectMapper objectMapper;
 
-    public KisPriceService(WebClient kisWebClient, KisApiProperties kisApiProperties, KisAuthService kisAuthService) {
+    public KisPriceService(WebClient kisWebClient,
+                           KisApiProperties kisApiProperties,
+                           KisAuthService kisAuthService,
+                           StringRedisTemplate redisTemplate,
+                           ObjectMapper objectMapper) {
         this.kisWebClient = kisWebClient;
         this.kisApiProperties = kisApiProperties;
         this.kisAuthService = kisAuthService;
+        this.redisTemplate = redisTemplate;
+        this.objectMapper = objectMapper;
     }
 
     public KisPriceResponse getCurrentPrice(String stockCode) {
+        String cacheKey = CACHE_KEY_PREFIX + stockCode;
+        String cached = redisTemplate.opsForValue().get(cacheKey);
+        if (cached != null) {
+            return objectMapper.readValue(cached, KisPriceResponse.class);
+        }
+
+        KisPriceResponse response = fetchFromKis(stockCode);
+        redisTemplate.opsForValue().set(cacheKey, objectMapper.writeValueAsString(response), CACHE_TTL);
+        return response;
+    }
+
+    private KisPriceResponse fetchFromKis(String stockCode) {
         String accessToken = kisAuthService.getAccessToken();
 
         KisPriceEnvelope envelope = kisWebClient.get()
