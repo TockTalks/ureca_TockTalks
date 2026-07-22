@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tocktalks.domain.trade.service.TradeAssetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,7 +33,6 @@ public class PortfolioService {
     private final RoomRepository roomRepository;
     
     private final HoldingQueryService holdingQueryService;
-    private final TradeAssetService tradeAssetService;
 
     //내 포트폴리오 목록 조회
     @Transactional(readOnly = true)
@@ -139,8 +137,20 @@ public class PortfolioService {
         Room room = roomRepository.findById(participant.getRoomId())
                 .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
 
-        long totalAssetValue = tradeAssetService.calculateTotalAsset(participant);
         long stockValuation = holdingSummary.totalValuation().longValue();
+
+        long totalAssetValue;
+        try {
+            totalAssetValue = Math.addExact(
+                    participant.getBalance(),
+                    stockValuation
+            );
+        } catch (ArithmeticException exception) {
+            throw new IllegalArgumentException(
+                    "총자산이 허용 범위를 초과합니다.",
+                    exception
+            );
+        }
 
         return PortfolioSummaryResponse.of(
                 participant, room, totalAssetValue, stockValuation,
