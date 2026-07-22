@@ -33,7 +33,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exception -> exception
                     .authenticationEntryPoint((request, response, authenticationException) ->
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED)))
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED))
+                    .accessDeniedHandler((request, response, accessDeniedException) ->
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN)))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/health", "/ws/**").permitAll()
                 .requestMatchers("/api/auth/kakao/**", "/api/auth/signup", "/api/auth/login",
@@ -47,6 +49,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/price/**").permitAll()
                 // 커뮤니티는 조회(@LoginMemberId)도 로그인이 필요하고, 포트폴리오는 개인 자산 정보라 로그인 필요
                 .requestMatchers("/api/posts/**", "/api/portfolios/**").authenticated()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 // 도메인별로 다 잠갔으니 나머지 신규 API는 기본적으로 인증 필요 (AUTH-06)
                 .anyRequest().authenticated()
             )

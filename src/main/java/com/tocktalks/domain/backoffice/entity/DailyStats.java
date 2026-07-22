@@ -38,4 +38,25 @@ public class DailyStats {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    public static DailyStats of(
+            LocalDate statDate,
+            int newMemberCount,
+            int totalMemberCount,
+            int newRoomCount,
+            int transactionCount,
+            long transactionAmount,
+            int newPostCount
+    ) {
+        DailyStats stats = new DailyStats();
+        stats.statDate = statDate;
+        stats.newMemberCount = newMemberCount;
+        stats.totalMemberCount = totalMemberCount;
+        stats.newRoomCount = newRoomCount;
+        stats.transactionCount = transactionCount;
+        stats.transactionAmount = transactionAmount;
+        stats.newPostCount = newPostCount;
+        stats.createdAt = LocalDateTime.now();
+        return stats;
+    }
 }
