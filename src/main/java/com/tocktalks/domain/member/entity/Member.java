@@ -78,4 +78,9 @@ public class Member {
         member.updatedAt = LocalDateTime.now();
         return member;
     }
+
+    public void block() {
+        this.status = "blocked";
+        this.updatedAt = LocalDateTime.now();
+    }
 }
