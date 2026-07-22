@@ -28,4 +28,11 @@ public record KisRealtimeSubscribeRequest (
                 new Body(new Input(trId, stockCode))
         );
     }
+
+    public static KisRealtimeSubscribeRequest ofUnsubscribe(String approvalKey, String trId, String stockCode) {
+        return new KisRealtimeSubscribeRequest(
+                new Header(approvalKey, "P", "2", "utf-8"),
+                new Body(new Input(trId, stockCode))
+        );
+    }
 }
