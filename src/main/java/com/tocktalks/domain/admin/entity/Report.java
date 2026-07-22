@@ -23,6 +23,9 @@ public class Report {
     @Column(name = "target_id", nullable = false)
     private Long targetId;
 
+    @Column(name = "target_member_id", nullable = false) //추후 방 신고까지 들어오면 변경해야 함
+    private Long targetMemberId;
+
     @Column(nullable = false, length = 255)
     private String reason;
 
