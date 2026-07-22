@@ -193,6 +193,21 @@ public class RoomService {
         }
     }
 
+    //관리자에 의한 방 강제 종료 (이상거래/신고 대응)
+    @Transactional
+    public void terminateRoomByAdmin(Long roomId) {
+        Room room = getRoom(roomId);
+
+        if (room.isDefault()) {
+            throw new IllegalArgumentException("기본방은 강제 종료할 수 없습니다.");
+        }
+        if (!STATUS_ONGOING.equals(room.getStatus())) {
+            throw new IllegalArgumentException("이미 종료된 방입니다.");
+        }
+
+        archiveAndClose(room);
+    }
+
     private void archiveAndClose(Room room) {
         List<RoomParticipant> participants =
                 roomParticipantRepository
@@ -249,4 +264,5 @@ public class RoomService {
             return roomRepository.findByIsDefaultTrue().orElseThrow(() -> e);
         }
     }
+
 }
