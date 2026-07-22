@@ -195,7 +195,7 @@ public class RoomService {
 
     //관리자에 의한 방 강제 종료 (이상거래/신고 대응)
     @Transactional
-    public void terminateRoomByAdmin(Long roomId) {
+    public void terminateRoomByAdmin(Long roomId, Long adminId) {
         Room room = getRoom(roomId);
 
         if (room.isDefault()) {
@@ -206,6 +206,8 @@ public class RoomService {
         }
 
         archiveAndClose(room);
+
+        log.warn("관리자에 의한 방 강제 종료 (roomId={}, adminId={})", roomId, adminId);
     }
 
     private void archiveAndClose(Room room) {
