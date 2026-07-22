@@ -1,5 +1,6 @@
 package com.tocktalks.domain.admin.service;
 
+import com.tocktalks.domain.admin.dto.request.ReportCreateRequest;
 import com.tocktalks.domain.admin.dto.response.ReportResponse;
 import com.tocktalks.domain.admin.entity.Report;
 import com.tocktalks.domain.admin.repository.ReportRepository;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,10 +22,23 @@ public class ReportService {
 
     private static final String STATUS_PENDING = "pending";
     private static final String STATUS_RESOLVED = "resolved";
+    private static final List<String> VALID_TARGET_TYPES = List.of("POST", "COMMENT", "ROOM");
     
     private final ReportRepository reportRepository;
     private final PostService postService;
     private final CommentService commentService;
+
+    //게시글/댓글 신고 접수
+    @Transactional
+    public void createReport(Long reporterId, ReportCreateRequest request) {
+        if (!VALID_TARGET_TYPES.contains(request.targetType())) {
+            throw new IllegalArgumentException("지원하지 않는 신고 대상입니다: " + request.targetType());
+        }
+
+        reportRepository.save(Report.create(
+                reporterId, request.targetType(), request.targetId(), request.targetMemberId(), request.reason()
+        ));
+    }
 
     //처리 대기 중인 신고 목록을 페이징하여 조회
     public Page<ReportResponse> getPendingRports(Pageable pageable) {
