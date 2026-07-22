@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface TransactionRepository
@@ -16,6 +18,15 @@ public interface TransactionRepository
             Long roomParticipantId,
             Pageable pageable
     );
+
+    long countByExecutedAtBetween(LocalDateTime start, LocalDateTime end);
+
+    @Query("""
+            SELECT COALESCE(SUM(t.price * t.quantity), 0)
+            FROM Transaction t
+            WHERE t.executedAt >= :start AND t.executedAt < :end
+            """)
+    BigDecimal sumAmountBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
     @Query(
             value = """

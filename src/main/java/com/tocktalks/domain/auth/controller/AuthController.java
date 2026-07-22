@@ -63,7 +63,8 @@ public class AuthController {
                 "id", member.getId(),
                 "email", member.getEmail(),
                 "nickname", member.getNickname(),
-                "role", member.getRole()
+                "role", member.getRole(),
+                "provider", member.getProvider()
         );
     }
 
