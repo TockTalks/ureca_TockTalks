@@ -9,10 +9,14 @@ import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.client.WebClientException;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -51,10 +55,7 @@ public class HoldingQueryService {
                 .map(holding ->
                         HoldingResponse.from(
                                 holding,
-                                currentPriceProvider
-                                        .getCurrentPrice(
-                                                holding.getStockCode()
-                                        )
+                                getValuationPrice(holding)
                         )
                 )
                 .toList();
@@ -71,6 +72,26 @@ public class HoldingQueryService {
                 );
 
         return HoldingSummaryResponse.from(holdings);
+    }
+
+    private BigDecimal getValuationPrice(
+            Holding holding
+    ) {
+        try {
+            return currentPriceProvider.getCurrentPrice(
+                    holding.getStockCode()
+            );
+        } catch (WebClientException exception) {
+            log.warn(
+                    "KIS 현재가 조회 실패로 평균 매입가를 임시 사용합니다. "
+                            + "stockCode={}, roomParticipantId={}, message={}",
+                    holding.getStockCode(),
+                    holding.getRoomParticipantId(),
+                    exception.getMessage()
+            );
+
+            return holding.getAvgPrice();
+        }
     }
 
     private IllegalArgumentException participantNotFound() {
