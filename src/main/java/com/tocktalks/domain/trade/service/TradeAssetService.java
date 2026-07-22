@@ -6,13 +6,17 @@ import com.tocktalks.domain.trade.repository.HoldingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional(
+        readOnly = true,
+        noRollbackFor = WebClientException.class
+)
 public class TradeAssetService {
 
     private final HoldingRepository holdingRepository;
