@@ -32,6 +32,9 @@ public class Comment {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "edited", nullable = false)
+    private boolean edited;
+
     private Comment(Long postId, Long memberId, String content){
         this.postId = postId;
         this.memberId = memberId;
@@ -39,6 +42,7 @@ public class Comment {
         this.likeCount = 0;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.edited = false;
     }
 
     public static Comment create(Long postId, Long memberId, String content){
@@ -48,6 +52,7 @@ public class Comment {
     public void updateContent(String content){
         this.content = content;
         this.updatedAt = LocalDateTime.now();
+        this.edited = true;
     }
 
     public boolean isOwnedBy(Long memberId){
