@@ -18,6 +18,8 @@ import tools.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +36,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     private final ObjectMapper objectMapper;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final PricePublisher pricePublisher;
+    private final Set<String> subscribedStockCodes = ConcurrentHashMap.newKeySet();
 
     private WebSocketSession session;
     private long reconnectDelaySeconds = 1;
@@ -50,7 +53,10 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         this.pricePublisher = pricePublisher;
     }
 
-    public void connect() {
+    public synchronized void connect() {
+        if (session != null && session.isOpen()) {
+            return;
+        }
         try {
             WebSocketClient client = new StandardWebSocketClient();
             String url = kisApiProperties.websocketUrl() + WS_PATH;
@@ -62,6 +68,11 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     }
 
     public void subscribe(String stockCode) throws IOException {
+        sendSubscribeRequest(stockCode);
+        subscribedStockCodes.add(stockCode);
+    }
+
+    private void sendSubscribeRequest(String stockCode) throws IOException {
         String approvalKey = kisAuthService.getApprovalKey();
         KisRealtimeSubscribeRequest request = KisRealtimeSubscribeRequest.of(approvalKey, TR_ID_CCNL_KRX, stockCode);
 
@@ -122,10 +133,31 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     private void reconnect() {
         try {
             connect();
+            resubscribeAll();
         } catch (Exception e) {
             reconnectDelaySeconds = Math.min(reconnectDelaySeconds * 2, 60);
             scheduler.schedule(this::reconnect, reconnectDelaySeconds, TimeUnit.SECONDS);
         }
+    }
+
+    private void resubscribeAll() {
+        for (String stockCode : subscribedStockCodes) {
+            try {
+                sendSubscribeRequest(stockCode);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void unsubscribe(String stockCode) throws IOException {
+        String approvalKey = kisAuthService.getApprovalKey();
+        KisRealtimeSubscribeRequest request =
+                KisRealtimeSubscribeRequest.ofUnsubscribe(approvalKey, TR_ID_CCNL_KRX, stockCode);
+
+        String json = objectMapper.writeValueAsString(request);
+        session.sendMessage(new TextMessage(json));
+        subscribedStockCodes.remove(stockCode);
     }
 
 }
