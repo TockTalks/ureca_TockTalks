@@ -34,7 +34,19 @@ public class Report {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
-    
+
+    public static Report create(Long reporterId, String targetType, Long targetId, Long targetMemberId, String reason) {
+        Report report = new Report();
+        report.reporterId = reporterId;
+        report.targetType = targetType;
+        report.targetId = targetId;
+        report.targetMemberId = targetMemberId;
+        report.reason = reason;
+        report.status = "pending";
+        report.createdAt = LocalDate.now();
+        return report;
+    }
+
     public void resolve() {
         this.status = "resolved";
     }
