@@ -4,7 +4,10 @@ import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.reactive.function.client.WebClientException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TradeRankingService {
@@ -15,16 +18,25 @@ public class TradeRankingService {
     public void updateRanking(
             RoomParticipant participant
     ) {
-        long totalAsset =
-                tradeAssetService.calculateTotalAsset(
-                        participant
-                );
+        try {
+            long totalAsset =
+                    tradeAssetService.calculateTotalAsset(
+                            participant
+                    );
 
-        rankingService.updateRanking(
-                participant.getRoomId(),
-                participant.getMemberId(),
-                totalAsset,
-                participant.getInitialSeedMoney()
-        );
+            rankingService.updateRanking(
+                    participant.getRoomId(),
+                    participant.getMemberId(),
+                    totalAsset,
+                    participant.getInitialSeedMoney()
+            );
+        } catch (WebClientException exception) {
+            log.warn(
+                    "거래 체결 후 KIS 현재가 조회 실패로 랭킹 갱신을 건너뜁니다. "
+                            + "roomParticipantId={}, message={}",
+                    participant.getId(),
+                    exception.getMessage()
+            );
+        }
     }
 }
