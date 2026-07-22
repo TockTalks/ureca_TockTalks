@@ -21,17 +21,20 @@ public class KisPriceService {
     private final KisAuthService kisAuthService;
     private final StringRedisTemplate redisTemplate;
     private final ObjectMapper objectMapper;
+    private final KisRateLimiter kisRateLimiter;
 
     public KisPriceService(WebClient kisWebClient,
                            KisApiProperties kisApiProperties,
                            KisAuthService kisAuthService,
                            StringRedisTemplate redisTemplate,
-                           ObjectMapper objectMapper) {
+                           ObjectMapper objectMapper,
+                           KisRateLimiter kisRateLimiter) {
         this.kisWebClient = kisWebClient;
         this.kisApiProperties = kisApiProperties;
         this.kisAuthService = kisAuthService;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
+        this.kisRateLimiter = kisRateLimiter;
     }
 
     public KisPriceResponse getCurrentPrice(String stockCode) {
@@ -47,6 +50,7 @@ public class KisPriceService {
     }
 
     private KisPriceResponse fetchFromKis(String stockCode) {
+        kisRateLimiter.acquire();
         String accessToken = kisAuthService.getAccessToken();
 
         KisPriceEnvelope envelope = kisWebClient.get()
