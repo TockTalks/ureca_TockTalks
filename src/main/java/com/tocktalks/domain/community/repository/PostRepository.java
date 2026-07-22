@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
@@ -14,4 +15,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findByStockCodeOrderByCreatedAtDesc(String stockCode, Pageable pageable);
 
     Optional<Post> findByAndMemberId(Long id, Long memberId);
+
+    long countByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 }
