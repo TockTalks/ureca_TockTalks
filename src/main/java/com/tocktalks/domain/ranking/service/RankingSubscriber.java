@@ -1,6 +1,6 @@
 package com.tocktalks.domain.ranking.service;
 
-import com.tocktalks.domain.ranking.dto.response.RankingUpdateEvent;
+import com.tocktalks.domain.ranking.dto.response.RankingBroadcastEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
@@ -26,11 +26,11 @@ public class RankingSubscriber implements MessageListener {
             String roomId = channel.substring(CHANNEL_PREFIX.length());
             String body = new String(message.getBody());
 
-            RankingUpdateEvent event = objectMapper.readValue(body, RankingUpdateEvent.class);
+            RankingBroadcastEvent event = objectMapper.readValue(body, RankingBroadcastEvent.class);
 
             log.info("[RankingSubscriber] channel={}, event={}", channel, event);
 
-            messagingTemplate.convertAndSend("/topic/ranking" + roomId, event);
+            messagingTemplate.convertAndSend("/topic/room-ranking/" + roomId, event);
         } catch (Exception e) {
             log.error("랭킹 이벤트 처리 중 오류 발생", e);
         }
