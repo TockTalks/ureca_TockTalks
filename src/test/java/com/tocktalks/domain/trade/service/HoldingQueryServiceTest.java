@@ -11,9 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +28,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class HoldingQueryServiceTest {
 
     @Mock
@@ -35,6 +40,9 @@ class HoldingQueryServiceTest {
 
     @Mock
     private CurrentPriceProvider currentPriceProvider;
+
+    @Mock(answer = org.mockito.Answers.RETURNS_DEEP_STUBS)
+    private StringRedisTemplate redisTemplate;
 
     @InjectMocks
     private HoldingQueryService holdingQueryService;
@@ -74,13 +82,12 @@ class HoldingQueryServiceTest {
                 roomParticipantId
         )).thenReturn(List.of(naver, samsung));
 
-        when(currentPriceProvider.getCurrentPrice(
-                "005930"
-        )).thenReturn(new BigDecimal("75000"));
-
-        when(currentPriceProvider.getCurrentPrice(
-                "035420"
-        )).thenReturn(new BigDecimal("180000"));
+        when(currentPriceProvider.getCurrentPrices(
+                List.of("005930", "035420")
+        )).thenReturn(Map.of(
+                "005930", new BigDecimal("75000"),
+                "035420", new BigDecimal("180000")
+        ));
 
         List<HoldingResponse> result =
                 holdingQueryService.getHoldings(
@@ -128,10 +135,7 @@ class HoldingQueryServiceTest {
                 );
 
         verify(currentPriceProvider)
-                .getCurrentPrice("005930");
-
-        verify(currentPriceProvider)
-                .getCurrentPrice("035420");
+                .getCurrentPrices(List.of("005930", "035420"));
     }
 
     @Test
@@ -169,13 +173,12 @@ class HoldingQueryServiceTest {
                 roomParticipantId
         )).thenReturn(List.of(naver, samsung));
 
-        when(currentPriceProvider.getCurrentPrice(
-                "005930"
-        )).thenReturn(new BigDecimal("75000"));
-
-        when(currentPriceProvider.getCurrentPrice(
-                "035420"
-        )).thenReturn(new BigDecimal("180000"));
+        when(currentPriceProvider.getCurrentPrices(
+                List.of("005930", "035420")
+        )).thenReturn(Map.of(
+                "005930", new BigDecimal("75000"),
+                "035420", new BigDecimal("180000")
+        ));
 
         HoldingSummaryResponse result =
                 holdingQueryService.getHoldingSummary(
@@ -198,6 +201,48 @@ class HoldingQueryServiceTest {
                         "005930",
                         "035420"
                 );
+    }
+
+    @Test
+    void 배치_조회가_일부_종목만_반환해도_나머지는_평균매입가로_대체한다() {
+        Long memberId = 10L;
+        Long roomParticipantId = 20L;
+
+        RoomParticipant participant =
+                mock(RoomParticipant.class);
+
+        when(participant.getMemberId())
+                .thenReturn(memberId);
+
+        Holding samsung = Holding.create(
+                roomParticipantId,
+                "005930",
+                "삼성전자",
+                10L,
+                new BigDecimal("70000")
+        );
+
+        when(roomParticipantRepository.findById(
+                roomParticipantId
+        )).thenReturn(Optional.of(participant));
+
+        when(holdingRepository.findAllByRoomParticipantId(
+                roomParticipantId
+        )).thenReturn(List.of(samsung));
+
+        // 배치 조회 결과에 해당 종목이 없음 (KIS 조회 실패한 경우)
+        when(currentPriceProvider.getCurrentPrices(
+                List.of("005930")
+        )).thenReturn(Map.of());
+
+        List<HoldingResponse> result =
+                holdingQueryService.getHoldings(
+                        memberId,
+                        roomParticipantId
+                );
+
+        assertThat(result.getFirst().currentPrice())
+                .isEqualByComparingTo("70000.00");
     }
 
     @Test

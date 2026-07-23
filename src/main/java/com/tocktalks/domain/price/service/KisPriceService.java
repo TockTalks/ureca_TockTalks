@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import tools.jackson.databind.ObjectMapper;
 
+import java.math.BigDecimal;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class KisPriceService {
@@ -20,6 +24,7 @@ public class KisPriceService {
     private static final String MULTI_TR_ID = "FHKST11300006";
     private static final int MULTI_PRICE_MAX_CODES = 30;
     private static final String CACHE_KEY_PREFIX = "price:rest:";
+    private static final String QUOTE_CACHE_KEY_PREFIX = "price:quote:";
     private static final Duration CACHE_TTL = Duration.ofSeconds(8);
 
     private final WebClient kisWebClient;
@@ -123,5 +128,43 @@ public class KisPriceService {
         return Arrays.stream(envelope.output())
                 .map(StockQuoteResponse::from)
                 .toList();
+    }
+
+    // 여러 종목의 현재가를 한 번에 조회한다. 8초 캐시(price:quote:*)를 먼저 확인하고,
+    // 캐시 미스인 종목만 모아서 다중시세 API(최대 30개씩 묶어서)로 KIS를 호출한다.
+    // HoldingQueryService/HoldingPriceWarmupScheduler가 보유 종목 수만큼 개별 호출을
+    // 하던 걸 대체하기 위한 용도라, 실패한 종목은 그냥 결과 맵에서 빠진다.
+    public Map<String, BigDecimal> getCurrentPrices(List<String> stockCodes) {
+        if (stockCodes.isEmpty()) {
+            return Map.of();
+        }
+
+        Map<String, BigDecimal> result = new LinkedHashMap<>();
+        List<String> missing = new ArrayList<>();
+
+        for (String stockCode : stockCodes.stream().distinct().toList()) {
+            String cached = redisTemplate.opsForValue().get(QUOTE_CACHE_KEY_PREFIX + stockCode);
+            if (cached != null) {
+                result.put(stockCode, new BigDecimal(cached));
+            } else {
+                missing.add(stockCode);
+            }
+        }
+
+        for (int i = 0; i < missing.size(); i += MULTI_PRICE_MAX_CODES) {
+            List<String> chunk = missing.subList(i, Math.min(i + MULTI_PRICE_MAX_CODES, missing.size()));
+
+            for (StockQuoteResponse quote : getMultiplePrices(chunk)) {
+                BigDecimal price = BigDecimal.valueOf(quote.currentPrice());
+                redisTemplate.opsForValue().set(
+                        QUOTE_CACHE_KEY_PREFIX + quote.stockCode(),
+                        price.toPlainString(),
+                        CACHE_TTL
+                );
+                result.put(quote.stockCode(), price);
+            }
+        }
+
+        return result;
     }
 }

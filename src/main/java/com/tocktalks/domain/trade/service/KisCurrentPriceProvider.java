@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -52,5 +54,11 @@ public class KisCurrentPriceProvider
         return currentPrice;
     }
 
+    @Override
+    public Map<String, BigDecimal> getCurrentPrices(List<String> stockCodes) {
+        stockCodes.forEach(StockCodeValidator::validate);
+
+        return kisPriceService.getCurrentPrices(stockCodes);
+    }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -50,7 +51,7 @@ public class HoldingQueryService {
             throw participantNotFound();
         }
 
-        return holdingRepository
+        List<Holding> holdings = holdingRepository
                 .findAllByRoomParticipantId(roomParticipantId)
                 .stream()
                 .sorted(
@@ -58,10 +59,19 @@ public class HoldingQueryService {
                                 Holding::getStockCode
                         )
                 )
+                .toList();
+
+        // 보유 종목 하나마다 KIS를 개별 호출하면 레이트리밋에 바로 걸리므로,
+        // 필요한 종목 코드를 한 번에 모아 배치로 조회한다.
+        Map<String, BigDecimal> currentPrices = fetchCurrentPrices(
+                holdings.stream().map(Holding::getStockCode).distinct().toList()
+        );
+
+        return holdings.stream()
                 .map(holding ->
                         HoldingResponse.from(
                                 holding,
-                                getValuationPrice(holding)
+                                resolveValuationPrice(holding, currentPrices)
                         )
                 )
                 .toList();
@@ -80,50 +90,67 @@ public class HoldingQueryService {
         return HoldingSummaryResponse.from(holdings);
     }
 
-    private BigDecimal getValuationPrice(
-            Holding holding
+    private Map<String, BigDecimal> fetchCurrentPrices(
+            List<String> stockCodes
+    ) {
+        if (stockCodes.isEmpty()) {
+            return Map.of();
+        }
+
+        try {
+            return currentPriceProvider.getCurrentPrices(stockCodes);
+        } catch (WebClientException | IllegalStateException exception) {
+            log.warn(
+                    "KIS 다중 시세 조회 실패, 종목별 캐시/매입가로 대체합니다. "
+                            + "stockCodes={}, message={}",
+                    stockCodes,
+                    exception.getMessage()
+            );
+
+            return Map.of();
+        }
+    }
+
+    private BigDecimal resolveValuationPrice(
+            Holding holding,
+            Map<String, BigDecimal> currentPrices
     ) {
         String cacheKey =
                 LATEST_PRICE_KEY_PREFIX + holding.getStockCode();
 
-        try {
-            BigDecimal currentPrice =
-                    currentPriceProvider.getCurrentPrice(
-                            holding.getStockCode()
-                    );
+        BigDecimal currentPrice = currentPrices.get(holding.getStockCode());
 
+        if (currentPrice != null) {
             redisTemplate.opsForValue().set(
                     cacheKey,
                     currentPrice.toPlainString()
             );
 
             return currentPrice;
-        } catch (WebClientException | IllegalStateException exception) {
-            BigDecimal cachedPrice = getCachedPrice(cacheKey);
+        }
 
-            if (cachedPrice != null) {
-                log.warn(
-                        "KIS 현재가 조회 실패로 마지막 정상 시세를 사용합니다. "
-                                + "stockCode={}, roomParticipantId={}, cachedPrice={}, message={}",
-                        holding.getStockCode(),
-                        holding.getRoomParticipantId(),
-                        cachedPrice,
-                        exception.getMessage()
-                );
+        BigDecimal cachedPrice = getCachedPrice(cacheKey);
 
-                return cachedPrice;
-            }
-
+        if (cachedPrice != null) {
             log.warn(
-                    "KIS 현재가와 캐시가 없어 평균 매입가를 임시 사용합니다. "
-                            + "stockCode={}, roomParticipantId={}, message={}",
+                    "KIS 현재가 조회 실패로 마지막 정상 시세를 사용합니다. "
+                            + "stockCode={}, roomParticipantId={}, cachedPrice={}",
                     holding.getStockCode(),
                     holding.getRoomParticipantId(),
-                    exception.getMessage()
+                    cachedPrice
             );
 
-            return holding.getAvgPrice();
+            return cachedPrice;
         }
+
+        log.warn(
+                "KIS 현재가와 캐시가 없어 평균 매입가를 임시 사용합니다. "
+                        + "stockCode={}, roomParticipantId={}",
+                holding.getStockCode(),
+                holding.getRoomParticipantId()
+        );
+
+        return holding.getAvgPrice();
     }
 
     private BigDecimal getCachedPrice(String cacheKey) {
