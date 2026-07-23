@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import com.tocktalks.global.activity.ActiveMemberTracker;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final JwtProvider jwtProvider;
+    private final ActiveMemberTracker activeMemberTracker;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -31,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && jwtProvider.validateToken(token) && !jwtProvider.isRefreshToken(token)) {
             Long memberId = jwtProvider.getMemberId(token);
             String role = jwtProvider.getRole(token);
+            activeMemberTracker.markActive(memberId);
 
             var authentication = new UsernamePasswordAuthenticationToken(
                     memberId, null, List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase())));
