@@ -47,6 +47,8 @@ public interface RoomParticipantRepository
             String status
     );
 
+    long countByRoomId(Long roomId);
+
     List<RoomParticipant> findByRoomIdAndStatus(
             Long roomId,
             String status
