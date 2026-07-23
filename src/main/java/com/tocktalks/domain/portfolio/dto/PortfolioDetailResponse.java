@@ -6,7 +6,7 @@ import java.util.List;
 public record PortfolioDetailResponse(
         Long roomParticipantId, Long roomId, String roomName, String roomStatus,
         Long balance, Long stockValuation, Long totalAssetValue, Long initialSeedMoney,
-        Long profitAmount, BigDecimal profitRate, int holdingCount,
+        Long profitAmount, BigDecimal profitRate, int holdingCount, boolean isDefault,
         List<PortfolioHoldingResponse> holdings
 ) {
     public static PortfolioDetailResponse of(
@@ -25,6 +25,7 @@ public record PortfolioDetailResponse(
                 summary.profitAmount(),
                 summary.profitRate(),
                 summary.holdingCount(),
+                summary.isDefault(),
                 holdings
         );
     }
