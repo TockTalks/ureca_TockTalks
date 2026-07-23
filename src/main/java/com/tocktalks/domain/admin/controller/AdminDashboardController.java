@@ -1,5 +1,6 @@
 package com.tocktalks.domain.admin.controller;
 
+import com.tocktalks.domain.admin.dto.response.DashboardCommunityResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardMembersTradesResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardRoomsRanksResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardSummaryResponse;
@@ -33,5 +34,11 @@ public class AdminDashboardController {
     public ResponseEntity<DashboardRoomsRanksResponse> getRoomsRanks(
             @RequestParam(defaultValue = "10") int topN) {
         return ResponseEntity.ok(adminDashboardService.getRoomsRanks(topN));
+    }
+
+    @GetMapping("/community")
+    public ResponseEntity<DashboardCommunityResponse> getCommunity(
+            @RequestParam(defaultValue = "5") int topN) {
+        return ResponseEntity.ok(adminDashboardService.getCommunity(topN));
     }
 }
