@@ -42,4 +42,10 @@ public class AdminMemberService {
 
         member.block();
     }
+
+    public Page<AdminMemberResponse> getReportedMembers(Pageable pageable) {
+        return memberRepository.findByReportedCountGreaterThanOrderByReportedCountDesc(0, pageable)
+                .map(AdminMemberResponse::from);
+    }
+
 }
