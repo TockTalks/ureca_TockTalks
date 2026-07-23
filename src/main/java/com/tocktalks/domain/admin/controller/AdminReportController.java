@@ -19,14 +19,22 @@ public class AdminReportController {
     //관리자가 처리해야 할 대기 중인 신고 목록을 페이지 단위로 조회
     @GetMapping
     public ResponseEntity<Page<ReportResponse>> getReports(
+            @RequestParam(required = false) String targetType,
             @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
-        return ResponseEntity.ok(reportService.getPendingRports(pageable));
+        return ResponseEntity.ok(reportService.getPendingReports(targetType, pageable));
     }
-    
+
+    @GetMapping("/history")
+    public ResponseEntity<Page<ReportResponse>> getReportHistory(
+            @RequestParam(required = false) String targetType,
+            @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
+        return ResponseEntity.ok(reportService.getReportHistory(targetType, pageable));
+    }
+
     //관리자가 특정 신고 건을 확인 후 '처리 완료' 상태로 변경
-    @PatchMapping("/{reportId}/resolve")
-    public ResponseEntity<Void> resolveReport(@PathVariable Long reportId) {
-        reportService.resolveReport(reportId);
+    @PatchMapping("/{reportId}/reject")
+    public ResponseEntity<Void> rejectReport(@PathVariable Long reportId) {
+        reportService.rejectReport(reportId);
         return ResponseEntity.noContent().build();
     }
 
