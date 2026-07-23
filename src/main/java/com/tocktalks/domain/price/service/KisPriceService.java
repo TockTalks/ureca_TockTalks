@@ -65,6 +65,11 @@ public class KisPriceService {
                 .header("tr_id", TR_ID_INQUIRE_PRICE)
                 .header("custtype", "P")
                 .retrieve()
+                .onStatus(status -> status.value() == 500, response ->
+                        response.bodyToMono(String.class).flatMap(body -> {
+                            System.out.println("[KIS 500 응답 본문] " + body);
+                            return response.createException();
+                        }))
                 .bodyToMono(KisPriceEnvelope.class)
                 .block();
 

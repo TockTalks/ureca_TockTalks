@@ -11,6 +11,8 @@ import com.tocktalks.domain.community.exception.CommunityException;
 import com.tocktalks.domain.community.repository.CommentLikeRepository;
 import com.tocktalks.domain.community.repository.CommentRepository;
 import com.tocktalks.domain.community.repository.PostRepository;
+import com.tocktalks.domain.member.entity.Member;
+import com.tocktalks.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,9 +31,11 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentLikeRepository commentLikeRepository;
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public CommentResponse createComment(Long postId, Long memberId, CommentCreateRequest request){
+        validateNotBlocked(memberId);
         Post post = getPostOrThrow(postId);
 
         Comment saved = commentRepository.save(Comment.create(postId, memberId, request.content()));
@@ -94,6 +98,18 @@ public class CommentService {
 
         commentRepository.delete(comment);
         post.decreaseCommentCount();
+    }
+
+    public String getContentForReport(Long commentId){
+        return getCommentOrThrow(commentId).getContent();
+    }
+
+    private void validateNotBlocked(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        if(member.isBlocked()){
+            throw new CommunityException(CommunityErrorCode.MEMBER_BLOCKED);
+        }
     }
 
 }

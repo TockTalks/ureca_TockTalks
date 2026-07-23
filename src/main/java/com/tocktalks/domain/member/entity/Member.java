@@ -43,6 +43,9 @@ public class Member {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "reported_count", nullable = false)
+    private int reportedCount;
+
     public static Member ofKakao(String email, String nickname, String providerSub) {
         Member member = new Member();
         member.email = email;
@@ -83,4 +86,14 @@ public class Member {
         this.status = "blocked";
         this.updatedAt = LocalDateTime.now();
     }
+
+    public boolean isBlocked(){
+        return "blocked".equals(this.status);
+    }
+
+    public void increaseReportedCount() {
+        this.reportedCount++;
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }

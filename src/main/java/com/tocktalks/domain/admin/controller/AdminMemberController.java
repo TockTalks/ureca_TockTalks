@@ -42,4 +42,10 @@ public class AdminMemberController {
         adminMemberService.blockMember(memberId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/reported")
+    public ResponseEntity<Page<AdminMemberResponse>> getReportedMembers(@PageableDefault(size = 20) Pageable pageable){
+        return ResponseEntity.ok(adminMemberService.getReportedMembers(pageable));
+    }
+
 }
