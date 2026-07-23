@@ -9,6 +9,8 @@ import com.tocktalks.domain.community.exception.CommunityErrorCode;
 import com.tocktalks.domain.community.exception.CommunityException;
 import com.tocktalks.domain.community.repository.PostLikeRepository;
 import com.tocktalks.domain.community.repository.PostRepository;
+import com.tocktalks.domain.member.entity.Member;
+import com.tocktalks.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +29,11 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostLikeRepository postLikeRepository;
     private final TransactionCertificateProvider transactionCertificateProvider;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public PostResponse createPost(Long memberId, PostCreateRequest request) {
+        validateNotBlocked(memberId);
         Post post;
 
         if (request.transactionId() != null) {
@@ -101,6 +105,18 @@ public class PostService {
     public void deletePostByAdmin(Long postId){
         Post post = getPostOrThrow(postId);
         postRepository.delete(post);
+    }
+
+    public String getContentForReport(Long postId){
+        return getPostOrThrow(postId).getContent();
+    }
+
+    private void validateNotBlocked(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        if(member.isBlocked()){
+            throw new CommunityException(CommunityErrorCode.MEMBER_BLOCKED);
+        }
     }
 
 }
