@@ -2,16 +2,21 @@ spring:
   application:
     name: tocktalks
 
+  task:
+    scheduling:
+      pool:
+        size: 5
+
   datasource:
     url: jdbc:mysql://localhost:3307/tocktalks?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: tocktalks
     password: tocktalks
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+# hello world!
   jpa:
     hibernate:
-      ddl-auto: update   # 개발 초기엔 update로 바꿔서 편하게 써도 됨
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -33,7 +38,8 @@ app:
   login-attempt:
     max-attempts: 5
     lock-duration-ms: 300000  # 5분
-
+# 허접들아 나 왔다감
+# ??? : 모를걸요 ?
 jwt:
   secret: change-this-secret-key-before-deploy
   access-token-expire-ms: 3600000      # 1시간
@@ -54,3 +60,4 @@ external-api:
 logging:
   level:
     com.tocktalks: DEBUG
+    org.hibernate: warn

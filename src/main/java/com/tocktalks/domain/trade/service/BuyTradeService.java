@@ -1,5 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
+import com.tocktalks.domain.portfolio.service.PortfolioService;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -9,12 +10,14 @@ import com.tocktalks.domain.trade.dto.response.TradeExecutionResponse;
 import com.tocktalks.domain.trade.entity.StockCodeValidator;
 import com.tocktalks.domain.trade.entity.Transaction;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BuyTradeService {
@@ -35,6 +38,8 @@ public class BuyTradeService {
 
     private final TradeRankingService
             tradeRankingService;
+
+    private final PortfolioService portfolioService;
 
     @Transactional
     public TradeExecutionResponse buy(
@@ -104,6 +109,11 @@ public class BuyTradeService {
         tradeRankingService.updateRanking(
                 participant
         );
+        try {
+            portfolioService.recordSnapshot(participant);
+        } catch (Exception e) {
+            log.warn("자산 스냅샷 저장 실패 - 거래는 정상 처리됨. participantId={}", participant.getId());
+        }
 
         return TradeExecutionResponse.from(
                 transaction,
