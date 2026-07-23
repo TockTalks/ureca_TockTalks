@@ -15,8 +15,8 @@ import java.time.format.DateTimeFormatter;
 
 @Service
 public class KisAuthService {
-    private static final String ACCESS_TOKEN_KEY = "kis:access-token";
-    private static final String APPROVAL_KEY_KEY = "kis:approval-key";
+    private static final String ACCESS_TOKEN_KEY_PREFIX = "kis:access-token:";
+    private static final String APPROVAL_KEY_KEY_PREFIX = "kis:approval-key:";
     private static final DateTimeFormatter EXPIRE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final WebClient kisWebClient;
@@ -32,7 +32,7 @@ public class KisAuthService {
     }
 
     public String getAccessToken() {
-        String cached = redisTemplate.opsForValue().get(ACCESS_TOKEN_KEY);
+        String cached = redisTemplate.opsForValue().get(accessTokenKey());
         if (cached != null) {
             return cached;
         }
@@ -51,12 +51,12 @@ public class KisAuthService {
         LocalDateTime expiredAt = LocalDateTime.parse(response.accessTokenExpired(), EXPIRE_FORMAT);
         Duration ttl = Duration.between(LocalDateTime.now(), expiredAt).minusMinutes(1);
 
-        redisTemplate.opsForValue().set(ACCESS_TOKEN_KEY, response.accessToken(), ttl);
+        redisTemplate.opsForValue().set(accessTokenKey(), response.accessToken(), ttl);
         return response.accessToken();
     }
 
     public String getApprovalKey() {
-        String cached = redisTemplate.opsForValue().get(APPROVAL_KEY_KEY);
+        String cached = redisTemplate.opsForValue().get(approvalKeyKey());
         if (cached != null) {
             return cached;
         }
@@ -72,9 +72,15 @@ public class KisAuthService {
                 .bodyToMono(KisApprovalResponse.class)
                 .block();
 
-        redisTemplate.opsForValue().set(APPROVAL_KEY_KEY, response.approvalKey(), Duration.ofHours(12));
+        redisTemplate.opsForValue().set(approvalKeyKey(), response.approvalKey(), Duration.ofHours(12));
         return response.approvalKey();
-
     }
 
+    private String accessTokenKey() {
+        return ACCESS_TOKEN_KEY_PREFIX + kisApiProperties.appKey();
+    }
+
+    private String approvalKeyKey() {
+        return APPROVAL_KEY_KEY_PREFIX + kisApiProperties.appKey();
+    }
 }
