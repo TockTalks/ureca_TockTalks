@@ -29,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class PortfolioService {
-    
+
+    private static final String PARTICIPANT_ACTIVE = "ACTIVE";
+
     private final AssetHistoryRepository assetHistoryRepository;
     private final RoomParticipantRepository roomParticipantRepository;
     private final RoomRepository roomRepository;
@@ -100,8 +102,8 @@ public class PortfolioService {
         LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         LocalDateTime hourEnd = hourStart.plusMinutes(5);
 
-        //1. 현재 모의투자에 참가 중인 모든 유저 목록 가져옴
-        List<RoomParticipant> activeParticipants = roomParticipantRepository.findAll();
+        //1. 현재 모의투자에 참가 중인 유저 목록 가져옴 (종료된 방에 남아있던 참가자는 제외)
+        List<RoomParticipant> activeParticipants = roomParticipantRepository.findByStatus(PARTICIPANT_ACTIVE);
 
         for (RoomParticipant participant : activeParticipants) {
             Long participantId = participant.getId();

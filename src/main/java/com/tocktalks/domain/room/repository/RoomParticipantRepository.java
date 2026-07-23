@@ -60,4 +60,6 @@ public interface RoomParticipantRepository
     );
 
     List<RoomParticipant> findByMemberId(Long memberId);
+
+    List<RoomParticipant> findByStatus(String status);
 }
