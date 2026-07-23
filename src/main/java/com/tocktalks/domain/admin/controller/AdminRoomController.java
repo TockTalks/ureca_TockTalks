@@ -1,6 +1,7 @@
 package com.tocktalks.domain.admin.controller;
 
 import com.tocktalks.domain.room.service.RoomService;
+import com.tocktalks.global.security.LoginMemberId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +18,11 @@ public class AdminRoomController {
 
     //방 강제 종료
     @PostMapping("/{roomId}/terminate")
-    public ResponseEntity<Void> terminateRoom(@PathVariable Long roomId) {
-        roomService.terminateRoomByAdmin(roomId);
+    public ResponseEntity<Void> terminateRoom(
+            @PathVariable Long roomId,
+            @LoginMemberId Long adminId
+    ) {
+        roomService.terminateRoomByAdmin(roomId, adminId);
         return ResponseEntity.noContent().build();
     }
 }

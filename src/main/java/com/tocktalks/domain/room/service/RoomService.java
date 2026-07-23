@@ -104,6 +104,7 @@ public class RoomService {
         participant.end();
     }
 
+    @Transactional
     public RoomResponse getRoomDetail(Long roomId, Long requesterId) {
         Room room = getRoom(roomId);
         boolean isParticipant = requesterId != null && roomParticipantRepository
@@ -170,6 +171,7 @@ public class RoomService {
                 .toList();
     }
 
+    @Transactional
     public List<RoomResponse> getMyRooms(Long memberId) {
         return roomParticipantRepository.findByMemberIdAndStatus(memberId, PARTICIPANT_ACTIVE).stream()
                 .map(participant -> getRoom(participant.getRoomId()))
@@ -195,7 +197,7 @@ public class RoomService {
 
     //관리자에 의한 방 강제 종료 (이상거래/신고 대응)
     @Transactional
-    public void terminateRoomByAdmin(Long roomId) {
+    public void terminateRoomByAdmin(Long roomId, Long adminId) {
         Room room = getRoom(roomId);
 
         if (room.isDefault()) {
@@ -206,6 +208,8 @@ public class RoomService {
         }
 
         archiveAndClose(room);
+
+        log.warn("관리자에 의한 방 강제 종료 (roomId={}, adminId={})", roomId, adminId);
     }
 
     private void archiveAndClose(Room room) {
@@ -246,8 +250,20 @@ public class RoomService {
     }
 
     private Room getRoom(Long roomId) {
-        return roomRepository.findById(roomId)
+        Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+        closeIfExpired(room);
+        return room;
+    }
+
+    // 스케줄러(closeExpiredRooms)가 아직 못 돌았어도, 방을 조회하는 시점에 종료 시각이 지났으면
+    // 그 자리에서 바로 닫아서 화면에 최신 상태가 즉시 반영되도록 한다.
+    private void closeIfExpired(Room room) {
+        if (STATUS_ONGOING.equals(room.getStatus())
+                && room.getEndAt() != null
+                && room.getEndAt().isBefore(LocalDateTime.now())) {
+            archiveAndClose(room);
+        }
     }
 
     private Room getOrCreateDefaultRoom() {
