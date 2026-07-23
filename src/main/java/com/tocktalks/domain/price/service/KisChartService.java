@@ -28,17 +28,20 @@ public class KisChartService {
     private final KisAuthService kisAuthService;
     private final StringRedisTemplate redisTemplate;
     private final ObjectMapper objectMapper;
+    private final KisRateLimiter kisRateLimiter;
 
     public KisChartService(WebClient kisWebClient,
                            KisApiProperties kisApiProperties,
                            KisAuthService kisAuthService,
                            StringRedisTemplate redisTemplate,
-                           ObjectMapper objectMapper) {
+                           ObjectMapper objectMapper,
+                           KisRateLimiter kisRateLimiter) {
         this.kisWebClient = kisWebClient;
         this.kisApiProperties = kisApiProperties;
         this.kisAuthService = kisAuthService;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
+        this.kisRateLimiter = kisRateLimiter;
     }
 
     public List<DailyPriceResponse> getRecentDailyPrices(String stockCode, int days) {
@@ -54,6 +57,7 @@ public class KisChartService {
     }
 
     private List<DailyPriceResponse> fetchFromKis(String stockCode, int days) {
+        kisRateLimiter.acquire();
         String accessToken = kisAuthService.getAccessToken();
         LocalDate today = LocalDate.now();
         LocalDate from = today.minusDays(days * 2L + 5);
