@@ -2,6 +2,7 @@ package com.tocktalks.domain.price.controller;
 
 import com.tocktalks.domain.price.dto.response.DailyPriceResponse;
 import com.tocktalks.domain.price.dto.response.KisPriceResponse;
+import com.tocktalks.domain.price.dto.response.StockQuoteResponse;
 import com.tocktalks.domain.price.service.KisChartService;
 import com.tocktalks.domain.price.service.KisPriceService;
 import com.tocktalks.domain.price.service.KisWebSocketClient;
@@ -52,5 +53,10 @@ public class PriceController {
             @PathVariable String stockCode,
             @RequestParam(defaultValue = "30") int days) {
         return kisChartService.getRecentDailyPrices(stockCode, days);
+    }
+
+    @GetMapping("/api/price/batch")
+    public List<StockQuoteResponse> getMultiplePrices(@RequestParam List<String> codes) {
+        return kisPriceService.getMultiplePrices(codes);
     }
 }
