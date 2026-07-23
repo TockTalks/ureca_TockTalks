@@ -5,6 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ReportRepository extends JpaRepository<Report, Long> {
     Page<Report> findByStatusOrderByCreatedAtDesc(String status, Pageable pageable);
+
+    Page<Report> findByStatusAndTargetTypeOrderByCreatedAtDesc(String status, String targetType, Pageable pageable);
+
+    Page<Report> findByStatusInOrderByCreatedAtDesc(List<String> statuses, Pageable pageable);
+
+    Page<Report> findByStatusInAndTargetTypeOrderByCreatedAtDesc(List<String> statuses, String targetType, Pageable pageable);
 }
