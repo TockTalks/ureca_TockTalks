@@ -1,5 +1,7 @@
 package com.tocktalks.domain.ranking.service;
 
+import com.tocktalks.domain.member.entity.Member;
+import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.ranking.dto.response.RankingArchiveResponse;
 import com.tocktalks.domain.ranking.dto.response.RankingDto;
 import com.tocktalks.domain.ranking.dto.response.RankingListResponse;
@@ -13,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class RankingService {
     private final RankingRedisService rankingRedisService;
     private final RankingPublisher rankingPublisher;
     private final RoomRankingArchiveRepository archiveRepository;
+    private final MemberRepository memberRepository;
 
     public void updateRanking(Long roomId, Long memberId, Long finalAsset, Long seedMoney) {
         BigDecimal returnRate = ReturnRateCalculator.calculate(finalAsset, seedMoney);
@@ -83,7 +88,14 @@ public class RankingService {
             case RETURN_RATE -> archiveRepository.findByRoomIdOrderByFinalRankAsc(roomId);
             case TOTAL_ASSET -> archiveRepository.findByRoomIdOrderByFinalAssetDesc(roomId);
         };
-        return archives.stream().map(RankingArchiveResponse::from).toList();
+
+        Map<Long, String> nicknameByMemberId = memberRepository
+                .findAllById(archives.stream().map(RoomRankingArchive::getMemberId).toList()).stream()
+                .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        return archives.stream()
+                .map(archive -> RankingArchiveResponse.from(archive, nicknameByMemberId.get(archive.getMemberId())))
+                .toList();
     }
 
 
