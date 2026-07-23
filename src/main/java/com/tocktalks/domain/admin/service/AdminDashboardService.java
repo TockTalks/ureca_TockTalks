@@ -1,14 +1,21 @@
 package com.tocktalks.domain.admin.service;
 
+import com.tocktalks.domain.admin.dto.response.DailyCommunityTrend;
 import com.tocktalks.domain.admin.dto.response.DailyMemberTradeTrend;
+import com.tocktalks.domain.admin.dto.response.DashboardCommunityResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardMembersTradesResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardRoomsRanksResponse;
 import com.tocktalks.domain.admin.dto.response.DashboardSummaryResponse;
+import com.tocktalks.domain.admin.dto.response.PopularPostResponse;
 import com.tocktalks.domain.admin.dto.response.PopularStockResponse;
+import com.tocktalks.domain.admin.dto.response.ReportStatusCount;
 import com.tocktalks.domain.admin.dto.response.ReturnRateDistributionBucket;
 import com.tocktalks.domain.admin.dto.response.TopUserResponse;
+import com.tocktalks.domain.admin.repository.ReportRepository;
 import com.tocktalks.domain.backoffice.dto.response.DailyStatsResponse;
 import com.tocktalks.domain.backoffice.service.DailyStatsService;
+import com.tocktalks.domain.community.repository.CommentRepository;
+import com.tocktalks.domain.community.repository.PostRepository;
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
@@ -19,6 +26,7 @@ import com.tocktalks.domain.trade.repository.TransactionRepository;
 import com.tocktalks.global.activity.ActiveMemberTracker;
 import com.tocktalks.global.activity.OnlineUserTracker;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -36,11 +44,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class AdminDashboardService {
 
     private static final int TREND_DAYS = 30;
+    private static final int POST_CONTENT_PREVIEW_LENGTH = 50;
     private static final List<BigDecimal> RETURN_RATE_BOUNDARIES =
             List.of(BigDecimal.valueOf(-20), BigDecimal.valueOf(-10), BigDecimal.ZERO,
                     BigDecimal.valueOf(10), BigDecimal.valueOf(20));
     private static final List<String> RETURN_RATE_LABELS =
             List.of("-20% 미만", "-20% ~ -10%", "-10% ~ 0%", "0% ~ 10%", "10% ~ 20%", "20% 이상");
+    private static final List<String> REPORT_STATUSES = List.of("pending", "rejected", "deleted");
 
     private final MemberRepository memberRepository;
     private final RoomRepository roomRepository;
@@ -50,6 +60,9 @@ public class AdminDashboardService {
     private final OnlineUserTracker onlineUserTracker;
     private final TransactionRepository transactionRepository;
     private final DailyStatsService dailyStatsService;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final ReportRepository reportRepository;
 
     public DashboardSummaryResponse getSummary() {
         return new DashboardSummaryResponse(
@@ -107,6 +120,42 @@ public class AdminDashboardService {
         );
     }
 
+    public DashboardCommunityResponse getCommunity(int topN) {
+        LocalDate today = LocalDate.now();
+        LocalDate rangeStart = today.minusDays(TREND_DAYS - 1);
+        LocalDateTime start = rangeStart.atStartOfDay();
+        LocalDateTime end = today.plusDays(1).atStartOfDay();
+
+        Map<LocalDate, Long> postCountByDate = postRepository.findCreatedAtBetween(start, end).stream()
+                .collect(Collectors.groupingBy(LocalDateTime::toLocalDate, Collectors.counting()));
+        Map<LocalDate, Long> commentCountByDate = commentRepository.findCreatedAtBetween(start, end).stream()
+                .collect(Collectors.groupingBy(LocalDateTime::toLocalDate, Collectors.counting()));
+
+        List<DailyCommunityTrend> dailyTrend = IntStream.range(0, TREND_DAYS)
+                .mapToObj(rangeStart::plusDays)
+                .map(date -> new DailyCommunityTrend(
+                        date,
+                        postCountByDate.getOrDefault(date, 0L).intValue(),
+                        commentCountByDate.getOrDefault(date, 0L)))
+                .toList();
+
+        List<PopularPostResponse> popularPosts = postRepository
+                .findAllByOrderByLikeCountDescCommentCountDesc(PageRequest.of(0, topN))
+                .stream()
+                .map(post -> new PopularPostResponse(
+                        post.getId(),
+                        truncate(post.getContent()),
+                        post.getLikeCount(),
+                        post.getCommentCount()))
+                .toList();
+
+        List<ReportStatusCount> reportStatusCounts = REPORT_STATUSES.stream()
+                .map(status -> new ReportStatusCount(status, reportRepository.countByStatus(status)))
+                .toList();
+
+        return new DashboardCommunityResponse(dailyTrend, popularPosts, reportStatusCounts);
+    }
+
     private List<ReturnRateDistributionBucket> buildReturnRateDistribution() {
         long[] counts = new long[RETURN_RATE_LABELS.size()];
 
@@ -146,5 +195,11 @@ public class AdminDashboardService {
                         archive.getRoomId(),
                         archive.getFinalReturnRate()))
                 .toList();
+    }
+
+    private static String truncate(String content) {
+        return content.length() > POST_CONTENT_PREVIEW_LENGTH
+                ? content.substring(0, POST_CONTENT_PREVIEW_LENGTH) + "..."
+                : content;
     }
 }
