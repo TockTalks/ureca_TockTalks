@@ -23,4 +23,6 @@ public interface HoldingRepository
     //현재 보유중인 모든 종목 코드 - 포트폴리오에서 사용
     @Query("SELECT DISTINCT h.stockCode FROM Holding h")
     List<String> findDistinctStockCode();
+
+    void deleteAllByRoomParticipantId(Long roomParticipantId);
 }

@@ -48,4 +48,10 @@ public class AdminMemberController {
         return ResponseEntity.ok(adminMemberService.getReportedMembers(pageable));
     }
 
+    @PostMapping("/{memberId}/reset-default-room")
+    public ResponseEntity<Void> resetDefaultRoomAssets(@PathVariable Long memberId) {
+        adminMemberService.resetDefaultRoomAssets(memberId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
