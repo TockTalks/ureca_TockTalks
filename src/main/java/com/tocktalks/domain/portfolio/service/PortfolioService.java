@@ -15,22 +15,19 @@ import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class PortfolioService {
-
-    private static final String PARTICIPANT_ACTIVE = "ACTIVE";
 
     private final AssetHistoryRepository assetHistoryRepository;
     private final RoomParticipantRepository roomParticipantRepository;
@@ -81,55 +78,34 @@ public class PortfolioService {
         if (!participant.getMemberId().equals(memberId)) {
             throw new IllegalArgumentException("자산 기록을 조회할 권한이 없습니다.");
         }
+
+        //1-2. 기본 방은 최근 4주만, 일반 방은 전체 조회
+        Room room = roomRepository.findById(participant.getRoomId())
+                .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
+
+        List<AssetHistory> histories = room.isDefault()
+                ? assetHistoryRepository.findByRoomParticipantIdAndRecordedAtAfterOrderByRecordedAtDesc(
+                roomParticipantId, LocalDateTime.now().minusWeeks(4))
+                : assetHistoryRepository.findAllByRoomParticipantIdOrderByRecordedAtDesc(roomParticipantId);
+
         
         //2. 조회 및 변환
-        return assetHistoryRepository.findAllByRoomParticipantIdOrderByRecordedAtAsc(roomParticipantId)
-            .stream()
-            .map(AssetHistoryResponse::from)
-            .collect(Collectors.toList());
+        return histories.stream()
+                .map(AssetHistoryResponse::from)
+                .collect(Collectors.toList());
     }
     
-    //매시 정각마다 자산 스냅샷 저장
-    @Transactional
-//    @Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 */5 * * * *") //테스트용
-    public void recordHourlyAssets() {
-        log.info("시간별 자산 스냅샷 저장을 시작합니다.");
-//        LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
-//        LocalDateTime hourEnd = hourStart.plusHours(1);
+    //보유 자산 변동 시 스냅샷 저장
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void recordSnapshot(RoomParticipant participant) {
+        HoldingSummaryResponse summary = holdingQueryService.getHoldingSummary(
+                participant.getMemberId(), participant.getId()
+        );
+        long stockValuation = summary.totalValuation().longValue();
+        long totalAsset = participant.getBalance() + stockValuation;
 
-        //테스트용
-        LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-        LocalDateTime hourEnd = hourStart.plusMinutes(5);
-
-        //1. 현재 모의투자에 참가 중인 유저 목록 가져옴 (종료된 방에 남아있던 참가자는 제외)
-        List<RoomParticipant> activeParticipants = roomParticipantRepository.findByStatus(PARTICIPANT_ACTIVE);
-
-        for (RoomParticipant participant : activeParticipants) {
-            Long participantId = participant.getId();
-
-            //2. 이번 시간대에 이미 저장된 기록이 있다면 패스 (안전 장치)
-            if (assetHistoryRepository.existsByRoomParticipantIdAndRecordedAtBetween(participantId, hourStart, hourEnd)) {
-                continue;
-            }
-
-            try {
-                //3. '주식 총 평가 금액' 가져오기
-                HoldingSummaryResponse summary = holdingQueryService.getHoldingSummary(participant.getMemberId(), participantId);
-                long stockValuation = summary.totalValuation().longValue();
-
-                //4. 총 자산
-                long totalAsset = participant.getBalance() + stockValuation;
-
-                //5. 히스토리 저장
-                AssetHistory history = AssetHistory.create(participantId, totalAsset);
-                assetHistoryRepository.save(history);
-            } catch (Exception e) {
-                //특정 유저의 에러 때문에 전체 배치가 멈추지 않도록 예외 처리
-                log.error("참가자 ID{}의 자산 스냅샷 저장 실패", participantId, e);
-            }
-        }
-        log.info("시간별 자산 스냅샷 저장이 완료되었습니다.");
+        AssetHistory history = AssetHistory.create(participant.getId(), totalAsset);
+        assetHistoryRepository.save(history);
     }
 
     //RoomParticipant -> PortfolioSummaryResponse 변환 헬퍼 (목록, 상세 공용)
