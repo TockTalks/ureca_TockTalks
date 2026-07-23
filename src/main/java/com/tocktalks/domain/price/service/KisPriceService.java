@@ -14,7 +14,7 @@ import java.time.Duration;
 public class KisPriceService {
     private static final String TR_ID_INQUIRE_PRICE = "FHKST01010100";
     private static final String CACHE_KEY_PREFIX = "price:rest:";
-    private static final Duration CACHE_TTL = Duration.ofSeconds(3);
+    private static final Duration CACHE_TTL = Duration.ofSeconds(8);
 
     private final WebClient kisWebClient;
     private final KisApiProperties kisApiProperties;
