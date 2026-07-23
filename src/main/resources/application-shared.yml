@@ -1,0 +1,14 @@
+# 팀 공유 DB/Redis 프로필. 평소 개인 개발은 기본(local) 설정 그대로 쓰고,
+# 팀원끼리 같은 데이터를 봐야 할 때만 이 프로필로 실행한다.
+#   IntelliJ: Run Configuration의 Active profiles에 "shared" 입력
+#   커맨드라인: ./gradlew bootRun --args='--spring.profiles.active=shared'
+#              또는 환경변수 SPRING_PROFILES_ACTIVE=shared
+spring:
+  datasource:
+    url: jdbc:mysql://${SHARED_DB_HOST}:${SHARED_DB_PORT}/${SHARED_DB_NAME}?sslMode=REQUIRED&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${SHARED_DB_USERNAME}
+    password: ${SHARED_DB_PASSWORD}
+
+  data:
+    redis:
+      url: ${SHARED_REDIS_URL}
