@@ -10,6 +10,7 @@ public record AdminMemberResponse(
         String provider,
         String role,
         String status,
+        int reportedCount,
         LocalDateTime createdAt
 ) {
     public static AdminMemberResponse from(Member member) {
@@ -20,6 +21,7 @@ public record AdminMemberResponse(
                 member.getProvider(),
                 member.getRole(),
                 member.getStatus(),
+                member.getReportedCount(),
                 member.getCreatedAt()
         );
     }
