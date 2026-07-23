@@ -6,9 +6,9 @@ import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.entity.Holding;
 import com.tocktalks.domain.trade.repository.HoldingRepository;
 import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -44,8 +44,20 @@ class HoldingQueryServiceTest {
     @Mock(answer = org.mockito.Answers.RETURNS_DEEP_STUBS)
     private StringRedisTemplate redisTemplate;
 
-    @InjectMocks
     private HoldingQueryService holdingQueryService;
+
+    @BeforeEach
+    void setUp() {
+        // 타임아웃 경합 없이 결정적으로 테스트하기 위해 호출 스레드에서 바로 실행하는
+        // 실행기를 쓴다 (Mockito 목으로는 execute()가 아무 것도 안 해서 future가 끝나지 않음).
+        holdingQueryService = new HoldingQueryService(
+                roomParticipantRepository,
+                holdingRepository,
+                currentPriceProvider,
+                redisTemplate,
+                Runnable::run
+        );
+    }
 
     @Test
     void 본인의_보유_종목을_종목_코드순으로_조회한다() {
