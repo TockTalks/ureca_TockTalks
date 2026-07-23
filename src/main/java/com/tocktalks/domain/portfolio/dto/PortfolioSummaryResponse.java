@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public record PortfolioSummaryResponse(
         Long roomParticipantId, Long roomId, String roomName, String roomStatus,
         Long balance, Long stockValuation, Long totalAssetValue, Long initialSeedMoney,
-        Long profitAmount, BigDecimal profitRate, int holdingCount
+        Long profitAmount, BigDecimal profitRate, int holdingCount, boolean isDefault
 ) {
     public static PortfolioSummaryResponse of(
             RoomParticipant participant,
@@ -34,7 +34,8 @@ public record PortfolioSummaryResponse(
                participant.getInitialSeedMoney(),
                profitAmount,
                profitRate,
-               holdingCount
+               holdingCount,
+               room.isDefault()
        );
     }
 }
