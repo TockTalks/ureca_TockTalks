@@ -2,10 +2,7 @@ package com.tocktalks.domain.ranking.service;
 
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
-import com.tocktalks.domain.ranking.dto.response.RankingArchiveResponse;
-import com.tocktalks.domain.ranking.dto.response.RankingDto;
-import com.tocktalks.domain.ranking.dto.response.RankingListResponse;
-import com.tocktalks.domain.ranking.dto.response.RankingUpdateEvent;
+import com.tocktalks.domain.ranking.dto.response.*;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.type.RankingType;
@@ -16,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,15 +27,25 @@ public class RankingService {
     public void updateRanking(Long roomId, Long memberId, Long finalAsset, Long seedMoney) {
         BigDecimal returnRate = ReturnRateCalculator.calculate(finalAsset, seedMoney);
 
-        Integer prevRank = rankingRedisService.getRank(roomId, memberId, RankingType.RETURN_RATE);
         rankingRedisService.updateRanking(roomId, memberId, returnRate, finalAsset);
-        Integer newRank = rankingRedisService.getRank(roomId, memberId, RankingType.RETURN_RATE);
-
-        if (!Objects.equals(prevRank, newRank)) {
-            List<RankingDto> topN = rankingRedisService.getTopN(roomId, RankingType.RETURN_RATE, 10);
-            rankingPublisher.publish(roomId, new RankingUpdateEvent(memberId, newRank, topN));
-        }
     }
+
+    public void broadcastRanking(Long roomId){
+        List<RankingDto> live = rankingRedisService.getAll(roomId, RankingType.TOTAL_ASSET);
+        if(live.isEmpty()) return;
+
+        Map<Long, String> nicknameByMemberId = memberRepository.findAllById(live.stream().map(RankingDto::memberId).toList())
+                .stream().collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        List<RankingMemberDto> ranking = live.stream()
+                .map(dto -> new RankingMemberDto(
+                        dto.rank(),
+                        dto.memberId(),
+                        nicknameByMemberId.get(dto.memberId()),
+                        dto.score().longValue())).toList();
+        rankingPublisher.publish(roomId, new RankingBroadcastEvent(ranking));
+    }
+
 
     public RankingListResponse getRanking(Long roomId, Long memberId, RankingType type, int topN){
         List<RankingDto> top = rankingRedisService.getTopN(roomId, type, topN);
