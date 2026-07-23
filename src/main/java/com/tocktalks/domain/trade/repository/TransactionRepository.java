@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface TransactionRepository
@@ -43,4 +44,18 @@ public interface TransactionRepository
             @Param("transactionId") Long transactionId,
             @Param("memberId") Long memberId
     );
+
+    @Query("""
+            SELECT t.stockCode, t.stockName, COUNT(t)
+            FROM Transaction t
+            WHERE t.executedAt BETWEEN :start AND :end
+            GROUP BY t.stockCode, t.stockName
+            ORDER BY COUNT(t) DESC
+            """)
+    List<Object[]> findTopTradedStocks(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end,
+            Pageable pageable
+    );
+
 }
