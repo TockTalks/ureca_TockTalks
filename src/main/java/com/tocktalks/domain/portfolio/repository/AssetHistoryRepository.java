@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AssetHistoryRepository extends JpaRepository<AssetHistory, Long> {
 
+    void deleteAllByRoomParticipantId(Long roomParticipantId);
+
     // 특정 참가자의 자산 기록을 날짜 오름차순(과거->최신)으로 조회
     List<AssetHistory> findAllByRoomParticipantIdOrderByRecordedAtDesc(Long roomParticipantId);
 
