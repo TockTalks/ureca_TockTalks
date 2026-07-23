@@ -110,7 +110,10 @@ public class RoomService {
         boolean isParticipant = requesterId != null && roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, requesterId, PARTICIPANT_ACTIVE)
                 .isPresent();
-        long participantCount = roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE);
+        // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 그동안 참가했던 인원 전체를 센다.
+        long participantCount = STATUS_ONGOING.equals(room.getStatus())
+                ? roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE)
+                : roomParticipantRepository.countByRoomId(roomId);
         return RoomResponse.of(room, participantCount, isParticipant);
     }
 
