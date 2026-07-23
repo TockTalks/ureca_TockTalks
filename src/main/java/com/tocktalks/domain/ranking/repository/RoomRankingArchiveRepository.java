@@ -3,10 +3,8 @@ package com.tocktalks.domain.ranking.repository;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface RoomRankingArchiveRepository extends JpaRepository<RoomRankingArchive, Long> {
 
@@ -18,4 +16,5 @@ public interface RoomRankingArchiveRepository extends JpaRepository<RoomRankingA
 
     boolean existsByRoomId(Long roomId);
 
+    List<RoomRankingArchive> findAllByOrderByFinalReturnRateDesc(Pageable pageable);
 }
