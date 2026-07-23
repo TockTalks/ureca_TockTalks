@@ -30,6 +30,7 @@ public class TradeRankingService {
                     totalAsset,
                     participant.getInitialSeedMoney()
             );
+            rankingService.broadcastRanking(participant.getRoomId());
         } catch (WebClientException exception) {
             log.warn(
                     "거래 체결 후 KIS 현재가 조회 실패로 랭킹 갱신을 건너뜁니다. "
