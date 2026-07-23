@@ -89,12 +89,16 @@ public class PortfolioService {
     
     //매시 정각마다 자산 스냅샷 저장
     @Transactional
-    @Scheduled(cron = "0 0 * * * *")
-//    @Scheduled(cron = "0 */1 * * * *") //테스트용
+//    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 */5 * * * *") //테스트용
     public void recordHourlyAssets() {
         log.info("시간별 자산 스냅샷 저장을 시작합니다.");
-        LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
-        LocalDateTime hourEnd = hourStart.plusHours(1);
+//        LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
+//        LocalDateTime hourEnd = hourStart.plusHours(1);
+
+        //테스트용
+        LocalDateTime hourStart = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime hourEnd = hourStart.plusMinutes(5);
 
         //1. 현재 모의투자에 참가 중인 모든 유저 목록 가져옴
         List<RoomParticipant> activeParticipants = roomParticipantRepository.findAll();
