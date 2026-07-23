@@ -2,34 +2,26 @@ package com.tocktalks.domain.price.service;
 
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
-
 @Component
 public class KisRateLimiter {
 
-    private static final int PERMITS_PER_SECOND = 2;
+    private static final long INTERVAL_MS = 1250L; // 초당 0.8건
 
-    private final Semaphore permits = new Semaphore(PERMITS_PER_SECOND);
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private long lastCallAt = 0L;
 
-    public KisRateLimiter() {
-        scheduler.scheduleAtFixedRate(this::refill, 1, 1, TimeUnit.SECONDS);
-    }
+    public synchronized void acquire() {
+        long now = System.currentTimeMillis();
+        long gap = now - lastCallAt;
 
-    private void refill() {
-        permits.drainPermits();
-        permits.release(PERMITS_PER_SECOND);
-    }
-
-    public void acquire() {
-        try {
-            permits.acquire();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("KIS 호출 대기 중 인터럽트 발생", e);
+        if (gap < INTERVAL_MS) {
+            try {
+                Thread.sleep(INTERVAL_MS - gap);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("KIS 호출 대기 중 인터럽트 발생", e);
+            }
         }
+
+        lastCallAt = System.currentTimeMillis();
     }
 }
