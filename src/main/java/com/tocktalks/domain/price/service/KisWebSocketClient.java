@@ -3,6 +3,7 @@ package com.tocktalks.domain.price.service;
 import com.tocktalks.domain.price.config.KisApiProperties;
 import com.tocktalks.domain.price.dto.request.KisRealtimeSubscribeRequest;
 import com.tocktalks.domain.price.dto.response.KisRealtimePriceMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
@@ -25,6 +26,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class KisWebSocketClient extends TextWebSocketHandler {
 
@@ -83,7 +85,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         if (!isSessionOpen()) {
             // 세션이 아직(혹은 더 이상) 없어도 subscribedStockCodes엔 그대로 남아있으니,
             // 다음 연결 성공 시 resubscribeAll()이 알아서 다시 요청해준다.
-            System.out.println("[KIS 구독 건너뜀] 세션 없음 stockCode=" + stockCode);
+            log.debug("[KIS 구독 건너뜀] 세션 없음 stockCode={}", stockCode);
             return;
         }
 
@@ -102,7 +104,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         try {
             session.sendMessage(new TextMessage(json));
         } catch (IllegalStateException e) {
-            System.out.println("[KIS " + action + " 건너뜀] 전송 시점에 세션이 이미 닫힘 stockCode=" + stockCode);
+            log.debug("[KIS {} 건너뜀] 전송 시점에 세션이 이미 닫힘 stockCode={}", action, stockCode);
         }
     }
 
@@ -113,7 +115,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         String payload = message.getPayload();
-        System.out.println("[KIS 수신] " + payload);   // 임시 디버깅용
+        log.debug("[KIS 수신] {}", payload);
 
         if (payload.startsWith("0") || payload.startsWith("1")) {
             handleRealtimeData(payload);
@@ -132,15 +134,14 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         if (TR_ID_CCNL_KRX.equals(trId)) {
             try {
                 KisRealtimePriceMessage priceMessage = KisRealtimePriceMessage.from(parts[3]);
-                System.out.println("[파싱 완료] " + priceMessage.stockCode() + " = " + priceMessage.currentPrice());
+                log.debug("[파싱 완료] {} = {}", priceMessage.stockCode(), priceMessage.currentPrice());
 
                 persistLatestPriceThrottled(priceMessage.stockCode(), priceMessage.currentPrice());
                 pricePublisher.publish(priceMessage.stockCode(), priceMessage.currentPrice());
 
-                System.out.println("[발행 완료]");
+                log.debug("[발행 완료]");
             } catch (Exception e) {
-                System.out.println("[handleRealtimeData 예외 발생]");
-                e.printStackTrace();
+                log.error("[handleRealtimeData 예외 발생]", e);
             }
         }
     }
@@ -194,7 +195,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
             try {
                 sendSubscribeRequest(stockCode);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn("[resubscribeAll 실패] stockCode={}", stockCode, e);
             }
         }
     }
@@ -204,7 +205,7 @@ public class KisWebSocketClient extends TextWebSocketHandler {
         subscribedStockCodes.remove(stockCode);
 
         if (!isSessionOpen()) {
-            System.out.println("[KIS 구독해제 건너뜀] 세션 없음 stockCode=" + stockCode);
+            log.debug("[KIS 구독해제 건너뜀] 세션 없음 stockCode={}", stockCode);
             return;
         }
 
