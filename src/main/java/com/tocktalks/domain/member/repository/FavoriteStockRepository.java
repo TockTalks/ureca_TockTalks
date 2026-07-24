@@ -12,4 +12,7 @@ public interface FavoriteStockRepository extends JpaRepository<FavoriteStock, Lo
     boolean existsByMemberIdAndStockCode(Long memberId, String stockCode);
 
     void deleteByMemberIdAndStockCode(Long memberId, String stockCode);
+
+    // 회원탈퇴 시 개인화 데이터인 관심종목을 일괄 정리한다.
+    void deleteAllByMemberId(Long memberId);
 }

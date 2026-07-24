@@ -1,5 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
+import com.tocktalks.domain.portfolio.service.PortfolioService;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -73,12 +74,16 @@ class BuySellConcurrencyTest {
     @MockitoBean
     private TradeRankingService tradeRankingService;
 
+    // 거래 후 포트폴리오 이력 기록은 동시성 검증의 대상이 아니므로 격리한다.
+    @MockitoBean
+    private PortfolioService portfolioService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 같은_참가자의_매수와_매도가_동시에_실행되어도_정합성이_유지된다()
             throws Exception {
         Room room = roomRepository.saveAndFlush(
-                Room.createDefault(100_000L)
+                TradeTestRoomFactory.ongoing(100_000L)
         );
 
         RoomParticipant participant =

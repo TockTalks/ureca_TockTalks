@@ -1,5 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
+import com.tocktalks.domain.portfolio.service.PortfolioService;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -57,11 +58,15 @@ class SellTradeRollbackIntegrationTest {
     @MockitoBean
     private TradeRankingService tradeRankingService;
 
+    // 거래 후 포트폴리오 이력 기록은 롤백 검증의 대상이 아니므로 격리한다.
+    @MockitoBean
+    private PortfolioService portfolioService;
+
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void 잔액_입금에_실패하면_보유_종목과_거래_내역이_모두_롤백된다() {
         Room room = roomRepository.saveAndFlush(
-                Room.createDefault(Long.MAX_VALUE)
+                TradeTestRoomFactory.ongoing(Long.MAX_VALUE)
         );
 
         RoomParticipant participant =

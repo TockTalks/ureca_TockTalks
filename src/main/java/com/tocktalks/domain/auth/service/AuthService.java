@@ -5,9 +5,11 @@ import com.tocktalks.domain.auth.dto.KakaoTokenResponse;
 import com.tocktalks.domain.auth.dto.KakaoUserInfoResponse;
 import com.tocktalks.domain.auth.dto.LoginRequest;
 import com.tocktalks.domain.auth.dto.MemberUpdateRequest;
+import com.tocktalks.domain.auth.dto.MemberWithdrawalRequest;
 import com.tocktalks.domain.auth.dto.SignupRequest;
 import com.tocktalks.domain.auth.dto.TokenResponse;
 import com.tocktalks.domain.member.entity.Member;
+import com.tocktalks.domain.member.repository.FavoriteStockRepository;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.room.service.RoomService;
 import com.tocktalks.global.security.JwtProvider;
@@ -26,10 +28,12 @@ public class AuthService {
 
     private final KakaoOAuthClient kakaoOAuthClient;
     private final MemberRepository memberRepository;
+    private final FavoriteStockRepository favoriteStockRepository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final RoomService roomService;
     private final RefreshTokenService refreshTokenService;
+    private final AccessTokenRevocationService accessTokenRevocationService;
     private final LoginAttemptService loginAttemptService;
 
     @Transactional
@@ -81,6 +85,33 @@ public class AuthService {
 
     public void logout(Long memberId) {
         refreshTokenService.delete(memberId);
+    }
+
+    /**
+     * 회원탈퇴: 연관 기록은 유지하고 개인정보 익명화, 개인화 데이터 삭제, 토큰 무효화를 수행한다.
+     */
+    @Transactional
+    public void withdraw(Long memberId, MemberWithdrawalRequest request) {
+        Member member = getMember(memberId);
+
+        if (member.isWithdrawn()) {
+            throw new IllegalArgumentException("이미 탈퇴한 회원입니다.");
+        }
+
+        if (PROVIDER_LOCAL.equals(member.getProvider())
+                && (request.currentPassword() == null
+                || !passwordEncoder.matches(request.currentPassword(), member.getPassword()))) {
+            throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+        }
+
+        // 재가입은 새 계정으로 처리하므로 기존 방 참가와 실시간 랭킹 연결을 모두 종료한다.
+        roomService.endActiveParticipationsForWithdrawal(memberId);
+        favoriteStockRepository.deleteAllByMemberId(memberId);
+        member.withdraw();
+        // 토큰을 폐기하기 전에 익명화 변경이 DB 제약을 통과하는지 먼저 확인한다.
+        memberRepository.flush();
+        refreshTokenService.delete(memberId);
+        accessTokenRevocationService.revoke(memberId);
     }
 
     private TokenResponse issueTokens(Member member, boolean isNewMember) {

@@ -64,8 +64,13 @@ public class AdminMemberService {
     //회원의 로비 시드머니 및 거래 내역 초기화
     @Transactional
     public void resetDefaultRoomAssets(Long memberId) {
-        memberRepository.findById(memberId)
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        // 회원탈퇴로 닫힌 계정의 자산 기록은 관리자 초기화 대상에서 제외한다.
+        if (member.isWithdrawn()) {
+            throw new IllegalArgumentException("탈퇴한 회원의 자산은 초기화할 수 없습니다.");
+        }
 
         Room defaultRoom = roomRepository.findByIsDefaultTrue()
                 .orElseThrow(() -> new IllegalStateException("기본 방을 찾을 수 없습니다."));
