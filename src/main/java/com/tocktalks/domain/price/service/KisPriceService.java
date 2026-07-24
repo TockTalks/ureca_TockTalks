@@ -5,12 +5,16 @@ import com.tocktalks.domain.price.dto.response.KisMultiPriceEnvelope;
 import com.tocktalks.domain.price.dto.response.KisPriceEnvelope;
 import com.tocktalks.domain.price.dto.response.KisPriceResponse;
 import com.tocktalks.domain.price.dto.response.StockQuoteResponse;
+import org.springframework.data.redis.connection.RedisStringCommands;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +29,11 @@ public class KisPriceService {
     private static final int MULTI_PRICE_MAX_CODES = 30;
     private static final String CACHE_KEY_PREFIX = "price:rest:";
     private static final String QUOTE_CACHE_KEY_PREFIX = "price:quote:";
+    // price:rest:*는 매수/매도 체결가로도 쓰이므로(BuyTradeService/SellTradeService) 짧게 유지한다.
     private static final Duration CACHE_TTL = Duration.ofSeconds(8);
+    // price:quote:*는 포트폴리오 조회/워밍업/랭킹 스케줄러 전용 캐시라 체결가에 영향이 없다.
+    // 랭킹 스케줄러 주기(30초)와 맞춰서, 스케줄러가 돌 때 캐시가 거의 항상 살아있게 한다.
+    private static final Duration QUOTE_CACHE_TTL = Duration.ofSeconds(30);
 
     private final WebClient kisWebClient;
     private final KisApiProperties kisApiProperties;
@@ -139,32 +147,59 @@ public class KisPriceService {
             return Map.of();
         }
 
+        List<String> distinctCodes = stockCodes.stream().distinct().toList();
+        // shared 프로필(원격 Upstash)에서는 Redis 호출 한 번 한 번이 네트워크 왕복이라,
+        // 종목마다 따로 GET 하면 그것만으로도 수백 ms가 든다. MGET으로 한 번에 묶는다.
+        List<String> cachedValues = redisTemplate.opsForValue().multiGet(
+                distinctCodes.stream().map(code -> QUOTE_CACHE_KEY_PREFIX + code).toList()
+        );
+
         Map<String, BigDecimal> result = new LinkedHashMap<>();
         List<String> missing = new ArrayList<>();
 
-        for (String stockCode : stockCodes.stream().distinct().toList()) {
-            String cached = redisTemplate.opsForValue().get(QUOTE_CACHE_KEY_PREFIX + stockCode);
+        for (int i = 0; i < distinctCodes.size(); i++) {
+            String cached = cachedValues == null ? null : cachedValues.get(i);
             if (cached != null) {
-                result.put(stockCode, new BigDecimal(cached));
+                result.put(distinctCodes.get(i), new BigDecimal(cached));
             } else {
-                missing.add(stockCode);
+                missing.add(distinctCodes.get(i));
             }
         }
 
         for (int i = 0; i < missing.size(); i += MULTI_PRICE_MAX_CODES) {
             List<String> chunk = missing.subList(i, Math.min(i + MULTI_PRICE_MAX_CODES, missing.size()));
 
+            Map<String, BigDecimal> freshPrices = new LinkedHashMap<>();
             for (StockQuoteResponse quote : getMultiplePrices(chunk)) {
-                BigDecimal price = BigDecimal.valueOf(quote.currentPrice());
-                redisTemplate.opsForValue().set(
-                        QUOTE_CACHE_KEY_PREFIX + quote.stockCode(),
-                        price.toPlainString(),
-                        CACHE_TTL
-                );
-                result.put(quote.stockCode(), price);
+                freshPrices.put(quote.stockCode(), BigDecimal.valueOf(quote.currentPrice()));
             }
+
+            cacheAll(freshPrices);
+            result.putAll(freshPrices);
         }
 
         return result;
+    }
+
+    // 여러 종목 시세를 한 번의 파이프라인으로 캐싱한다 (종목마다 따로 SET 하면 그만큼
+    // 네트워크 왕복이 생기므로, shared 프로필처럼 Redis가 원격일 때 특히 중요하다).
+    private void cacheAll(Map<String, BigDecimal> prices) {
+        if (prices.isEmpty()) {
+            return;
+        }
+
+        // executePipelined가 넘겨주는 connection은 Lettuce 파이프라인용 프록시라
+        // StringRedisConnection으로 캐스팅이 안 될 수 있다 (ClassCastException).
+        // 캐스팅 없이 쓸 수 있는 stringCommands()로 직접 SET+EX를 건다.
+        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            prices.forEach((code, price) -> connection.stringCommands().set(
+                    (QUOTE_CACHE_KEY_PREFIX + code).getBytes(StandardCharsets.UTF_8),
+                    price.toPlainString().getBytes(StandardCharsets.UTF_8),
+                    Expiration.seconds(QUOTE_CACHE_TTL.getSeconds()),
+                    RedisStringCommands.SetOption.upsert()
+            ));
+
+            return null;
+        });
     }
 }
