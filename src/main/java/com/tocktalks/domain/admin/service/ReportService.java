@@ -10,6 +10,7 @@ import com.tocktalks.domain.community.service.PostService;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,11 @@ public class ReportService {
         if (!VALID_TARGET_TYPES.contains(request.targetType())) {
             throw new IllegalArgumentException("지원하지 않는 신고 대상입니다: " + request.targetType());
         }
+
+        if(reportRepository.existsByReporterIdAndTargetTypeAndTargetId(reporterId, request.targetType(), request.targetId())){
+            throw new IllegalArgumentException("이미 신고한 게시글/댓글입니다.");
+        }
+
         String targetContent;
         try {
                 targetContent = switch (request.targetType()) {
@@ -52,9 +58,13 @@ public class ReportService {
             throw new IllegalArgumentException("존재하지 않는 신고 대상입니다.");
         }
 
-        reportRepository.save(Report.create(
-                reporterId, request.targetType(), request.targetId(), request.targetMemberId(), request.reason(), targetContent
-        ));
+        try {
+            reportRepository.save(Report.create(
+                    reporterId, request.targetType(), request.targetId(), request.targetMemberId(), request.reason(), targetContent
+            ));
+        } catch(DataIntegrityViolationException e){
+            throw new IllegalArgumentException("이미 신고한 게시글/댓글입니다.");
+        }
     }
 
     //처리 대기 중인 신고 목록을 페이징하여 조회
