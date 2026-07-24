@@ -91,7 +91,7 @@ public class CommentService {
                 .orElseThrow(() -> new CommunityException(CommunityErrorCode.POST_NOT_FOUND));
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = CommunityException.class)
     public void deleteCommentByAdmin(Long commentId){
         Comment comment = getCommentOrThrow(commentId);
         Post post = getPostOrThrow(comment.getPostId());
