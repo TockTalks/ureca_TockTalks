@@ -1,0 +1,1067 @@
+{
+  "build.gradle": {
+    "mtime": 1784532064.00236,
+    "ast_hash": "580276e0622c4526dd940a3fecbd0747",
+    "semantic_hash": "580276e0622c4526dd940a3fecbd0747"
+  },
+  "gradlew": {
+    "mtime": 1783997116.2906444,
+    "ast_hash": "b60a94c7e112b22b5f03b88ba3566178",
+    "semantic_hash": "b60a94c7e112b22b5f03b88ba3566178"
+  },
+  "settings.gradle": {
+    "mtime": 1783997116.3046434,
+    "ast_hash": "3156819a378bc63e62251e71bc884376",
+    "semantic_hash": "3156819a378bc63e62251e71bc884376"
+  },
+  "src/main/java/com/tocktalks/TockTalksApplication.java": {
+    "mtime": 1784522963.0520675,
+    "ast_hash": "7a61709545e63b4d8e9f283ccf2a33d6",
+    "semantic_hash": "7a61709545e63b4d8e9f283ccf2a33d6"
+  },
+  "src/main/java/com/tocktalks/domain/admin/entity/Notice.java": {
+    "mtime": 1784532064.0079482,
+    "ast_hash": "dc4ceeac2cae0d6c9f8f3c2a974c78a0",
+    "semantic_hash": "dc4ceeac2cae0d6c9f8f3c2a974c78a0"
+  },
+  "src/main/java/com/tocktalks/domain/admin/entity/Report.java": {
+    "mtime": 1784706056.2863028,
+    "ast_hash": "069d4cdfc607462789cc33907112268a",
+    "semantic_hash": "069d4cdfc607462789cc33907112268a"
+  },
+  "src/main/java/com/tocktalks/domain/backoffice/entity/DailyStats.java": {
+    "mtime": 1784694039.6802833,
+    "ast_hash": "314c51f02a8ef0c292a714714debea28",
+    "semantic_hash": "314c51f02a8ef0c292a714714debea28"
+  },
+  "src/main/java/com/tocktalks/domain/community/entity/Comment.java": {
+    "mtime": 1784688418.4971752,
+    "ast_hash": "a70950dfa66b3b79effee78352ac6e4f",
+    "semantic_hash": "a70950dfa66b3b79effee78352ac6e4f"
+  },
+  "src/main/java/com/tocktalks/domain/community/entity/Post.java": {
+    "mtime": 1784522945.9007258,
+    "ast_hash": "592d2050dd572dbe5d61a57fac3ffd73",
+    "semantic_hash": "592d2050dd572dbe5d61a57fac3ffd73"
+  },
+  "src/main/java/com/tocktalks/domain/community/entity/PostLike.java": {
+    "mtime": 1784522945.9023228,
+    "ast_hash": "a75c3fcbfa01d69a19189d0f4b3c0cc0",
+    "semantic_hash": "a75c3fcbfa01d69a19189d0f4b3c0cc0"
+  },
+  "src/main/java/com/tocktalks/domain/member/controller/HealthController.java": {
+    "mtime": 1783997116.3216462,
+    "ast_hash": "544b10139e988e0da04f2abd945ad705",
+    "semantic_hash": "544b10139e988e0da04f2abd945ad705"
+  },
+  "src/main/java/com/tocktalks/domain/member/entity/FavoriteStock.java": {
+    "mtime": 1784598689.3300536,
+    "ast_hash": "b32e2afdca41c048b1de1372cb376c7a",
+    "semantic_hash": "b32e2afdca41c048b1de1372cb376c7a"
+  },
+  "src/main/java/com/tocktalks/domain/member/entity/Member.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "da55fe3b301ac196edfac944b6cfa32c",
+    "semantic_hash": "da55fe3b301ac196edfac944b6cfa32c"
+  },
+  "src/main/java/com/tocktalks/domain/member/repository/MemberRepository.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "9bb45959ce74842ba3fa0bec91050b2b",
+    "semantic_hash": "9bb45959ce74842ba3fa0bec91050b2b"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/entity/AssetHistory.java": {
+    "mtime": 1784593926.652326,
+    "ast_hash": "f88fe161bc74fe3bbd345615a6616a53",
+    "semantic_hash": "f88fe161bc74fe3bbd345615a6616a53"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/entity/RoomRankingArchive.java": {
+    "mtime": 1784522963.155058,
+    "ast_hash": "a706c9fffd19fc327bb897f62bc1470e",
+    "semantic_hash": "a706c9fffd19fc327bb897f62bc1470e"
+  },
+  "src/main/java/com/tocktalks/domain/room/entity/Room.java": {
+    "mtime": 1784616396.3806858,
+    "ast_hash": "0661bff1deea0fc71fb98d8c8d9d10a2",
+    "semantic_hash": "0661bff1deea0fc71fb98d8c8d9d10a2"
+  },
+  "src/main/java/com/tocktalks/domain/room/entity/RoomParticipant.java": {
+    "mtime": 1784601186.0313647,
+    "ast_hash": "cc0c7d03674411c1ef32c8a6a7865326",
+    "semantic_hash": "cc0c7d03674411c1ef32c8a6a7865326"
+  },
+  "src/main/java/com/tocktalks/domain/trade/entity/Holding.java": {
+    "mtime": 1784533316.1387758,
+    "ast_hash": "a3ceb93e28b6281a8ce29f47584f50eb",
+    "semantic_hash": "a3ceb93e28b6281a8ce29f47584f50eb"
+  },
+  "src/main/java/com/tocktalks/domain/trade/entity/Transaction.java": {
+    "mtime": 1784533316.139775,
+    "ast_hash": "847b31813e815188b2fc3b6d2724bb3b",
+    "semantic_hash": "847b31813e815188b2fc3b6d2724bb3b"
+  },
+  "src/main/java/com/tocktalks/global/exception/GlobalExceptionHandler.java": {
+    "mtime": 1784531442.5621421,
+    "ast_hash": "9e20c882bfdfb503403929845673a698",
+    "semantic_hash": "9e20c882bfdfb503403929845673a698"
+  },
+  "src/main/java/com/tocktalks/global/security/SecurityConfig.java": {
+    "mtime": 1784694039.6851695,
+    "ast_hash": "cc2ebe5991b25fb176d782aaf6bfb825",
+    "semantic_hash": "cc2ebe5991b25fb176d782aaf6bfb825"
+  },
+  "CLAUDE.md": {
+    "mtime": 1783997116.285643,
+    "ast_hash": "8a6643a420fdad6bfb583523bc6cef16",
+    "semantic_hash": "8a6643a420fdad6bfb583523bc6cef16"
+  },
+  "README.md": {
+    "mtime": 1784522945.8631413,
+    "ast_hash": "eac3b70cd71e3d0d1d68eae55add51c4",
+    "semantic_hash": "eac3b70cd71e3d0d1d68eae55add51c4"
+  },
+  "docker-compose.yml": {
+    "mtime": 1783997116.2876437,
+    "ast_hash": "3aeda498a45858e0a5558c992ece5e03",
+    "semantic_hash": "3aeda498a45858e0a5558c992ece5e03"
+  },
+  "src/main/resources/application.yml": {
+    "mtime": 1784608882.2471445,
+    "ast_hash": "ee19252582b36bd13b4115dfc50482b3",
+    "semantic_hash": "ee19252582b36bd13b4115dfc50482b3"
+  },
+  "src/main/java/com/tocktalks/domain/admin/controller/AdminReportController.java": {
+    "mtime": 1784697413.644596,
+    "ast_hash": "9578a8b896eff7042b2c9ddcb01f294b",
+    "semantic_hash": "9578a8b896eff7042b2c9ddcb01f294b"
+  },
+  "src/main/java/com/tocktalks/domain/admin/controller/NoticeController.java": {
+    "mtime": 1784532064.004918,
+    "ast_hash": "4150e150748b53392b67c9113eabb959",
+    "semantic_hash": "4150e150748b53392b67c9113eabb959"
+  },
+  "src/main/java/com/tocktalks/domain/admin/dto/request/NoticeCreateRequest.java": {
+    "mtime": 1784527798.5083117,
+    "ast_hash": "fb790a0572b78196216b7f983c6686fb",
+    "semantic_hash": "fb790a0572b78196216b7f983c6686fb"
+  },
+  "src/main/java/com/tocktalks/domain/admin/dto/response/NoticeResponse.java": {
+    "mtime": 1784532064.007437,
+    "ast_hash": "628fcb445dbe235cca9c576e9bae6a41",
+    "semantic_hash": "628fcb445dbe235cca9c576e9bae6a41"
+  },
+  "src/main/java/com/tocktalks/domain/admin/dto/response/ReportResponse.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "670514a92475d23c7cb14a1f8fa3b0bb",
+    "semantic_hash": "670514a92475d23c7cb14a1f8fa3b0bb"
+  },
+  "src/main/java/com/tocktalks/domain/admin/repository/NoticeRepository.java": {
+    "mtime": 1784527798.5106728,
+    "ast_hash": "eb415b66b6fee8b79f1e9f18c4b516ae",
+    "semantic_hash": "eb415b66b6fee8b79f1e9f18c4b516ae"
+  },
+  "src/main/java/com/tocktalks/domain/admin/repository/ReportRepository.java": {
+    "mtime": 1784527798.5111754,
+    "ast_hash": "7b5fd9614f66af2417131bb4ccf4cd24",
+    "semantic_hash": "7b5fd9614f66af2417131bb4ccf4cd24"
+  },
+  "src/main/java/com/tocktalks/domain/admin/service/NoticeService.java": {
+    "mtime": 1784527798.512297,
+    "ast_hash": "4ee845eff285382378841e2e6b655f0c",
+    "semantic_hash": "4ee845eff285382378841e2e6b655f0c"
+  },
+  "src/main/java/com/tocktalks/domain/admin/service/ReportService.java": {
+    "mtime": 1784706056.2892826,
+    "ast_hash": "7cbbf09b8cc86595eea94d6a624fc718",
+    "semantic_hash": "7cbbf09b8cc86595eea94d6a624fc718"
+  },
+  "src/main/java/com/tocktalks/domain/auth/client/KakaoOAuthClient.java": {
+    "mtime": 1784608882.227878,
+    "ast_hash": "6840d9310b07bd1cd0cf250fd582eed9",
+    "semantic_hash": "6840d9310b07bd1cd0cf250fd582eed9"
+  },
+  "src/main/java/com/tocktalks/domain/auth/controller/AuthController.java": {
+    "mtime": 1784694039.673174,
+    "ast_hash": "e7e9c50678bf872aeec2a0a38ba1decf",
+    "semantic_hash": "e7e9c50678bf872aeec2a0a38ba1decf"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/EmailCheckResponse.java": {
+    "mtime": 1784531442.5476477,
+    "ast_hash": "d12cfed0c83ef4461e7242105b038d01",
+    "semantic_hash": "d12cfed0c83ef4461e7242105b038d01"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/KakaoLoginRequest.java": {
+    "mtime": 1784522963.0684927,
+    "ast_hash": "5aff456eeedeb940b7e76ab3c6136bbe",
+    "semantic_hash": "5aff456eeedeb940b7e76ab3c6136bbe"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/KakaoTokenResponse.java": {
+    "mtime": 1784522963.0694907,
+    "ast_hash": "6cb9d764cb021f6f6064d2c0bfba8f1d",
+    "semantic_hash": "6cb9d764cb021f6f6064d2c0bfba8f1d"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/KakaoUserInfoResponse.java": {
+    "mtime": 1784522963.070491,
+    "ast_hash": "01cf9dc6b8821e49b4a1d4e77beab90f",
+    "semantic_hash": "01cf9dc6b8821e49b4a1d4e77beab90f"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/LoginRequest.java": {
+    "mtime": 1784522963.070491,
+    "ast_hash": "b670dbc7a9a62f1cdfaefb947db59b53",
+    "semantic_hash": "b670dbc7a9a62f1cdfaefb947db59b53"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/ReissueRequest.java": {
+    "mtime": 1784531442.5506816,
+    "ast_hash": "070b6d780cc181e4ff9cb22a11893eab",
+    "semantic_hash": "070b6d780cc181e4ff9cb22a11893eab"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/SignupRequest.java": {
+    "mtime": 1784522963.0720067,
+    "ast_hash": "ea152e0ad473357476f37368aaca1028",
+    "semantic_hash": "ea152e0ad473357476f37368aaca1028"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/TokenResponse.java": {
+    "mtime": 1784522963.0730226,
+    "ast_hash": "44b301476a786377f1a968cf1392e02a",
+    "semantic_hash": "44b301476a786377f1a968cf1392e02a"
+  },
+  "src/main/java/com/tocktalks/domain/auth/service/AuthService.java": {
+    "mtime": 1784694039.673174,
+    "ast_hash": "72444b244de5a53dc3c0a4f42e8c7c2a",
+    "semantic_hash": "72444b244de5a53dc3c0a4f42e8c7c2a"
+  },
+  "src/main/java/com/tocktalks/domain/auth/service/LoginAttemptService.java": {
+    "mtime": 1784608882.2318685,
+    "ast_hash": "fe9b9a15f9138479cde5d8f0fd346783",
+    "semantic_hash": "fe9b9a15f9138479cde5d8f0fd346783"
+  },
+  "src/main/java/com/tocktalks/domain/auth/service/RefreshTokenService.java": {
+    "mtime": 1784531442.5517244,
+    "ast_hash": "85ae65496a30e224ef09d863374e0c12",
+    "semantic_hash": "85ae65496a30e224ef09d863374e0c12"
+  },
+  "src/main/java/com/tocktalks/domain/community/controller/CommentController.java": {
+    "mtime": 1784522945.8858051,
+    "ast_hash": "f866c7aabc993f2b7d04e681cfa0a91f",
+    "semantic_hash": "f866c7aabc993f2b7d04e681cfa0a91f"
+  },
+  "src/main/java/com/tocktalks/domain/community/controller/PostController.java": {
+    "mtime": 1784522945.8870416,
+    "ast_hash": "cb9e9985bbc21f09c2be3355112a8ec2",
+    "semantic_hash": "cb9e9985bbc21f09c2be3355112a8ec2"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/request/CommentCreateRequest.java": {
+    "mtime": 1784522945.889152,
+    "ast_hash": "4caaa0725ffe31cb0cf33845723d9ad6",
+    "semantic_hash": "4caaa0725ffe31cb0cf33845723d9ad6"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/request/CommentUpdateRequest.java": {
+    "mtime": 1784522945.8904505,
+    "ast_hash": "65010884d3e866fed507422517e1a5fa",
+    "semantic_hash": "65010884d3e866fed507422517e1a5fa"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/request/PostCreateRequest.java": {
+    "mtime": 1784522945.891787,
+    "ast_hash": "4f8b8931ba5e7d0223f6e19c7a0a59bd",
+    "semantic_hash": "4f8b8931ba5e7d0223f6e19c7a0a59bd"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/request/PostUpdateRequest.java": {
+    "mtime": 1784522945.8930056,
+    "ast_hash": "3a3af6e29018ace5aa973ace97cbe101",
+    "semantic_hash": "3a3af6e29018ace5aa973ace97cbe101"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/response/CommentResponse.java": {
+    "mtime": 1784688418.4951656,
+    "ast_hash": "0c853140264eb9e4b7bf60076c27f026",
+    "semantic_hash": "0c853140264eb9e4b7bf60076c27f026"
+  },
+  "src/main/java/com/tocktalks/domain/community/dto/response/PostResponse.java": {
+    "mtime": 1784522945.8962104,
+    "ast_hash": "efc950d21bb600174c00d32dd10bf279",
+    "semantic_hash": "efc950d21bb600174c00d32dd10bf279"
+  },
+  "src/main/java/com/tocktalks/domain/community/entity/CommentLike.java": {
+    "mtime": 1784522945.898428,
+    "ast_hash": "a1f2d73852d32441c1770c57aa633305",
+    "semantic_hash": "a1f2d73852d32441c1770c57aa633305"
+  },
+  "src/main/java/com/tocktalks/domain/community/exception/CommunityErrorCode.java": {
+    "mtime": 1784522945.9038477,
+    "ast_hash": "7a747b1ae9d41d81ac0711a8024fbbaa",
+    "semantic_hash": "7a747b1ae9d41d81ac0711a8024fbbaa"
+  },
+  "src/main/java/com/tocktalks/domain/community/exception/CommunityException.java": {
+    "mtime": 1784522945.9050753,
+    "ast_hash": "88cbe816369592ff9a7380c629f262a4",
+    "semantic_hash": "88cbe816369592ff9a7380c629f262a4"
+  },
+  "src/main/java/com/tocktalks/domain/community/exception/CommunityExceptionHandler.java": {
+    "mtime": 1784522945.9063177,
+    "ast_hash": "55eceea3258325def88007794b526e59",
+    "semantic_hash": "55eceea3258325def88007794b526e59"
+  },
+  "src/main/java/com/tocktalks/domain/community/repository/CommentLikeRepository.java": {
+    "mtime": 1784522945.9078238,
+    "ast_hash": "6670e6b933d84f38f80b089f41b2414f",
+    "semantic_hash": "6670e6b933d84f38f80b089f41b2414f"
+  },
+  "src/main/java/com/tocktalks/domain/community/repository/CommentRepository.java": {
+    "mtime": 1784522963.077023,
+    "ast_hash": "04a3b7c5d2f9a9d91f8f84e0505b5bc4",
+    "semantic_hash": "04a3b7c5d2f9a9d91f8f84e0505b5bc4"
+  },
+  "src/main/java/com/tocktalks/domain/community/repository/PostLikeRepository.java": {
+    "mtime": 1784522945.9099674,
+    "ast_hash": "b7fd5acb4fc3c3ae82b6d2d9892cd691",
+    "semantic_hash": "b7fd5acb4fc3c3ae82b6d2d9892cd691"
+  },
+  "src/main/java/com/tocktalks/domain/community/repository/PostRepository.java": {
+    "mtime": 1784694039.6821947,
+    "ast_hash": "6bfa55727d21d0f920764fdef791aa89",
+    "semantic_hash": "6bfa55727d21d0f920764fdef791aa89"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/CommentLikeService.java": {
+    "mtime": 1784522945.9125862,
+    "ast_hash": "0d3cc09958120727b9bd1a0a2b771632",
+    "semantic_hash": "0d3cc09958120727b9bd1a0a2b771632"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/CommentService.java": {
+    "mtime": 1784688418.4971752,
+    "ast_hash": "d72de39becd63e307e61dc75981cfea2",
+    "semantic_hash": "d72de39becd63e307e61dc75981cfea2"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/PostLikeService.java": {
+    "mtime": 1784522945.9150512,
+    "ast_hash": "efe29e000493a9411eb66aec943ba69d",
+    "semantic_hash": "efe29e000493a9411eb66aec943ba69d"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/PostService.java": {
+    "mtime": 1784688418.49889,
+    "ast_hash": "1c8e79d847444a4b03113139bdf09640",
+    "semantic_hash": "1c8e79d847444a4b03113139bdf09640"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/StubTransactionCertificateProvider.java": {
+    "mtime": 1784522963.08023,
+    "ast_hash": "43561210f422c3631c68700738d90559",
+    "semantic_hash": "43561210f422c3631c68700738d90559"
+  },
+  "src/main/java/com/tocktalks/domain/community/service/TransactionCertificateProvider.java": {
+    "mtime": 1784522945.9197488,
+    "ast_hash": "35c0c42ac7544ed16753fa8794b5fd37",
+    "semantic_hash": "35c0c42ac7544ed16753fa8794b5fd37"
+  },
+  "src/main/java/com/tocktalks/domain/member/controller/FavoriteStockController.java": {
+    "mtime": 1784598689.3269644,
+    "ast_hash": "073ea84ea18892e4ccd34754fc5fba70",
+    "semantic_hash": "073ea84ea18892e4ccd34754fc5fba70"
+  },
+  "src/main/java/com/tocktalks/domain/member/dto/request/FavoriteStockRequest.java": {
+    "mtime": 1784598689.3300536,
+    "ast_hash": "305496bd76f6bf6a5d908053fedbbc48",
+    "semantic_hash": "305496bd76f6bf6a5d908053fedbbc48"
+  },
+  "src/main/java/com/tocktalks/domain/member/dto/response/FavoriteStockResponse.java": {
+    "mtime": 1784598689.3300536,
+    "ast_hash": "9c5b642be40701a1ac0c2ad0be9aa7fc",
+    "semantic_hash": "9c5b642be40701a1ac0c2ad0be9aa7fc"
+  },
+  "src/main/java/com/tocktalks/domain/member/repository/FavoriteStockRepository.java": {
+    "mtime": 1784598689.3329918,
+    "ast_hash": "374fcdcca5dccc6addde324d70a3ee66",
+    "semantic_hash": "374fcdcca5dccc6addde324d70a3ee66"
+  },
+  "src/main/java/com/tocktalks/domain/member/service/FavoriteStockService.java": {
+    "mtime": 1784598689.3349445,
+    "ast_hash": "591fb8278febaf357f413a70d94eb6ea",
+    "semantic_hash": "591fb8278febaf357f413a70d94eb6ea"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/controller/PortfolioController.java": {
+    "mtime": 1784623127.9845564,
+    "ast_hash": "c270db58ad272ba424eb844785bca313",
+    "semantic_hash": "c270db58ad272ba424eb844785bca313"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/dto/AssetHistoryResponse.java": {
+    "mtime": 1784522963.086759,
+    "ast_hash": "5a60558747337faebdc348751a22cf7c",
+    "semantic_hash": "5a60558747337faebdc348751a22cf7c"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/repository/AssetHistoryRepository.java": {
+    "mtime": 1784593926.652326,
+    "ast_hash": "3f530a8d91a12682b5e9d921aa11cd77",
+    "semantic_hash": "3f530a8d91a12682b5e9d921aa11cd77"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/service/PortfolioService.java": {
+    "mtime": 1784699139.1240642,
+    "ast_hash": "649f642e7cd26e858a39139d23199d5d",
+    "semantic_hash": "649f642e7cd26e858a39139d23199d5d"
+  },
+  "src/main/java/com/tocktalks/domain/price/config/KisApiProperties.java": {
+    "mtime": 1784522945.928822,
+    "ast_hash": "f587a0f3ffaf7bb6c2eb012089ec0947",
+    "semantic_hash": "f587a0f3ffaf7bb6c2eb012089ec0947"
+  },
+  "src/main/java/com/tocktalks/domain/price/config/PriceConfig.java": {
+    "mtime": 1784522945.9322748,
+    "ast_hash": "86ea74541268803b94aee6bcb37793ef",
+    "semantic_hash": "86ea74541268803b94aee6bcb37793ef"
+  },
+  "src/main/java/com/tocktalks/domain/price/config/PriceRedisConfig.java": {
+    "mtime": 1784522963.1530595,
+    "ast_hash": "d2be7254a20534f802d896b5c415c2e4",
+    "semantic_hash": "d2be7254a20534f802d896b5c415c2e4"
+  },
+  "src/main/java/com/tocktalks/domain/price/controller/PriceController.java": {
+    "mtime": 1784706056.2932696,
+    "ast_hash": "21bfbb3dff546e78e370b8b06fcc95f3",
+    "semantic_hash": "21bfbb3dff546e78e370b8b06fcc95f3"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/request/KisApprovalRequest.java": {
+    "mtime": 1784522945.9381,
+    "ast_hash": "77df22067b727db91cce7ecd1db4a6e7",
+    "semantic_hash": "77df22067b727db91cce7ecd1db4a6e7"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/request/KisRealtimeSubscribeRequest.java": {
+    "mtime": 1784686004.759448,
+    "ast_hash": "34b0e86cd3d2b29b438472f6b9704e01",
+    "semantic_hash": "34b0e86cd3d2b29b438472f6b9704e01"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/request/KisTokenRequest.java": {
+    "mtime": 1784522945.9417248,
+    "ast_hash": "c7f094072681052bf78d4ff542a5d183",
+    "semantic_hash": "c7f094072681052bf78d4ff542a5d183"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisApprovalResponse.java": {
+    "mtime": 1784522945.943228,
+    "ast_hash": "3c58c6adbd6676097230496f2787d4c7",
+    "semantic_hash": "3c58c6adbd6676097230496f2787d4c7"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisPriceEnvelope.java": {
+    "mtime": 1784522945.9447348,
+    "ast_hash": "94891ef7157446ce9cb393c294b19f00",
+    "semantic_hash": "94891ef7157446ce9cb393c294b19f00"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisPriceResponse.java": {
+    "mtime": 1784522945.9465046,
+    "ast_hash": "778cd2dbf96c72c7a53a44c5b5b3023b",
+    "semantic_hash": "778cd2dbf96c72c7a53a44c5b5b3023b"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisRealtimePriceMessage.java": {
+    "mtime": 1784522945.9470978,
+    "ast_hash": "e00283656b46240628246370aa695c46",
+    "semantic_hash": "e00283656b46240628246370aa695c46"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisTokenResponse.java": {
+    "mtime": 1784522945.9485464,
+    "ast_hash": "d9df45c87752180e003573461f9a4768",
+    "semantic_hash": "d9df45c87752180e003573461f9a4768"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/StockInfo.java": {
+    "mtime": 1784533316.1337764,
+    "ast_hash": "c56a1adb07823607746f10e83fa6de0a",
+    "semantic_hash": "c56a1adb07823607746f10e83fa6de0a"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/KisAuthService.java": {
+    "mtime": 1784681411.3192704,
+    "ast_hash": "e18fb832d940265e3c3143436a89d193",
+    "semantic_hash": "e18fb832d940265e3c3143436a89d193"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/KisPriceService.java": {
+    "mtime": 1784522945.9514933,
+    "ast_hash": "3b1a5c37a3edabb753e6602acad9d894",
+    "semantic_hash": "3b1a5c37a3edabb753e6602acad9d894"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/KisWebSocketClient.java": {
+    "mtime": 1784686004.759448,
+    "ast_hash": "d4dba2d50e9cad497f130ae5261e5580",
+    "semantic_hash": "d4dba2d50e9cad497f130ae5261e5580"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/PricePublisher.java": {
+    "mtime": 1784522945.9537406,
+    "ast_hash": "f8812582cfd43fbb82664af7632ba8e0",
+    "semantic_hash": "f8812582cfd43fbb82664af7632ba8e0"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/PriceRedisSubscriber.java": {
+    "mtime": 1784522945.9548914,
+    "ast_hash": "defa2c12debf0cde56b6943b10a10661",
+    "semantic_hash": "defa2c12debf0cde56b6943b10a10661"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/StockMasterService.java": {
+    "mtime": 1784533316.1337764,
+    "ast_hash": "0e45928d14932b8939b4dcb9ba8baca5",
+    "semantic_hash": "0e45928d14932b8939b4dcb9ba8baca5"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/controller/RankingController.java": {
+    "mtime": 1784522945.9560387,
+    "ast_hash": "75fb23d7832037dd3ea1ab613568c1d5",
+    "semantic_hash": "75fb23d7832037dd3ea1ab613568c1d5"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/dto/response/RankingArchiveResponse.java": {
+    "mtime": 1784616396.3740065,
+    "ast_hash": "21f6d00d923726e1ca65782fdd1f244d",
+    "semantic_hash": "21f6d00d923726e1ca65782fdd1f244d"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/dto/response/RankingDto.java": {
+    "mtime": 1784522945.9589083,
+    "ast_hash": "33aa73164fdda5a37df4b4a046edaa29",
+    "semantic_hash": "33aa73164fdda5a37df4b4a046edaa29"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/dto/response/RankingListResponse.java": {
+    "mtime": 1784608882.23584,
+    "ast_hash": "5e57f6da6ea422a0f8ed4008baa5c087",
+    "semantic_hash": "5e57f6da6ea422a0f8ed4008baa5c087"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/dto/response/RankingUpdateEvent.java": {
+    "mtime": 1784616396.3750062,
+    "ast_hash": "d8d7712fd7eacc4512dac4ed2ac804f8",
+    "semantic_hash": "d8d7712fd7eacc4512dac4ed2ac804f8"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/repository/RoomRankingArchiveRepository.java": {
+    "mtime": 1784616396.376007,
+    "ast_hash": "22ffa2088b9e5c4de8a8d326de9f7699",
+    "semantic_hash": "22ffa2088b9e5c4de8a8d326de9f7699"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/service/RankingPublisher.java": {
+    "mtime": 1784522945.968124,
+    "ast_hash": "a18a185ecc33525b40e44baac062bf89",
+    "semantic_hash": "a18a185ecc33525b40e44baac062bf89"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/service/RankingRedisService.java": {
+    "mtime": 1784608882.2388456,
+    "ast_hash": "9b2158a984e1c5ccb99feb273daa35e2",
+    "semantic_hash": "9b2158a984e1c5ccb99feb273daa35e2"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/service/RankingService.java": {
+    "mtime": 1784616396.3772492,
+    "ast_hash": "510e863e5298d196cfa73874db89481d",
+    "semantic_hash": "510e863e5298d196cfa73874db89481d"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/service/RankingSubscriber.java": {
+    "mtime": 1784616396.378648,
+    "ast_hash": "242a7f0cd133a94f1abe2dbd8f837c99",
+    "semantic_hash": "242a7f0cd133a94f1abe2dbd8f837c99"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/service/ReturnRateCalculator.java": {
+    "mtime": 1784522945.978521,
+    "ast_hash": "3c7ed12d7a1d183f42b3e32f66ec7328",
+    "semantic_hash": "3c7ed12d7a1d183f42b3e32f66ec7328"
+  },
+  "src/main/java/com/tocktalks/domain/ranking/type/RankingType.java": {
+    "mtime": 1784522945.9808087,
+    "ast_hash": "34732f781f3bc65e3ec70d4c724fb5f3",
+    "semantic_hash": "34732f781f3bc65e3ec70d4c724fb5f3"
+  },
+  "src/main/java/com/tocktalks/domain/room/controller/RoomController.java": {
+    "mtime": 1784522963.162373,
+    "ast_hash": "64eb13afb8419721e9c2b8dfd4eb90fd",
+    "semantic_hash": "64eb13afb8419721e9c2b8dfd4eb90fd"
+  },
+  "src/main/java/com/tocktalks/domain/room/dto/CreateRoomRequest.java": {
+    "mtime": 1784522963.1643717,
+    "ast_hash": "d67de41427afb6058434254c8110d2ea",
+    "semantic_hash": "d67de41427afb6058434254c8110d2ea"
+  },
+  "src/main/java/com/tocktalks/domain/room/dto/JoinByInviteCodeRequest.java": {
+    "mtime": 1784522963.1653702,
+    "ast_hash": "f70dc7d3a0c45440a4d65d83935f1c14",
+    "semantic_hash": "f70dc7d3a0c45440a4d65d83935f1c14"
+  },
+  "src/main/java/com/tocktalks/domain/room/dto/RoomParticipantResponse.java": {
+    "mtime": 1784522963.1703732,
+    "ast_hash": "0175475cc9632c0c63f22a89032dd91b",
+    "semantic_hash": "0175475cc9632c0c63f22a89032dd91b"
+  },
+  "src/main/java/com/tocktalks/domain/room/dto/RoomRankingResponse.java": {
+    "mtime": 1784522963.171369,
+    "ast_hash": "ebcb8ac14da472be32d9d58e9e7311a7",
+    "semantic_hash": "ebcb8ac14da472be32d9d58e9e7311a7"
+  },
+  "src/main/java/com/tocktalks/domain/room/dto/RoomResponse.java": {
+    "mtime": 1784522963.1908002,
+    "ast_hash": "f8015c9d3f2a465a49ebc89d0da6b651",
+    "semantic_hash": "f8015c9d3f2a465a49ebc89d0da6b651"
+  },
+  "src/main/java/com/tocktalks/domain/room/repository/RoomParticipantRepository.java": {
+    "mtime": 1784623127.9891245,
+    "ast_hash": "def2ff8363b4f4319b717b077344d379",
+    "semantic_hash": "def2ff8363b4f4319b717b077344d379"
+  },
+  "src/main/java/com/tocktalks/domain/room/repository/RoomRepository.java": {
+    "mtime": 1784694039.6831627,
+    "ast_hash": "4e61f3e706a7c1ca8bbd2695c958440e",
+    "semantic_hash": "4e61f3e706a7c1ca8bbd2695c958440e"
+  },
+  "src/main/java/com/tocktalks/domain/room/service/RoomService.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "d471824bd97d015c9b93df766bbe30de",
+    "semantic_hash": "d471824bd97d015c9b93df766bbe30de"
+  },
+  "src/main/java/com/tocktalks/domain/trade/controller/TradeController.java": {
+    "mtime": 1784601186.0574899,
+    "ast_hash": "c21605751e474fa543a932cbc3f593c8",
+    "semantic_hash": "c21605751e474fa543a932cbc3f593c8"
+  },
+  "src/main/java/com/tocktalks/domain/trade/dto/request/TradeOrderRequest.java": {
+    "mtime": 1784533316.1358173,
+    "ast_hash": "6ab2245e6a020a422d2f670159788d47",
+    "semantic_hash": "6ab2245e6a020a422d2f670159788d47"
+  },
+  "src/main/java/com/tocktalks/domain/trade/dto/response/HoldingResponse.java": {
+    "mtime": 1784533316.1358173,
+    "ast_hash": "a78973a02c457bf3bfd8915a064e3ae7",
+    "semantic_hash": "a78973a02c457bf3bfd8915a064e3ae7"
+  },
+  "src/main/java/com/tocktalks/domain/trade/dto/response/HoldingSummaryResponse.java": {
+    "mtime": 1784533316.1367683,
+    "ast_hash": "bf0343a56ec3501e08b69f40e6dac0fc",
+    "semantic_hash": "bf0343a56ec3501e08b69f40e6dac0fc"
+  },
+  "src/main/java/com/tocktalks/domain/trade/dto/response/TradeExecutionResponse.java": {
+    "mtime": 1784533316.1367683,
+    "ast_hash": "cffa519f6f97eac393134899a23ae9fc",
+    "semantic_hash": "cffa519f6f97eac393134899a23ae9fc"
+  },
+  "src/main/java/com/tocktalks/domain/trade/dto/response/TradeHistoryResponse.java": {
+    "mtime": 1784533316.137778,
+    "ast_hash": "ca5b93d7f72d603012d55b99ba34e852",
+    "semantic_hash": "ca5b93d7f72d603012d55b99ba34e852"
+  },
+  "src/main/java/com/tocktalks/domain/trade/entity/StockCodeValidator.java": {
+    "mtime": 1784533316.1387758,
+    "ast_hash": "e332782750ee283b82edd58b64d6398a",
+    "semantic_hash": "e332782750ee283b82edd58b64d6398a"
+  },
+  "src/main/java/com/tocktalks/domain/trade/entity/TradeType.java": {
+    "mtime": 1784532064.0079482,
+    "ast_hash": "c87131d50f06f0c4aa23c9d8c735b7d8",
+    "semantic_hash": "c87131d50f06f0c4aa23c9d8c735b7d8"
+  },
+  "src/main/java/com/tocktalks/domain/trade/repository/HoldingRepository.java": {
+    "mtime": 1784601186.0574899,
+    "ast_hash": "5c21f6867cec9099d044df1e14ebb52e",
+    "semantic_hash": "5c21f6867cec9099d044df1e14ebb52e"
+  },
+  "src/main/java/com/tocktalks/domain/trade/repository/TransactionRepository.java": {
+    "mtime": 1784694039.684239,
+    "ast_hash": "a8e83a40d9e675f51661256e7c548156",
+    "semantic_hash": "a8e83a40d9e675f51661256e7c548156"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/BuyTradeProcessor.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "3cf62ae583948c06da676f5ac774d10f",
+    "semantic_hash": "3cf62ae583948c06da676f5ac774d10f"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/BuyTradeService.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "03a18aa632e7baab7ed6c67f293733ec",
+    "semantic_hash": "03a18aa632e7baab7ed6c67f293733ec"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/CurrentPriceProvider.java": {
+    "mtime": 1784533316.139775,
+    "ast_hash": "d945f39d2137db60081d2898ee48bbe5",
+    "semantic_hash": "d945f39d2137db60081d2898ee48bbe5"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/HoldingQueryService.java": {
+    "mtime": 1784686004.768417,
+    "ast_hash": "7fe1e760dea68bd739c98ddd6778a470",
+    "semantic_hash": "7fe1e760dea68bd739c98ddd6778a470"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/KisCurrentPriceProvider.java": {
+    "mtime": 1784533316.1407764,
+    "ast_hash": "092fa8c2b5d940d1c91842c091d5d16d",
+    "semantic_hash": "092fa8c2b5d940d1c91842c091d5d16d"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/SellTradeProcessor.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "7fd5854d07d1fda86e2a1ff47bf00f93",
+    "semantic_hash": "7fd5854d07d1fda86e2a1ff47bf00f93"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/SellTradeService.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "184ea9023335bdffb81dd8f93a937721",
+    "semantic_hash": "184ea9023335bdffb81dd8f93a937721"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/StockMasterStockNameProvider.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "99e007a98c9e071241c6897db06e20ba",
+    "semantic_hash": "99e007a98c9e071241c6897db06e20ba"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/StockNameProvider.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "17904aa407b8058ad248f9825764049d",
+    "semantic_hash": "17904aa407b8058ad248f9825764049d"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeAmountCalculator.java": {
+    "mtime": 1784533316.141776,
+    "ast_hash": "08c5fa2888e85c192f3b1431bf9716e9",
+    "semantic_hash": "08c5fa2888e85c192f3b1431bf9716e9"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeAssetService.java": {
+    "mtime": 1784699139.1261716,
+    "ast_hash": "789d01efaff1a4cb57bbdb5efe6f84ee",
+    "semantic_hash": "789d01efaff1a4cb57bbdb5efe6f84ee"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeAvailabilityValidator.java": {
+    "mtime": 1784533316.141776,
+    "ast_hash": "8aee10c494cd26703f29665c2a72301f",
+    "semantic_hash": "8aee10c494cd26703f29665c2a72301f"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeHistoryService.java": {
+    "mtime": 1784533316.1427758,
+    "ast_hash": "56d5ce219aad382b922685e4f8ab0b44",
+    "semantic_hash": "56d5ce219aad382b922685e4f8ab0b44"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeRankingService.java": {
+    "mtime": 1784686004.7704284,
+    "ast_hash": "cb75a87181f901cf5671b576c0ea10d0",
+    "semantic_hash": "cb75a87181f901cf5671b576c0ea10d0"
+  },
+  "src/main/java/com/tocktalks/domain/trade/service/TradeTransactionCertificateProvider.java": {
+    "mtime": 1784532064.0079482,
+    "ast_hash": "42583153c6a10eb18250ca2edf0f01c6",
+    "semantic_hash": "42583153c6a10eb18250ca2edf0f01c6"
+  },
+  "src/main/java/com/tocktalks/global/config/JwtProperties.java": {
+    "mtime": 1784522963.5876343,
+    "ast_hash": "fe10ae8a54dd0e8d0c51778fadabc8a3",
+    "semantic_hash": "fe10ae8a54dd0e8d0c51778fadabc8a3"
+  },
+  "src/main/java/com/tocktalks/global/config/KakaoOAuthProperties.java": {
+    "mtime": 1784522963.5886943,
+    "ast_hash": "260488f0534609afea1a641821826de3",
+    "semantic_hash": "260488f0534609afea1a641821826de3"
+  },
+  "src/main/java/com/tocktalks/global/config/LoginAttemptProperties.java": {
+    "mtime": 1784608882.2441356,
+    "ast_hash": "196f5019bcba0dccf30f727f50d064a7",
+    "semantic_hash": "196f5019bcba0dccf30f727f50d064a7"
+  },
+  "src/main/java/com/tocktalks/global/config/RedisConfig.java": {
+    "mtime": 1784522945.9828587,
+    "ast_hash": "e831db7164630a87d2aa3ace36629945",
+    "semantic_hash": "e831db7164630a87d2aa3ace36629945"
+  },
+  "src/main/java/com/tocktalks/global/config/RoomProperties.java": {
+    "mtime": 1784522963.592297,
+    "ast_hash": "cf5658395415aac6bfa688267d33a836",
+    "semantic_hash": "cf5658395415aac6bfa688267d33a836"
+  },
+  "src/main/java/com/tocktalks/global/config/WebMvcConfig.java": {
+    "mtime": 1784532210.2332714,
+    "ast_hash": "f169f065713b25f8c50c454a5d95258f",
+    "semantic_hash": "f169f065713b25f8c50c454a5d95258f"
+  },
+  "src/main/java/com/tocktalks/global/config/WebSocketConfig.java": {
+    "mtime": 1784522945.985625,
+    "ast_hash": "14f2a1baabb609af865cb5216f282fdc",
+    "semantic_hash": "14f2a1baabb609af865cb5216f282fdc"
+  },
+  "src/main/java/com/tocktalks/global/security/CorsConfig.java": {
+    "mtime": 1784511893.9308152,
+    "ast_hash": "8dc2ee534e111132ad42692e71c047c4",
+    "semantic_hash": "8dc2ee534e111132ad42692e71c047c4"
+  },
+  "src/main/java/com/tocktalks/global/security/JwtAuthenticationFilter.java": {
+    "mtime": 1784531442.5644605,
+    "ast_hash": "28b59488039e989a6e4d2ca8aca5d282",
+    "semantic_hash": "28b59488039e989a6e4d2ca8aca5d282"
+  },
+  "src/main/java/com/tocktalks/global/security/JwtProvider.java": {
+    "mtime": 1784531442.5644605,
+    "ast_hash": "9969df00b60322748d1f25080875d37e",
+    "semantic_hash": "9969df00b60322748d1f25080875d37e"
+  },
+  "src/main/java/com/tocktalks/global/security/LoginMemberId.java": {
+    "mtime": 1784522945.9897091,
+    "ast_hash": "e4f8ff0340a28af59fc217fc75138a24",
+    "semantic_hash": "e4f8ff0340a28af59fc217fc75138a24"
+  },
+  "src/main/java/com/tocktalks/global/security/LoginMemberIdArgumentResolver.java": {
+    "mtime": 1784522945.9909093,
+    "ast_hash": "19a09c0100604403d4191f4d34b9e3e6",
+    "semantic_hash": "19a09c0100604403d4191f4d34b9e3e6"
+  },
+  "src/test/java/com/tocktalks/domain/price/dto/response/KisRealtimePriceMessageTest.java": {
+    "mtime": 1784522946.0033643,
+    "ast_hash": "a62063178ef93083d6868eeb890ce652",
+    "semantic_hash": "a62063178ef93083d6868eeb890ce652"
+  },
+  "src/test/java/com/tocktalks/domain/ranking/service/RankingServiceTest.java": {
+    "mtime": 1784522946.005805,
+    "ast_hash": "3f904bead27f505517ee558ba9a9bb5c",
+    "semantic_hash": "3f904bead27f505517ee558ba9a9bb5c"
+  },
+  "src/test/java/com/tocktalks/domain/room/entity/RoomParticipantTest.java": {
+    "mtime": 1784601186.0732381,
+    "ast_hash": "797d18ba15941fe8d1b4911c64501a12",
+    "semantic_hash": "797d18ba15941fe8d1b4911c64501a12"
+  },
+  "src/test/java/com/tocktalks/domain/room/repository/RoomParticipantRepositoryTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "311c88feec3f22553415e7727eb28b35",
+    "semantic_hash": "311c88feec3f22553415e7727eb28b35"
+  },
+  "src/test/java/com/tocktalks/domain/room/service/RoomServiceRankingTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "61afc981c54bc16b95a6e86c9fc12352",
+    "semantic_hash": "61afc981c54bc16b95a6e86c9fc12352"
+  },
+  "src/test/java/com/tocktalks/domain/trade/controller/TradeControllerTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "aa3a2d64c7d3178c7bfda414f124cbad",
+    "semantic_hash": "aa3a2d64c7d3178c7bfda414f124cbad"
+  },
+  "src/test/java/com/tocktalks/domain/trade/controller/TradeSecurityIntegrationTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "9f387f339008e08444689011e2e403bf",
+    "semantic_hash": "9f387f339008e08444689011e2e403bf"
+  },
+  "src/test/java/com/tocktalks/domain/trade/dto/request/TradeOrderRequestTest.java": {
+    "mtime": 1784533316.1458154,
+    "ast_hash": "6da97ff92846455a2dcbf2246e93ccab",
+    "semantic_hash": "6da97ff92846455a2dcbf2246e93ccab"
+  },
+  "src/test/java/com/tocktalks/domain/trade/dto/response/TradeExecutionResponseTest.java": {
+    "mtime": 1784533316.1458154,
+    "ast_hash": "34a31d6a3927a1e51efe958fd03b3672",
+    "semantic_hash": "34a31d6a3927a1e51efe958fd03b3672"
+  },
+  "src/test/java/com/tocktalks/domain/trade/entity/HoldingTest.java": {
+    "mtime": 1784533316.1468322,
+    "ast_hash": "ce2f3a0d4aef4685d38eac5845fb0a0a",
+    "semantic_hash": "ce2f3a0d4aef4685d38eac5845fb0a0a"
+  },
+  "src/test/java/com/tocktalks/domain/trade/entity/TransactionTest.java": {
+    "mtime": 1784533316.1478324,
+    "ast_hash": "aa1d6d6b1583cbe2b4b3cdd2e50ca3eb",
+    "semantic_hash": "aa1d6d6b1583cbe2b4b3cdd2e50ca3eb"
+  },
+  "src/test/java/com/tocktalks/domain/trade/repository/HoldingRepositoryTest.java": {
+    "mtime": 1784532064.0178204,
+    "ast_hash": "0ebd986a7f7a7706a6af9a0c5c80619c",
+    "semantic_hash": "0ebd986a7f7a7706a6af9a0c5c80619c"
+  },
+  "src/test/java/com/tocktalks/domain/trade/repository/TransactionRepositoryTest.java": {
+    "mtime": 1784533316.1478324,
+    "ast_hash": "8365a48a8a1502957315d5e395f592ff",
+    "semantic_hash": "8365a48a8a1502957315d5e395f592ff"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuySellConcurrencyTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "8ebf92e477e74e315541f0d7546e605f",
+    "semantic_hash": "8ebf92e477e74e315541f0d7546e605f"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuyTradeConcurrencyTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "8eefa7b451ef4cc745b4e4b40e0f939e",
+    "semantic_hash": "8eefa7b451ef4cc745b4e4b40e0f939e"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuyTradeProcessorIntegrationTest.java": {
+    "mtime": 1784601186.0890155,
+    "ast_hash": "be7c3ed2e9ed9191ea30844b75e286fb",
+    "semantic_hash": "be7c3ed2e9ed9191ea30844b75e286fb"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuyTradeProcessorTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "7bb40aad105b60c25b1b8b347baf7b03",
+    "semantic_hash": "7bb40aad105b60c25b1b8b347baf7b03"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuyTradeRollbackIntegrationTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "e7bd26937c92905202c957c534b73c09",
+    "semantic_hash": "e7bd26937c92905202c957c534b73c09"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/BuyTradeServiceTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "1f97965e971b7825faee222c4c6add43",
+    "semantic_hash": "1f97965e971b7825faee222c4c6add43"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/DifferentParticipantConcurrencyTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "90f3f6c76e96d9313157d2fc383a1071",
+    "semantic_hash": "90f3f6c76e96d9313157d2fc383a1071"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/HoldingQueryServiceTest.java": {
+    "mtime": 1784533316.1488323,
+    "ast_hash": "a4ee9ca056a6767b3923ea16be555677",
+    "semantic_hash": "a4ee9ca056a6767b3923ea16be555677"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/KisCurrentPriceProviderTest.java": {
+    "mtime": 1784533316.1488323,
+    "ast_hash": "12ce2d5993c9e6816bddc0aafe5c1acf",
+    "semantic_hash": "12ce2d5993c9e6816bddc0aafe5c1acf"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/SellTradeConcurrencyTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "57549b324c6d4e8b5258e1db9c9e568d",
+    "semantic_hash": "57549b324c6d4e8b5258e1db9c9e568d"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/SellTradeProcessorIntegrationTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "469fbd580f9afadf044e32cdc50bbdf7",
+    "semantic_hash": "469fbd580f9afadf044e32cdc50bbdf7"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/SellTradeProcessorTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "be344ee5badf12606e05b250d6447bc2",
+    "semantic_hash": "be344ee5badf12606e05b250d6447bc2"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/SellTradeRollbackIntegrationTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "bbd162855787e3a060164808351954ff",
+    "semantic_hash": "bbd162855787e3a060164808351954ff"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/SellTradeServiceTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "2cb834a9615d9064ecaf7cb2f835420d",
+    "semantic_hash": "2cb834a9615d9064ecaf7cb2f835420d"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/StockMasterStockNameProviderTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "4625df61d709cba5db8ab38373fe54c1",
+    "semantic_hash": "4625df61d709cba5db8ab38373fe54c1"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeAmountCalculatorTest.java": {
+    "mtime": 1784533316.149834,
+    "ast_hash": "212eeefba510128b869d447465fddcc3",
+    "semantic_hash": "212eeefba510128b869d447465fddcc3"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeAssetServiceTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "ce13485d613e9b079e1c0c39baea519a",
+    "semantic_hash": "ce13485d613e9b079e1c0c39baea519a"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeAvailabilityValidatorTest.java": {
+    "mtime": 1784533316.149834,
+    "ast_hash": "fe1747509cdcebc8cec200d3a71d01b3",
+    "semantic_hash": "fe1747509cdcebc8cec200d3a71d01b3"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeHistoryServiceTest.java": {
+    "mtime": 1784533316.150833,
+    "ast_hash": "84131b4c88feff2825a59c63691a37a7",
+    "semantic_hash": "84131b4c88feff2825a59c63691a37a7"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeRankingIntegrationTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "09054a65a1d35f296f25ba6886f787e8",
+    "semantic_hash": "09054a65a1d35f296f25ba6886f787e8"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeRankingServiceTest.java": {
+    "mtime": 1784601186.1047516,
+    "ast_hash": "93224fe86b9102690e4f5562e0797596",
+    "semantic_hash": "93224fe86b9102690e4f5562e0797596"
+  },
+  "src/test/java/com/tocktalks/domain/trade/service/TradeTransactionCertificateProviderTest.java": {
+    "mtime": 1784532064.0178204,
+    "ast_hash": "15771507bcdbd618040af4ea8c52d16d",
+    "semantic_hash": "15771507bcdbd618040af4ea8c52d16d"
+  },
+  "src/test/java/com/tocktalks/support/MySqlTestContainerConfiguration.java": {
+    "mtime": 1784532064.0178204,
+    "ast_hash": "3a42e901af66bf779db59ed50623ac59",
+    "semantic_hash": "3a42e901af66bf779db59ed50623ac59"
+  },
+  "src/main/resources/static/test-websocket.html": {
+    "mtime": 1784522945.9951704,
+    "ast_hash": "35daec188579f14c758a3b97f2652464",
+    "semantic_hash": "35daec188579f14c758a3b97f2652464"
+  },
+  "src/main/java/com/tocktalks/domain/auth/dto/MemberUpdateRequest.java": {
+    "mtime": 1784623127.9754195,
+    "ast_hash": "d2be64b24c94db0c52c8164e5c87566d",
+    "semantic_hash": "d2be64b24c94db0c52c8164e5c87566d"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/dto/PortfolioDetailResponse.java": {
+    "mtime": 1784623127.9863539,
+    "ast_hash": "ecf6d8d9a8305f7b101811bf1b714726",
+    "semantic_hash": "ecf6d8d9a8305f7b101811bf1b714726"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/dto/PortfolioHoldingResponse.java": {
+    "mtime": 1784623127.988413,
+    "ast_hash": "11dda5fd4ac90b4964f472f829a3d7f7",
+    "semantic_hash": "11dda5fd4ac90b4964f472f829a3d7f7"
+  },
+  "src/main/java/com/tocktalks/domain/portfolio/dto/PortfolioSummaryResponse.java": {
+    "mtime": 1784623127.9891245,
+    "ast_hash": "d4d5425b7c5bd17460c63254f3500302",
+    "semantic_hash": "d4d5425b7c5bd17460c63254f3500302"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/PriceSubscriptionTracker.java": {
+    "mtime": 1784686004.768417,
+    "ast_hash": "6ab59717fa3b1845502777352989c9b4",
+    "semantic_hash": "6ab59717fa3b1845502777352989c9b4"
+  },
+  "src/main/java/com/tocktalks/domain/admin/controller/AdminMemberController.java": {
+    "mtime": 1784697413.6435876,
+    "ast_hash": "dabe1087f616833ec41ef09897ed07c8",
+    "semantic_hash": "dabe1087f616833ec41ef09897ed07c8"
+  },
+  "src/main/java/com/tocktalks/domain/admin/controller/AdminRoomController.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "1951c27a3200d8d919e8617216b954cf",
+    "semantic_hash": "1951c27a3200d8d919e8617216b954cf"
+  },
+  "src/main/java/com/tocktalks/domain/admin/controller/ReportController.java": {
+    "mtime": 1784706056.279272,
+    "ast_hash": "f3af11dfa8f39abb156542a3b9268dfa",
+    "semantic_hash": "f3af11dfa8f39abb156542a3b9268dfa"
+  },
+  "src/main/java/com/tocktalks/domain/admin/dto/request/ReportCreateRequest.java": {
+    "mtime": 1784706056.282272,
+    "ast_hash": "e965a3777af28a26caad9471a5a75563",
+    "semantic_hash": "e965a3777af28a26caad9471a5a75563"
+  },
+  "src/main/java/com/tocktalks/domain/admin/dto/response/AdminMemberResponse.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "cb2ea4905aa0ce4c60f72a241511aba0",
+    "semantic_hash": "cb2ea4905aa0ce4c60f72a241511aba0"
+  },
+  "src/main/java/com/tocktalks/domain/admin/service/AdminMemberService.java": {
+    "mtime": 1784697413.6455257,
+    "ast_hash": "081a2cb882cf2a79d5ad5ac6838b08b9",
+    "semantic_hash": "081a2cb882cf2a79d5ad5ac6838b08b9"
+  },
+  "src/main/java/com/tocktalks/domain/backoffice/controller/DailyStatsController.java": {
+    "mtime": 1784694039.673174,
+    "ast_hash": "9eaeba0b5f60d8c7ff8b1d7ba03ea096",
+    "semantic_hash": "9eaeba0b5f60d8c7ff8b1d7ba03ea096"
+  },
+  "src/main/java/com/tocktalks/domain/backoffice/dto/response/DailyStatsResponse.java": {
+    "mtime": 1784694039.6794162,
+    "ast_hash": "d2ee67d6ec7bdcb394fbd6df18705bce",
+    "semantic_hash": "d2ee67d6ec7bdcb394fbd6df18705bce"
+  },
+  "src/main/java/com/tocktalks/domain/backoffice/repository/DailyStatsRepository.java": {
+    "mtime": 1784694039.6810224,
+    "ast_hash": "0f01767802aafb0a5c66acbf9c78a892",
+    "semantic_hash": "0f01767802aafb0a5c66acbf9c78a892"
+  },
+  "src/main/java/com/tocktalks/domain/backoffice/service/DailyStatsService.java": {
+    "mtime": 1784694039.6810224,
+    "ast_hash": "211c2ef049999af95c82b83c8d013e4d",
+    "semantic_hash": "211c2ef049999af95c82b83c8d013e4d"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/DailyPriceResponse.java": {
+    "mtime": 1784706056.2965746,
+    "ast_hash": "3bb185d350f22cc7981e246032185180",
+    "semantic_hash": "3bb185d350f22cc7981e246032185180"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisDailyChartEnvelope.java": {
+    "mtime": 1784706056.298581,
+    "ast_hash": "b8d619d51992467c58ff332d5fa96ec8",
+    "semantic_hash": "b8d619d51992467c58ff332d5fa96ec8"
+  },
+  "src/main/java/com/tocktalks/domain/price/dto/response/KisDailyPriceItem.java": {
+    "mtime": 1784706056.300581,
+    "ast_hash": "977abbe891289c4c99844cfe8e41b4a4",
+    "semantic_hash": "977abbe891289c4c99844cfe8e41b4a4"
+  },
+  "src/main/java/com/tocktalks/domain/price/service/KisChartService.java": {
+    "mtime": 1784706056.3025856,
+    "ast_hash": "eb0a0526ddf7d767ca275239b06ec965",
+    "semantic_hash": "eb0a0526ddf7d767ca275239b06ec965"
+  },
+  "src/main/resources/application-shared.yml": {
+    "mtime": 1784706057.1838813,
+    "ast_hash": "497db2c555983d69a5ec6449e734efeb",
+    "semantic_hash": "497db2c555983d69a5ec6449e734efeb"
+  }
+}

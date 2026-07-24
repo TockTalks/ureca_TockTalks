@@ -1,0 +1,215 @@
+package com.tocktalks.domain.auth.service;
+
+import com.tocktalks.domain.auth.client.KakaoOAuthClient;
+import com.tocktalks.domain.auth.dto.KakaoTokenResponse;
+import com.tocktalks.domain.auth.dto.KakaoUserInfoResponse;
+import com.tocktalks.domain.auth.dto.LoginRequest;
+import com.tocktalks.domain.auth.dto.MemberUpdateRequest;
+import com.tocktalks.domain.auth.dto.MemberWithdrawalRequest;
+import com.tocktalks.domain.auth.dto.SignupRequest;
+import com.tocktalks.domain.auth.dto.TokenResponse;
+import com.tocktalks.domain.member.entity.Member;
+import com.tocktalks.domain.member.repository.FavoriteStockRepository;
+import com.tocktalks.domain.member.repository.MemberRepository;
+import com.tocktalks.domain.room.service.RoomService;
+import com.tocktalks.global.security.JwtProvider;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private static final String PROVIDER_KAKAO = "kakao";
+    private static final String PROVIDER_LOCAL = "local";
+
+    private final KakaoOAuthClient kakaoOAuthClient;
+    private final MemberRepository memberRepository;
+    private final FavoriteStockRepository favoriteStockRepository;
+    private final JwtProvider jwtProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final RoomService roomService;
+    private final RefreshTokenService refreshTokenService;
+    private final AccessTokenRevocationService accessTokenRevocationService;
+    private final LoginAttemptService loginAttemptService;
+
+    @Transactional
+    public TokenResponse signup(SignupRequest request) {
+        if (memberRepository.findByEmail(request.email()).isPresent()) {
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+        }
+
+        Member member = memberRepository.save(Member.ofLocal(
+                request.email(),
+                passwordEncoder.encode(request.password()),
+                request.nickname()));
+        roomService.joinDefaultRoom(member.getId());
+
+        return issueTokens(member, true);
+    }
+
+    public TokenResponse loginWithLocal(LoginRequest request) {
+        if (loginAttemptService.isLocked(request.email())) {
+            throw new IllegalArgumentException("로그인 시도 횟수를 초과했습니다. 잠시 후 다시 시도해주세요.");
+        }
+
+        Member member = memberRepository.findByEmail(request.email())
+                .filter(m -> PROVIDER_LOCAL.equals(m.getProvider()))
+                .orElse(null);
+
+        if (member == null || !passwordEncoder.matches(request.password(), member.getPassword())) {
+            loginAttemptService.recordFailure(request.email());
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다.");
+        }
+
+        loginAttemptService.reset(request.email());
+        return issueTokens(member, false);
+    }
+
+    public TokenResponse reissue(String refreshToken) {
+        if (!jwtProvider.validateToken(refreshToken) || !jwtProvider.isRefreshToken(refreshToken)) {
+            throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
+        }
+
+        Long memberId = jwtProvider.getMemberId(refreshToken);
+        if (!refreshTokenService.matches(memberId, refreshToken)) {
+            throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
+        }
+
+        Member member = getMember(memberId);
+        return issueTokens(member, false);
+    }
+
+    public void logout(Long memberId) {
+        refreshTokenService.delete(memberId);
+    }
+
+    /**
+     * 회원탈퇴: 연관 기록은 유지하고 개인정보 익명화, 개인화 데이터 삭제, 토큰 무효화를 수행한다.
+     */
+    @Transactional
+    public void withdraw(Long memberId, MemberWithdrawalRequest request) {
+        Member member = getMember(memberId);
+
+        if (member.isWithdrawn()) {
+            throw new IllegalArgumentException("이미 탈퇴한 회원입니다.");
+        }
+
+        if (PROVIDER_LOCAL.equals(member.getProvider())
+                && (request.currentPassword() == null
+                || !passwordEncoder.matches(request.currentPassword(), member.getPassword()))) {
+            throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+        }
+
+        // 재가입은 새 계정으로 처리하므로 기존 방 참가와 실시간 랭킹 연결을 모두 종료한다.
+        roomService.endActiveParticipationsForWithdrawal(memberId);
+        favoriteStockRepository.deleteAllByMemberId(memberId);
+        member.withdraw();
+        // 토큰을 폐기하기 전에 익명화 변경이 DB 제약을 통과하는지 먼저 확인한다.
+        memberRepository.flush();
+        refreshTokenService.delete(memberId);
+        accessTokenRevocationService.revoke(memberId);
+    }
+
+    private TokenResponse issueTokens(Member member, boolean isNewMember) {
+        String accessToken = jwtProvider.createAccessToken(member.getId(), member.getRole());
+        String refreshToken = jwtProvider.createRefreshToken(member.getId(), member.getRole());
+        refreshTokenService.save(member.getId(), refreshToken);
+        return new TokenResponse(accessToken, refreshToken, member.getId(), member.getNickname(), isNewMember);
+    }
+
+    @Transactional
+    public TokenResponse loginWithKakao(String code) {
+        KakaoTokenResponse kakaoToken = kakaoOAuthClient.getToken(code);
+        KakaoUserInfoResponse userInfo = kakaoOAuthClient.getUserInfo(kakaoToken.accessToken());
+
+        String providerSub = String.valueOf(userInfo.id());
+        boolean isNewMember = false;
+
+        Member member = memberRepository.findByProviderAndProviderSub(PROVIDER_KAKAO, providerSub)
+                .orElse(null);
+
+        if (member == null) {
+            try {
+                member = memberRepository.save(Member.ofKakao(
+                        resolveEmail(userInfo, providerSub),
+                        resolveNickname(userInfo),
+                        providerSub));
+                roomService.joinDefaultRoom(member.getId());
+                isNewMember = true;
+            } catch (DataIntegrityViolationException e) {
+                // 동시에 들어온 다른 로그인 요청이 먼저 같은 provider_sub로 회원을 생성한 경우.
+                // uk_member_provider_sub 유니크 제약 위반이므로 새로 만들지 않고 그 회원으로 로그인 처리한다.
+                member = memberRepository.findByProviderAndProviderSub(PROVIDER_KAKAO, providerSub)
+                        .orElseThrow(() -> e);
+            }
+        }
+
+        if (!isNewMember) {
+            String latestNickname = extractNickname(userInfo);
+            if (latestNickname != null && !latestNickname.equals(member.getNickname())) {
+                member.updateNickname(latestNickname);
+            }
+        }
+
+        return issueTokens(member, isNewMember);
+    }
+
+    private String resolveEmail(KakaoUserInfoResponse userInfo, String providerSub) {
+        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().email() != null) {
+            return userInfo.kakaoAccount().email();
+        }
+        return "kakao_" + providerSub + "@kakao.local";
+    }
+
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    @Transactional
+    public void updateMember(Long memberId, MemberUpdateRequest request) {
+        Member member = getMember(memberId);
+
+        if (request.nickname() != null && !request.nickname().isBlank()) {
+            // 카카오 계정은 로그인할 때마다 카카오 최신 닉네임으로 덮어써지므로(loginWithKakao 참고)
+            // 여기서 직접 바꿔봤자 다음 로그인에 되돌아간다. 아예 변경을 막는다.
+            if (!PROVIDER_LOCAL.equals(member.getProvider())) {
+                throw new IllegalArgumentException("소셜 로그인 계정은 닉네임을 변경할 수 없습니다. 카카오 계정의 닉네임을 변경해주세요.");
+            }
+            member.updateNickname(request.nickname());
+        }
+
+        if (request.newPassword() != null && !request.newPassword().isBlank()) {
+            if (!PROVIDER_LOCAL.equals(member.getProvider())) {
+                throw new IllegalArgumentException("소셜 로그인 계정은 비밀번호를 변경할 수 없습니다.");
+            }
+            if (request.currentPassword() == null
+                    || !passwordEncoder.matches(request.currentPassword(), member.getPassword())) {
+                throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
+            }
+            member.updatePassword(passwordEncoder.encode(request.newPassword()));
+        }
+    }
+
+    public boolean isEmailAvailable(String email) {
+        return memberRepository.findByEmail(email).isEmpty();
+    }
+
+    private String resolveNickname(KakaoUserInfoResponse userInfo) {
+        String nickname = extractNickname(userInfo);
+        return nickname != null ? nickname : "카카오사용자";
+    }
+
+    // 카카오가 닉네임을 안 내려준 경우(동의 철회 등) null을 반환한다.
+    // 신규 가입 시엔 resolveNickname()의 기본값으로, 기존 회원 동기화 시엔 null이면 기존 닉네임을 유지하는 용도로 쓰인다.
+    private String extractNickname(KakaoUserInfoResponse userInfo) {
+        if (userInfo.kakaoAccount() != null && userInfo.kakaoAccount().profile() != null) {
+            return userInfo.kakaoAccount().profile().nickname();
+        }
+        return null;
+    }
+}
