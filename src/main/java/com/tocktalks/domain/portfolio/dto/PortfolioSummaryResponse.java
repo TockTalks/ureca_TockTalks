@@ -9,14 +9,18 @@ import java.math.BigDecimal;
 public record PortfolioSummaryResponse(
         Long roomParticipantId, Long roomId, String roomName, String roomStatus,
         Long balance, Long stockValuation, Long totalAssetValue, Long initialSeedMoney,
-        Long profitAmount, BigDecimal profitRate, int holdingCount, boolean isDefault
+        Long profitAmount, BigDecimal profitRate, int holdingCount, boolean isDefault,
+        Integer finalRank, Integer totalParticipantCount
 ) {
     public static PortfolioSummaryResponse of(
             RoomParticipant participant,
             Room room,
             long totalAssetValue,
             long stockValuation,
-            int holdingCount
+            int holdingCount,
+            Integer finalRank,
+            Integer totalParticipantCount
+
     ) {
        long profitAmount = totalAssetValue - participant.getInitialSeedMoney();
        BigDecimal profitRate = ReturnRateCalculator.calculate(
@@ -35,7 +39,9 @@ public record PortfolioSummaryResponse(
                profitAmount,
                profitRate,
                holdingCount,
-               room.isDefault()
+               room.isDefault(),
+               finalRank,
+               totalParticipantCount
        );
     }
 }
