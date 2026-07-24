@@ -27,7 +27,7 @@ public class AdminReportController {
     @GetMapping("/history")
     public ResponseEntity<Page<ReportResponse>> getReportHistory(
             @RequestParam(required = false) String targetType,
-            @PageableDefault(size = 10, sort = "createdAt") Pageable pageable) {
+            @PageableDefault(size = 10, sort = "resolvedAt") Pageable pageable) {
         return ResponseEntity.ok(reportService.getReportHistory(targetType, pageable));
     }
 
