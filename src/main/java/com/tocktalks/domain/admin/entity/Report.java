@@ -2,6 +2,8 @@ package com.tocktalks.domain.admin.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import lombok.*;
 
 @Entity
@@ -39,6 +41,9 @@ public class Report {
     @Column(name = "target_content")
     private String targetContent;
 
+    @Column(name = "resolved_at")
+    private LocalDateTime resolvedAt;
+
     public static Report create(Long reporterId, String targetType, Long targetId, Long targetMemberId, String reason, String targetContent) {
         Report report = new Report();
         report.reporterId = reporterId;
@@ -54,10 +59,11 @@ public class Report {
 
     public void reject() {
         this.status = "rejected";
+        this.resolvedAt = LocalDateTime.now();
     }
 
     public void delete(){
         this.status = "deleted";
+        this.resolvedAt = LocalDateTime.now();
     }
-
 }
