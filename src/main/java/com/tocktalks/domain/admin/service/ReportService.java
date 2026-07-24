@@ -9,6 +9,7 @@ import com.tocktalks.domain.community.service.CommentService;
 import com.tocktalks.domain.community.service.PostService;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ReportService {
 
     private static final String STATUS_PENDING = "pending";
@@ -65,8 +67,8 @@ public class ReportService {
 
     public Page<ReportResponse> getReportHistory(String targetType, Pageable pageable){
         Page<Report> reports = StringUtils.hasText(targetType) ?
-                reportRepository.findByStatusInAndTargetTypeOrderByCreatedAtDesc(HISTORY_STATUSES, targetType, pageable) :
-                reportRepository.findByStatusInOrderByCreatedAtDesc(HISTORY_STATUSES, pageable);
+                reportRepository.findByStatusInAndTargetTypeOrderByResolvedAtDesc(HISTORY_STATUSES, targetType, pageable) :
+                reportRepository.findByStatusInOrderByResolvedAtDesc(HISTORY_STATUSES, pageable);
         return reports.map(ReportResponse::from);
     }
     
@@ -90,7 +92,8 @@ public class ReportService {
                 default -> throw new IllegalArgumentException("강제 삭제를 지원하지 않는 신고대상입니다:" + report.getTargetType());
             }
         } catch (CommunityException e) {
-            throw new IllegalArgumentException("이미 삭제되었거나 존재하지 않는 콘텐츠입니다.");
+            log.info("신고 대상이 이미 삭제되어 콘텐츠 삭제를 건너뜁니다. reportId={}, targetType={}, targetId={}",
+                    reportId, report.getTargetType(), report.getTargetId());
         }
 
         report.delete();
