@@ -17,4 +17,6 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     Page<Report> findByStatusInAndTargetTypeOrderByResolvedAtDesc(List<String> statuses, String targetType, Pageable pageable);
 
     long countByStatus(String status);
+
+    boolean existsByReporterIdAndTargetTypeAndTargetId(Long reporterId, String targetType, Long targetId);
 }
