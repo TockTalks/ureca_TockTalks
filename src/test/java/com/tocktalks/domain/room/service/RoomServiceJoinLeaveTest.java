@@ -60,6 +60,7 @@ class RoomServiceJoinLeaveTest {
         when(room.getMaxParticipants()).thenReturn(null);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
         when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
         when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
                 .thenAnswer(invocation -> invocation.getArgument(0));
@@ -79,6 +80,7 @@ class RoomServiceJoinLeaveTest {
         when(room.getMaxParticipants()).thenReturn(null);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
         // 예전에 나간 적 있어도(ENDED 이력 존재) 현재 ACTIVE만 아니면 재참가 가능해야 한다.
         when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
         when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
@@ -97,6 +99,7 @@ class RoomServiceJoinLeaveTest {
         when(room.isPublic()).thenReturn(true);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
         when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(true);
 
         assertThatThrownBy(() -> roomService.joinRoomById(1L, 10L))
@@ -173,6 +176,7 @@ class RoomServiceJoinLeaveTest {
         when(room.getSeedMoney()).thenReturn(10_000_000L);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
         when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
         when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
                 .thenAnswer(invocation -> invocation.getArgument(0));
