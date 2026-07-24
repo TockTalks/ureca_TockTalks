@@ -54,8 +54,7 @@ class RoomServiceLeaveTest {
         RoomParticipant participant = mock(RoomParticipant.class);
 
         when(room.isDefault()).thenReturn(false);
-        when(room.getStatus()).thenReturn("ongoing");
-        when(room.getEndAt()).thenReturn(LocalDateTime.now().plusHours(2));
+        when(room.getStatus()).thenReturn("recruiting");
         when(room.getStartAt()).thenReturn(LocalDateTime.now().plusHours(1));
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
         when(roomParticipantRepository.findByRoomIdAndMemberIdAndStatus(1L, 9L, "ACTIVE"))
@@ -73,14 +72,13 @@ class RoomServiceLeaveTest {
         Room room = mock(Room.class);
 
         when(room.isDefault()).thenReturn(false);
-        when(room.getStatus()).thenReturn("ongoing");
-        when(room.getEndAt()).thenReturn(LocalDateTime.now().plusHours(1));
+        when(room.getStatus()).thenReturn("recruiting");
         when(room.getStartAt()).thenReturn(LocalDateTime.now().minusMinutes(1));
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
 
         assertThatThrownBy(() -> roomService.leaveRoom(1L, 9L))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("배틀이 시작된 후에는 방에서 나갈 수 없습니다.");
+                .hasMessage("이미 시작된 방은 나갈 수 없습니다.");
 
         verify(roomParticipantRepository, never())
                 .findByRoomIdAndMemberIdAndStatus(1L, 9L, "ACTIVE");
