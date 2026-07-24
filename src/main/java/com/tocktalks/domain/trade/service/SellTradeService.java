@@ -102,6 +102,9 @@ public class SellTradeService {
                 participant
         );
 
+        log.info("[매도 체결] roomParticipantId={}, stockCode={}, quantity={}, price={}",
+                roomParticipantId, request.stockCode(), request.quantity(), currentPrice);
+
         eventPublisher.publishEvent(new AssetSnapshotRequestedEvent(
                 participant.getId(),
                 participant.getMemberId(),
