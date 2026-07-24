@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -80,4 +81,27 @@ public class TradeAssetService {
             );
         }
     }
+
+    public long calculateTotalAsset(RoomParticipant participant, List<Holding> holdings, Map<String, BigDecimal> priceByStockCode){
+        validateParticipant(participant);
+
+        long totalAsset = participant.getBalance();
+
+        for(Holding holding : holdings){
+            BigDecimal currentPrice = priceByStockCode.get(holding.getStockCode());
+            if(currentPrice == null){
+                continue;
+            }
+
+            long valuation = TradeAmountCalculator.calculate(currentPrice, holding.getQuantity());
+            try{
+                totalAsset = Math.addExact(totalAsset, valuation);
+            } catch(ArithmeticException exception){
+                throw new IllegalArgumentException("총자산이 허용 범위를 초과합니다.", exception);
+            }
+        }
+
+        return totalAsset;
+    }
+
 }
