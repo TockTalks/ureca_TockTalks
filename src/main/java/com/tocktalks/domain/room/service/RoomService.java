@@ -3,10 +3,13 @@ package com.tocktalks.domain.room.service;
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.ranking.dto.response.RankingDto;
+import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
+import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.ranking.type.RankingType;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
+import com.tocktalks.domain.room.dto.RoomHistoryResponse;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
 import com.tocktalks.domain.room.dto.RoomResponse;
@@ -26,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -45,6 +49,7 @@ public class RoomService {
     private final RankingService rankingService;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
+    private final RoomRankingArchiveRepository roomRankingArchiveRepository;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
@@ -227,6 +232,17 @@ public class RoomService {
                 .map(participant -> getRoom(participant.getRoomId()))
                 .map(room -> RoomResponse.of(room,
                         roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE)))
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<RoomHistoryResponse> getMyRoomHistory(Long memberId) {
+        return roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId).stream()
+                .map(archive -> roomRepository.findById(archive.getRoomId())
+                        .map(room -> RoomHistoryResponse.of(
+                                room, archive, roomRankingArchiveRepository.countByRoomId(archive.getRoomId())))
+                        .orElse(null))
+                .filter(Objects::nonNull)
                 .toList();
     }
 
