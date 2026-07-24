@@ -86,4 +86,8 @@ public class RoomParticipant {
             );
         }
     }
+
+    public void resetBalance() {
+        this.balance = this.initialSeedMoney;
+    }
 }
