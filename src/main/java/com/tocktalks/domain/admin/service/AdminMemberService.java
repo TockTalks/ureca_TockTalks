@@ -1,6 +1,7 @@
 package com.tocktalks.domain.admin.service;
 
 import com.tocktalks.domain.admin.dto.response.AdminMemberResponse;
+import com.tocktalks.domain.auth.service.AuthService;
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
@@ -29,6 +30,7 @@ public class AdminMemberService {
     private final HoldingRepository holdingRepository;
     private final TransactionRepository transactionRepository;
     private final AssetHistoryRepository assetHistoryRepository;
+    private final AuthService authService;
 
     // 전체 회원 검색 (keyword 없으면 전체 조회)
     public Page<AdminMemberResponse> getMembers(String keyword, Pageable pageable) {
@@ -54,6 +56,12 @@ public class AdminMemberService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
         member.block();
+    }
+
+    // 비밀번호 확인 없이 관리자가 직접 회원을 탈퇴 처리 (테스트/이상 계정 정리용)
+    @Transactional
+    public void withdrawMember(Long memberId) {
+        authService.adminWithdraw(memberId);
     }
 
     public Page<AdminMemberResponse> getReportedMembers(Pageable pageable) {
