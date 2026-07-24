@@ -34,7 +34,9 @@ public class RankingRefreshScheduler {
     private final RankingService rankingService;
     private final HoldingRepository holdingRepository;
 
-    @Scheduled(fixedDelay = 20_000)
+    // price:quote:* TTL(30초)과 맞춰서, 이 스케줄러가 돌 때 캐시가 거의 항상 살아있게 한다.
+    // TTL보다 짧은 주기(기존 20초)로 돌면 캐시가 매번 만료된 상태라 매번 KIS를 새로 호출하게 된다.
+    @Scheduled(fixedDelay = 30_000)
     public void refresh(){
         for(Room room : roomRepository.findByStatus(STATUS_ONGOING)){
             try{
