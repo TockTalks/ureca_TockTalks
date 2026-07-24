@@ -64,4 +64,6 @@ public interface RoomParticipantRepository
     List<RoomParticipant> findByStatus(String status);
 
     long countByStatus(String status);
+
+    void deleteByRoomId(Long roomId);
 }

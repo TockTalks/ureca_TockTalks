@@ -4,6 +4,7 @@ import com.tocktalks.domain.room.service.RoomService;
 import com.tocktalks.global.security.LoginMemberId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,16 @@ public class AdminRoomController {
             @LoginMemberId Long adminId
     ) {
         roomService.terminateRoomByAdmin(roomId, adminId);
+        return ResponseEntity.noContent().build();
+    }
+
+    // 방 삭제
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<Void> deleteRoom(
+            @PathVariable Long roomId,
+            @LoginMemberId Long adminId
+    ) {
+        roomService.deleteRoomByAdmin(roomId, adminId);
         return ResponseEntity.noContent().build();
     }
 }
