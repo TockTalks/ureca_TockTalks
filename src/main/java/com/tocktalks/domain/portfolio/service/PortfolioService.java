@@ -5,6 +5,7 @@ import com.tocktalks.domain.portfolio.dto.PortfolioDetailResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioHoldingResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
 import com.tocktalks.domain.portfolio.entity.AssetHistory;
+import com.tocktalks.domain.portfolio.event.AssetSnapshotRequestedEvent;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
@@ -21,8 +22,9 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Log4j2
 @Service
@@ -96,15 +98,35 @@ public class PortfolioService {
     }
     
     //보유 자산 변동 시 스냅샷 저장
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void recordSnapshot(RoomParticipant participant) {
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleAssetSnapshotRequested(AssetSnapshotRequestedEvent event) {
+        try {
+            recordSnapshot(event);
+        } catch (Exception e) {
+            log.warn("자산 스냅샷 저장 실패 - 거래는 정상 처리됨. participantId={}", event.roomParticipantId(), e);
+        }
+    }
+
+    @Transactional
+    public void recordSnapshot(AssetSnapshotRequestedEvent event) {
         HoldingSummaryResponse summary = holdingQueryService.getHoldingSummary(
-                participant.getMemberId(), participant.getId()
+                event.memberId(), event.roomParticipantId()
         );
         long stockValuation = summary.totalValuation().longValue();
-        long totalAsset = participant.getBalance() + stockValuation;
+        long totalAsset = event.balance() + stockValuation;
 
-        AssetHistory history = AssetHistory.create(participant.getId(), totalAsset);
+        AssetHistory history = AssetHistory.create(
+                event.roomParticipantId(),
+                totalAsset,
+                event.transactionId(),
+                event.stockCode(),
+                event.stockName(),
+                event.tradeType(),
+                event.quantity(),
+                event.price(),
+                event.profitAmount(),
+                event.profitRate()
+        );
         assetHistoryRepository.save(history);
     }
 

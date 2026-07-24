@@ -1,6 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
-import com.tocktalks.domain.portfolio.service.PortfolioService;
+import com.tocktalks.domain.portfolio.event.AssetSnapshotRequestedEvent;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -11,6 +11,7 @@ import com.tocktalks.domain.trade.entity.StockCodeValidator;
 import com.tocktalks.domain.trade.entity.Transaction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +40,7 @@ public class BuyTradeService {
     private final TradeRankingService
             tradeRankingService;
 
-    private final PortfolioService portfolioService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public TradeExecutionResponse buy(
@@ -109,11 +110,20 @@ public class BuyTradeService {
         tradeRankingService.updateRanking(
                 participant
         );
-        try {
-            portfolioService.recordSnapshot(participant);
-        } catch (Exception e) {
-            log.warn("자산 스냅샷 저장 실패 - 거래는 정상 처리됨. participantId={}", participant.getId());
-        }
+
+        eventPublisher.publishEvent(new AssetSnapshotRequestedEvent(
+                participant.getId(),
+                participant.getMemberId(),
+                participant.getBalance(),
+                transaction.getId(),
+                transaction.getStockCode(),
+                transaction.getStockName(),
+                transaction.getType().name(),
+                transaction.getQuantity(),
+                transaction.getPrice(),
+                transaction.getProfitAmount(),
+                transaction.getProfitRate()
+        ));
 
         return TradeExecutionResponse.from(
                 transaction,
