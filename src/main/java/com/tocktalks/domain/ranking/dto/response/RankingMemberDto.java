@@ -4,5 +4,6 @@ public record RankingMemberDto(
         Integer rank,
         Long memberId,
         String nickname,
-        Long balance
+        Long balance,
+        Boolean hasTraded
 ){}

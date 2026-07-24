@@ -134,20 +134,23 @@ public class RoomService {
     // 그걸 우선 쓰고, 없으면(지금처럼 트레이드가 아직 없는 방) 현금 잔고로 폴백한다.
     public List<RoomRankingResponse> getRanking(Long roomId) {
         List<RankingDto> live = rankingService.getAllRanking(roomId, RankingType.TOTAL_ASSET);
-        return live.isEmpty() ? getRankingFromCashBalance(roomId) : toRoomRankingResponses(live);
+        return live.isEmpty() ? getRankingFromCashBalance(roomId) : toRoomRankingResponses(roomId, live);
     }
 
-    private List<RoomRankingResponse> toRoomRankingResponses(List<RankingDto> live) {
+    private List<RoomRankingResponse> toRoomRankingResponses(Long roomId, List<RankingDto> live) {
         Map<Long, String> nicknameByMemberId = memberRepository
                 .findAllById(live.stream().map(RankingDto::memberId).toList()).stream()
                 .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        Map<Long, Boolean> hasTradedByMemberId = rankingService.getHasTradedByMemberId(roomId);
 
         return live.stream()
                 .map(dto -> new RoomRankingResponse(
                         dto.rank(),
                         dto.memberId(),
                         nicknameByMemberId.get(dto.memberId()),
-                        dto.score().longValue()))
+                        dto.score().longValue(),
+                        hasTradedByMemberId.getOrDefault(dto.memberId(), false)))
                 .toList();
     }
 
@@ -162,6 +165,8 @@ public class RoomService {
                 .findAllById(ranked.stream().map(RoomParticipant::getMemberId).toList()).stream()
                 .collect(Collectors.toMap(Member::getId, Member::getNickname));
 
+        Map<Long, Boolean> hasTradedByMemberId = rankingService.getHasTradedByMemberId(roomId);
+
         return IntStream.range(0, ranked.size())
                 .mapToObj(i -> {
                     RoomParticipant participant = ranked.get(i);
@@ -169,7 +174,8 @@ public class RoomService {
                             i + 1,
                             participant.getMemberId(),
                             nicknameByMemberId.get(participant.getMemberId()),
-                            participant.getBalance());
+                            participant.getBalance(),
+                            hasTradedByMemberId.getOrDefault(participant.getMemberId(), false));
                 })
                 .toList();
     }

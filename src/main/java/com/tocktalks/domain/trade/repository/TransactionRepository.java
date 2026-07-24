@@ -60,4 +60,13 @@ public interface TransactionRepository
             Pageable pageable
     );
 
+    @Query("""
+            SELECT DISTINCT t.roomParticipantId
+            FROM Transaction t
+            WHERE t.roomParticipantId IN :roomParticipantIds
+            """)
+    List<Long>findDistinctRoomParticipantIdsIn(@Param("roomParticipantIds") List<Long> roomParticipantIds);
+
+
+
 }

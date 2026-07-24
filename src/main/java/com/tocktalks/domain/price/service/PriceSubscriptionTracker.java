@@ -1,5 +1,6 @@
 package com.tocktalks.domain.price.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Component
 public class PriceSubscriptionTracker {
 
@@ -90,7 +92,7 @@ public class PriceSubscriptionTracker {
             try {
                 kisWebSocketClient.unsubscribe(stockCode);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn("[구독해제 실패] stockCode={}", stockCode, e);
             }
         }
     }
