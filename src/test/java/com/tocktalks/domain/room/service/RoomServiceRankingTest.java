@@ -68,6 +68,9 @@ class RoomServiceRankingTest {
                 any(LocalDateTime.class)
         )).thenReturn(List.of(room));
 
+        when(roomRepository.findByIdForUpdate(1L))
+                .thenReturn(java.util.Optional.of(room));
+
         when(roomParticipantRepository
                 .findByRoomIdAndStatus(
                         1L,
@@ -112,6 +115,30 @@ class RoomServiceRankingTest {
         order.verify(firstParticipant).end();
         order.verify(secondParticipant).end();
         order.verify(room).close();
+    }
+
+    @Test
+    void 락_획득_사이에_이미_종료된_방은_다시_아카이브하지_않는다() {
+        // 만료 목록을 조회한 시점(room)과 락을 잡은 시점(alreadyClosedRoom) 사이에
+        // 다른 트랜잭션이 먼저 종료 처리를 끝낸 상황을 시뮬레이션한다.
+        Room room = mock(Room.class);
+        Room alreadyClosedRoom = mock(Room.class);
+
+        when(room.getId()).thenReturn(1L);
+        when(alreadyClosedRoom.getStatus()).thenReturn("closed");
+
+        when(roomRepository.findByStatusAndEndAtBefore(
+                eq("ongoing"),
+                any(LocalDateTime.class)
+        )).thenReturn(List.of(room));
+
+        when(roomRepository.findByIdForUpdate(1L))
+                .thenReturn(java.util.Optional.of(alreadyClosedRoom));
+
+        roomService.closeExpiredRooms();
+
+        verifyNoInteractions(tradeRankingService, rankingService);
+        verify(alreadyClosedRoom, org.mockito.Mockito.never()).close();
     }
 
     @Test
