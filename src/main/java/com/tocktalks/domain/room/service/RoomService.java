@@ -264,7 +264,7 @@ public class RoomService {
         List<Room> expiredRooms = roomRepository.findByStatusAndEndAtBefore(STATUS_ONGOING, LocalDateTime.now());
         for (Room room : expiredRooms) {
             try {
-                archiveAndClose(room);
+                closeRoomLocked(room.getId());
             } catch (Exception e) {
                 // 특정 방(예: 시세 조회 실패)에서 터져도 다른 만료된 방들은 계속 정상 종료되도록 격리한다.
                 log.error("방 종료 처리 실패 (roomId={})", room.getId(), e);
@@ -284,7 +284,7 @@ public class RoomService {
             throw new IllegalArgumentException("이미 종료된 방입니다.");
         }
 
-        archiveAndClose(room);
+        closeRoomLocked(roomId);
 
         log.warn("관리자에 의한 방 강제 종료 (roomId={}, adminId={})", roomId, adminId);
     }
@@ -338,6 +338,11 @@ public class RoomService {
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
+        // 같은 방에 동시에 여러 참가 요청이 들어와도 중복 참가/정원 초과가 안 생기도록
+        // 방 단위로 락을 잡아 "중복 참가 확인 -> 정원 확인 -> 저장"을 직렬화한다.
+        roomRepository.findByIdForUpdate(room.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+
         // 시작 전(모집중)에는 자유롭게 들어왔다 나갈 수 있어야 하므로, 이미 나간 적이 있어도
         // 재입장을 막지 않는다. 현재 ACTIVE로 참가 중인 경우만 중복 참가로 막는다.
         if (roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(room.getId(), memberId, PARTICIPANT_ACTIVE)) {
@@ -371,10 +376,25 @@ public class RoomService {
     // 스케줄러(closeExpiredRooms)가 아직 못 돌았어도, 방을 조회하는 시점에 종료 시각이 지났으면
     // 그 자리에서 바로 닫아서 화면에 최신 상태가 즉시 반영되도록 한다.
     private void closeIfExpired(Room room) {
-        if (STATUS_ONGOING.equals(room.getStatus())
+        if (isExpired(room)) {
+            closeRoomLocked(room.getId());
+        }
+    }
+
+    private boolean isExpired(Room room) {
+        return STATUS_ONGOING.equals(room.getStatus())
                 && room.getEndAt() != null
-                && room.getEndAt().isBefore(LocalDateTime.now())) {
-            archiveAndClose(room);
+                && room.getEndAt().isBefore(LocalDateTime.now());
+    }
+
+    // 같은 방에 대한 종료 처리(자연 만료 / 스케줄러 / 관리자 강제종료)가 동시에 들어와도
+    // 아카이브가 중복 저장되지 않도록 방 단위로 락을 잡고, 락을 얻는 사이 다른 트랜잭션이
+    // 이미 종료 처리했을 수 있으니 락을 잡은 뒤 상태를 다시 확인한다.
+    private void closeRoomLocked(Long roomId) {
+        Room locked = roomRepository.findByIdForUpdate(roomId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+        if (!STATUS_CLOSED.equals(locked.getStatus())) {
+            archiveAndClose(locked);
         }
     }
 
