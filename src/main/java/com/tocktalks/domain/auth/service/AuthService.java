@@ -104,6 +104,28 @@ public class AuthService {
             throw new IllegalArgumentException("현재 비밀번호가 올바르지 않습니다.");
         }
 
+        withdrawMember(memberId, member);
+    }
+
+    /**
+     * 관리자에 의한 강제 탈퇴: 본인 확인(비밀번호) 없이 동일한 탈퇴 처리를 수행한다.
+     * 테스트/이상 계정 정리 등 관리자가 직접 처리해야 하는 경우에 사용한다.
+     */
+    @Transactional
+    public void adminWithdraw(Long memberId) {
+        Member member = getMember(memberId);
+
+        if (member.isWithdrawn()) {
+            throw new IllegalArgumentException("이미 탈퇴한 회원입니다.");
+        }
+        if ("admin".equals(member.getRole())) {
+            throw new IllegalArgumentException("관리자 계정은 강제 탈퇴시킬 수 없습니다.");
+        }
+
+        withdrawMember(memberId, member);
+    }
+
+    private void withdrawMember(Long memberId, Member member) {
         // 재가입은 새 계정으로 처리하므로 기존 방 참가와 실시간 랭킹 연결을 모두 종료한다.
         roomService.endActiveParticipationsForWithdrawal(memberId);
         favoriteStockRepository.deleteAllByMemberId(memberId);
