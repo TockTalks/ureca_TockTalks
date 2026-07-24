@@ -1,6 +1,7 @@
 package com.tocktalks.domain.portfolio.service;
 
 import com.tocktalks.domain.portfolio.dto.AssetHistoryResponse;
+import com.tocktalks.domain.portfolio.dto.PortfolioBalanceResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioDetailResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioHoldingResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
@@ -67,6 +68,20 @@ public class PortfolioService {
         //3. 요약 정보 조립 후 holdings와 합쳐서 반환
         PortfolioSummaryResponse summary = toSummary(participant, holdingSummary);
         return PortfolioDetailResponse.of(summary, holdings);
+    }
+
+    // 현금 잔고만 필요한 화면(예: 종목 상세페이지의 매수 가능 금액 표시)을 위한 경량 조회.
+    // 보유 종목 시세 조회(HoldingQueryService, KIS 호출 포함)를 타지 않아 DB 조회 한 번으로 끝난다.
+    @Transactional(readOnly = true)
+    public PortfolioBalanceResponse getBalance(Long memberId, Long roomParticipantId) {
+        RoomParticipant participant = roomParticipantRepository.findById(roomParticipantId)
+                .orElseThrow(() -> new IllegalArgumentException("참가자 정보를 찾을 수 없습니다."));
+
+        if (!participant.getMemberId().equals(memberId)) {
+            throw new IllegalArgumentException("해당 포트폴리오를 조회할 권한이 없습니다.");
+        }
+
+        return new PortfolioBalanceResponse(participant.getId(), participant.getBalance());
     }
 
     @Transactional(readOnly = true)
