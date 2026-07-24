@@ -8,6 +8,7 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.room.repository.RoomRepository;
 import com.tocktalks.domain.trade.entity.Holding;
 import com.tocktalks.domain.trade.repository.HoldingRepository;
+import com.tocktalks.domain.trade.service.CurrentPriceProvider;
 import com.tocktalks.domain.trade.service.TradeAssetService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,9 @@ public class RankingRefreshScheduler {
 
     private static final String STATUS_ONGOING = "ongoing";
     private static final String PARTICIPANT_ACTIVE = "ACTIVE";
-    private static final int MAX_CODES_PER_CALL = 30;
     private final RoomRepository roomRepository;
     private final RoomParticipantRepository roomParticipantRepository;
-    private final KisPriceService kisPriceService;
+    private final CurrentPriceProvider currentPriceProvider;
     private final TradeAssetService tradeAssetService;
     private final RankingService rankingService;
     private final HoldingRepository holdingRepository;
@@ -54,12 +54,12 @@ public class RankingRefreshScheduler {
         Map<Long, List<Holding>> holdingsByParticipant = holdingRepository.findAllByRoomParticipantIdIn(participantIds).stream()
                 .collect(Collectors.groupingBy(Holding::getRoomParticipantId));
 
-        Set<String> stockCodes = holdingsByParticipant.values().stream()
+        List<String> stockCodes = holdingsByParticipant.values().stream()
                 .flatMap(List::stream)
                 .map(Holding::getStockCode)
-                .collect(Collectors.toSet());
+                .distinct().toList();
 
-        Map<String, BigDecimal> priceByCode = fetchPrices(stockCodes);
+        Map<String, BigDecimal> priceByCode = currentPriceProvider.getCurrentPrices(stockCodes);
 
         if(!STATUS_ONGOING.equals(roomRepository.findById(roomId).map(Room::getStatus).orElse(null))) return;
 
@@ -70,17 +70,5 @@ public class RankingRefreshScheduler {
         }
 
         rankingService.broadcastRanking(roomId);
-    }
-
-    private Map<String, BigDecimal> fetchPrices(Set<String> stockCodes){
-        Map<String, BigDecimal> result = new HashMap<>();
-        List<String> codes = new ArrayList<>(stockCodes);
-        for(int i = 0; i < codes.size(); i += MAX_CODES_PER_CALL){
-            List<String> chunk = codes.subList(i, Math.min(i + MAX_CODES_PER_CALL, codes.size()));
-            if(chunk.isEmpty()) continue;
-            kisPriceService.getMultiplePrices(chunk).forEach(q -> result.put(q.stockCode(), BigDecimal.valueOf(q.currentPrice())));
-        }
-
-        return result;
     }
 }
