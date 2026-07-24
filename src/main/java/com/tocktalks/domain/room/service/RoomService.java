@@ -338,9 +338,10 @@ public class RoomService {
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
-        // 상태 무관하게 한 번이라도 참가한 적 있으면 재입장 불가 (한 번 나간 방은 다시 못 들어옴)
-        if (roomParticipantRepository.existsByRoomIdAndMemberId(room.getId(), memberId)) {
-            throw new IllegalArgumentException("이미 참가했거나 나간 적이 있는 방입니다.");
+        // 시작 전(모집중)에는 자유롭게 들어왔다 나갈 수 있어야 하므로, 이미 나간 적이 있어도
+        // 재입장을 막지 않는다. 현재 ACTIVE로 참가 중인 경우만 중복 참가로 막는다.
+        if (roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(room.getId(), memberId, PARTICIPANT_ACTIVE)) {
+            throw new IllegalArgumentException("이미 참가 중인 방입니다.");
         }
         if (room.getMaxParticipants() != null
                 && roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE) >= room.getMaxParticipants()) {
