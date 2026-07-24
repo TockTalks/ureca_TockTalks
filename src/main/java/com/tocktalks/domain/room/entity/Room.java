@@ -81,9 +81,14 @@ public class Room {
         room.maxParticipants = maxParticipants;
         room.startAt = startAt;
         room.endAt = endAt;
-        room.status = "ongoing";
+        // 시작 시각이 미래면 모집중으로 열고, 이미 지났으면(즉시 시작하는 방) 바로 진행중으로 연다.
+        room.status = startAt.isAfter(LocalDateTime.now()) ? "recruiting" : "ongoing";
         room.createdAt = LocalDateTime.now();
         return room;
+    }
+
+    public void start() {
+        this.status = "ongoing";
     }
 
     public void close() {

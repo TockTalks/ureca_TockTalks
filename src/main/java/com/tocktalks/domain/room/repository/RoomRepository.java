@@ -16,6 +16,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     List<Room> findByStatusAndEndAtBefore(String status, LocalDateTime endAt);
 
+    List<Room> findByStatusAndStartAtBefore(String status, LocalDateTime startAt);
+
     List<Room> findByStatus(String status);
 
     long countByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
