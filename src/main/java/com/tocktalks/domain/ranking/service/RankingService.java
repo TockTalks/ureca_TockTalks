@@ -37,6 +37,13 @@ public class RankingService {
         rankingRedisService.updateRanking(roomId, memberId, returnRate, finalAsset);
     }
 
+    /**
+     * 회원탈퇴 시 실시간 랭킹만 제거한다. 종료된 방의 최종 랭킹 아카이브는 보존한다.
+     */
+    public void removeMemberFromLiveRanking(Long roomId, Long memberId) {
+        rankingRedisService.removeMember(roomId, memberId);
+    }
+
     public Map<Long, Boolean> getHasTradedByMemberId(Long roomId){
         List<RoomParticipant> participants = roomParticipantRepository.findByRoomIdAndStatus(roomId, "ACTIVE");
         if(participants.isEmpty()) return Map.of();

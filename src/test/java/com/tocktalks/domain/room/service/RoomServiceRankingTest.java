@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -111,5 +112,45 @@ class RoomServiceRankingTest {
         order.verify(firstParticipant).end();
         order.verify(secondParticipant).end();
         order.verify(room).close();
+    }
+
+    @Test
+    void withdrawalEndsEveryActiveParticipationAndRemovesLiveRankings() {
+        RoomParticipant defaultRoomParticipant = mock(RoomParticipant.class);
+        RoomParticipant battleRoomParticipant = mock(RoomParticipant.class);
+
+        when(defaultRoomParticipant.getRoomId()).thenReturn(1L);
+        when(defaultRoomParticipant.getMemberId()).thenReturn(10L);
+        when(battleRoomParticipant.getRoomId()).thenReturn(2L);
+        when(battleRoomParticipant.getMemberId()).thenReturn(10L);
+        when(roomParticipantRepository.findByMemberIdAndStatus(10L, "ACTIVE"))
+                .thenReturn(List.of(defaultRoomParticipant, battleRoomParticipant));
+
+        roomService.endActiveParticipationsForWithdrawal(10L);
+
+        InOrder order = inOrder(
+                defaultRoomParticipant,
+                battleRoomParticipant,
+                rankingService
+        );
+        order.verify(defaultRoomParticipant).end();
+        order.verify(rankingService).removeMemberFromLiveRanking(1L, 10L);
+        order.verify(battleRoomParticipant).end();
+        order.verify(rankingService).removeMemberFromLiveRanking(2L, 10L);
+    }
+
+    @Test
+    void legacyWithdrawnActiveParticipationIsCleanedWithoutClosingRoom() {
+        RoomParticipant staleParticipant = mock(RoomParticipant.class);
+        when(staleParticipant.getRoomId()).thenReturn(1L);
+        when(staleParticipant.getMemberId()).thenReturn(10L);
+        when(roomParticipantRepository.findActiveParticipantsOfWithdrawnMembers())
+                .thenReturn(List.of(staleParticipant));
+
+        roomService.cleanupLegacyWithdrawnParticipations();
+
+        verify(staleParticipant).end();
+        verify(rankingService).removeMemberFromLiveRanking(1L, 10L);
+        verifyNoInteractions(roomRepository);
     }
 }

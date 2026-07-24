@@ -5,6 +5,7 @@ import com.tocktalks.domain.auth.dto.EmailCheckResponse;
 import com.tocktalks.domain.auth.dto.KakaoLoginRequest;
 import com.tocktalks.domain.auth.dto.LoginRequest;
 import com.tocktalks.domain.auth.dto.MemberUpdateRequest;
+import com.tocktalks.domain.auth.dto.MemberWithdrawalRequest;
 import com.tocktalks.domain.auth.dto.ReissueRequest;
 import com.tocktalks.domain.auth.dto.SignupRequest;
 import com.tocktalks.domain.auth.dto.TokenResponse;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +73,18 @@ public class AuthController {
     @PatchMapping("/me")
     public void updateMe(Authentication authentication, @RequestBody @Valid MemberUpdateRequest request) {
         authService.updateMember((Long) authentication.getPrincipal(), request);
+    }
+
+    // 회원탈퇴 API: 요청 계정만 소프트 탈퇴 처리하고 204를 반환한다.
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> withdraw(
+            Authentication authentication,
+            @RequestBody(required = false) MemberWithdrawalRequest request
+    ) {
+        MemberWithdrawalRequest safeRequest =
+                request == null ? new MemberWithdrawalRequest(null) : request;
+        authService.withdraw((Long) authentication.getPrincipal(), safeRequest);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/reissue")

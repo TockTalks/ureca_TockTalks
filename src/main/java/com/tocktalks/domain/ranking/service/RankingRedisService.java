@@ -87,6 +87,21 @@ public class RankingRedisService {
         return redisTemplate.opsForZSet().score(keyOf(roomId, type), String.valueOf(memberId));
     }
 
+    /**
+     * 회원탈퇴 시 진행 중인 방의 실시간 수익률·총자산 랭킹에서 회원을 즉시 제거한다.
+     */
+    public void removeMember(Long roomId, Long memberId) {
+        String rankingMember = String.valueOf(memberId);
+        redisTemplate.opsForZSet().remove(
+                keyOf(roomId, RankingType.RETURN_RATE),
+                rankingMember
+        );
+        redisTemplate.opsForZSet().remove(
+                keyOf(roomId, RankingType.TOTAL_ASSET),
+                rankingMember
+        );
+    }
+
     public void clear(Long roomId){
         redisTemplate.delete(keyOf(roomId, RankingType.RETURN_RATE));
         redisTemplate.delete(keyOf(roomId, RankingType.TOTAL_ASSET));

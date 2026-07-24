@@ -3,6 +3,7 @@ package com.tocktalks.domain.member.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "member", uniqueConstraints = {
@@ -83,12 +84,32 @@ public class Member {
     }
 
     public void block() {
+        if (isWithdrawn()) {
+            throw new IllegalArgumentException("탈퇴한 회원은 차단할 수 없습니다.");
+        }
         this.status = "blocked";
         this.updatedAt = LocalDateTime.now();
     }
 
     public boolean isBlocked(){
         return "blocked".equals(this.status);
+    }
+
+    /**
+     * 회원탈퇴 시 거래·방·게시글의 참조 무결성을 보존하면서 개인정보만 익명화한다.
+     */
+    public void withdraw() {
+        String anonymousId = UUID.randomUUID().toString().replace("-", "");
+        this.email = "withdrawn_" + anonymousId + "@withdrawn.local";
+        this.password = null;
+        this.nickname = "탈퇴한 회원";
+        this.providerSub = null;
+        this.status = "withdrawn";
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public boolean isWithdrawn() {
+        return "withdrawn".equals(this.status);
     }
 
     public void increaseReportedCount() {

@@ -54,6 +54,24 @@ class RankingServiceTest {
     }
 
     @Test
+    void 회원탈퇴시_진행중인_실시간_랭킹에서만_즉시_제외된다() {
+        rankingService.updateRanking(TEST_ROOM_ID, 300L, 1_200_000L, 1_000_000L);
+        rankingService.updateRanking(TEST_ROOM_ID, 301L, 900_000L, 1_000_000L);
+
+        rankingService.removeMemberFromLiveRanking(TEST_ROOM_ID, 300L);
+
+        RankingListResponse returnRanking =
+                rankingService.getRanking(TEST_ROOM_ID, 300L, RankingType.RETURN_RATE, 10);
+        RankingListResponse assetRanking =
+                rankingService.getRanking(TEST_ROOM_ID, 300L, RankingType.TOTAL_ASSET, 10);
+
+        assertThat(returnRanking.topN()).extracting("memberId").containsExactly(301L);
+        assertThat(assetRanking.topN()).extracting("memberId").containsExactly(301L);
+        assertThat(returnRanking.myRank()).isNull();
+        assertThat(assetRanking.myRank()).isNull();
+    }
+
+    @Test
     void 방_종료시_최종랭킹이_DB에_저장되고_Redis는_비워진다() {
         // given
         rankingService.updateRanking(TEST_ROOM_ID, 200L, 1_500_000L, 1_000_000L);
@@ -76,5 +94,17 @@ class RankingServiceTest {
         assertThat(remaining == null || remaining == 0).isTrue();
 
         System.out.println("최종 랭킹: " + finalRanking);
+    }
+
+    @Test
+    void 회원탈퇴후에도_이미_종료된_방의_최종랭킹은_보존된다() {
+        rankingService.updateRanking(TEST_ROOM_ID, 400L, 1_100_000L, 1_000_000L);
+        rankingService.finalizeRanking(TEST_ROOM_ID);
+
+        rankingService.removeMemberFromLiveRanking(TEST_ROOM_ID, 400L);
+
+        List<RankingArchiveResponse> finalRanking =
+                rankingService.getFinalRanking(TEST_ROOM_ID, RankingType.RETURN_RATE);
+        assertThat(finalRanking).extracting(RankingArchiveResponse::memberId).containsExactly(400L);
     }
 }
