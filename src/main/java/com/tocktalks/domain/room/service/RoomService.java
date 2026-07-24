@@ -3,10 +3,13 @@ package com.tocktalks.domain.room.service;
 import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import com.tocktalks.domain.ranking.dto.response.RankingDto;
+import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
+import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.ranking.type.RankingType;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
+import com.tocktalks.domain.room.dto.RoomHistoryResponse;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
 import com.tocktalks.domain.room.dto.RoomResponse;
@@ -26,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -34,7 +38,9 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class RoomService {
 
+    private static final String STATUS_RECRUITING = "recruiting";
     private static final String STATUS_ONGOING = "ongoing";
+    private static final String STATUS_CLOSED = "closed";
     private static final String PARTICIPANT_ACTIVE = "ACTIVE";
 
     private final RoomRepository roomRepository;
@@ -43,6 +49,7 @@ public class RoomService {
     private final RankingService rankingService;
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
+    private final RoomRankingArchiveRepository roomRankingArchiveRepository;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
@@ -70,8 +77,8 @@ public class RoomService {
         if (room.isDefault()) {
             throw new IllegalArgumentException("기본방은 이미 모두 참가되어 있는 방입니다.");
         }
-        if (!STATUS_ONGOING.equals(room.getStatus())) {
-            throw new IllegalArgumentException("참가할 수 없는 방입니다.");
+        if (!STATUS_RECRUITING.equals(room.getStatus())) {
+            throw new IllegalArgumentException("이미 시작된 방은 참가할 수 없습니다.");
         }
         if (!room.isPublic()) {
             throw new IllegalArgumentException("비공개 방은 초대코드로 참가해야 합니다.");
@@ -82,16 +89,20 @@ public class RoomService {
     @Transactional
     public RoomParticipantResponse joinRoomByInviteCode(String inviteCode, Long memberId) {
         Room room = roomRepository.findByInviteCode(inviteCode)
-                .filter(r -> STATUS_ONGOING.equals(r.getStatus()))
+                .filter(r -> STATUS_RECRUITING.equals(r.getStatus()))
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 초대코드입니다."));
         return RoomParticipantResponse.of(joinRoom(room, memberId));
     }
 
+    // 방이 시작되면(recruiting -> ongoing) 더 이상 나갈 수 없다 — 시작 전까지만 자유롭게 들어왔다 나갈 수 있음
     @Transactional
     public void leaveRoom(Long roomId, Long memberId) {
         Room room = getRoom(roomId);
         if (room.isDefault()) {
             throw new IllegalArgumentException("기본방은 탈퇴할 수 없습니다.");
+        }
+        if (!STATUS_RECRUITING.equals(room.getStatus())) {
+            throw new IllegalArgumentException("이미 시작된 방은 나갈 수 없습니다.");
         }
         RoomParticipant participant = roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, memberId, PARTICIPANT_ACTIVE)
@@ -143,15 +154,18 @@ public class RoomService {
                 .findByRoomIdAndMemberIdAndStatus(roomId, requesterId, PARTICIPANT_ACTIVE)
                 .isPresent();
         // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 그동안 참가했던 인원 전체를 센다.
-        long participantCount = STATUS_ONGOING.equals(room.getStatus())
-                ? roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE)
-                : roomParticipantRepository.countByRoomId(roomId);
+        // (모집중/진행중은 둘 다 아직 안 닫힌 상태라 active만 세면 된다 — recruiting 단계에서
+        // 들어왔다 나간 사람까지 세면 중복 집계가 되므로)
+        long participantCount = STATUS_CLOSED.equals(room.getStatus())
+                ? roomParticipantRepository.countByRoomId(roomId)
+                : roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE);
         return RoomResponse.of(room, participantCount, isParticipant);
     }
 
     public List<RoomResponse> getPublicRooms() {
-        // 기본방은 가입 시 자동 참가되는 방이라 목록에서 별도로 참가할 대상이 아니다
-        return roomRepository.findByIsPublicTrueAndIsDefaultFalseAndStatus(STATUS_ONGOING).stream()
+        // 기본방은 가입 시 자동 참가되는 방이라 목록에서 별도로 참가할 대상이 아니다.
+        // 참가 가능한 건 아직 시작 안 한(recruiting) 방뿐이다.
+        return roomRepository.findByIsPublicTrueAndIsDefaultFalseAndStatus(STATUS_RECRUITING).stream()
                 .map(room -> RoomResponse.of(room,
                         roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE)))
                 .toList();
@@ -221,6 +235,28 @@ public class RoomService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<RoomHistoryResponse> getMyRoomHistory(Long memberId) {
+        return roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId).stream()
+                .map(archive -> roomRepository.findById(archive.getRoomId())
+                        .map(room -> RoomHistoryResponse.of(
+                                room, archive, roomRankingArchiveRepository.countByRoomId(archive.getRoomId())))
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    // 1분마다 시작 시각이 지난 모집중 방을 진행중으로 전환한다 (아무도 그 방을 조회 안 해도
+    // startIfDue 대신 이 스케줄러가 대신 처리해준다)
+    @Scheduled(fixedRate = 60 * 1000)
+    @Transactional
+    public void startDueRooms() {
+        List<Room> dueRooms = roomRepository.findByStatusAndStartAtBefore(STATUS_RECRUITING, LocalDateTime.now());
+        for (Room room : dueRooms) {
+            room.start();
+        }
+    }
+
     // 5분마다 종료 시각이 지난 방을 닫고 최종 랭킹을 archive 한다
     @Scheduled(fixedRate = 5 * 60 * 1000)
     @Transactional
@@ -244,7 +280,7 @@ public class RoomService {
         if (room.isDefault()) {
             throw new IllegalArgumentException("기본방은 강제 종료할 수 없습니다.");
         }
-        if (!STATUS_ONGOING.equals(room.getStatus())) {
+        if (STATUS_CLOSED.equals(room.getStatus())) {
             throw new IllegalArgumentException("이미 종료된 방입니다.");
         }
 
@@ -316,8 +352,19 @@ public class RoomService {
     private Room getRoom(Long roomId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+        startIfDue(room);
         closeIfExpired(room);
         return room;
+    }
+
+    // 스케줄러(startDueRooms)가 아직 못 돌았어도, 방을 조회하는 시점에 시작 시각이 지났으면
+    // 그 자리에서 바로 진행중으로 전환해서 화면/참가 가능 여부에 최신 상태가 즉시 반영되도록 한다.
+    private void startIfDue(Room room) {
+        if (STATUS_RECRUITING.equals(room.getStatus())
+                && room.getStartAt() != null
+                && !room.getStartAt().isAfter(LocalDateTime.now())) {
+            room.start();
+        }
     }
 
     // 스케줄러(closeExpiredRooms)가 아직 못 돌았어도, 방을 조회하는 시점에 종료 시각이 지났으면
