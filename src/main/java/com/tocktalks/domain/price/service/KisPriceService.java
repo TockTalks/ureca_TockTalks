@@ -5,6 +5,7 @@ import com.tocktalks.domain.price.dto.response.KisMultiPriceEnvelope;
 import com.tocktalks.domain.price.dto.response.KisPriceEnvelope;
 import com.tocktalks.domain.price.dto.response.KisPriceResponse;
 import com.tocktalks.domain.price.dto.response.StockQuoteResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -22,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class KisPriceService {
     private static final String TR_ID_INQUIRE_PRICE = "FHKST01010100";
@@ -29,6 +31,9 @@ public class KisPriceService {
     private static final int MULTI_PRICE_MAX_CODES = 30;
     private static final String CACHE_KEY_PREFIX = "price:rest:";
     private static final String QUOTE_CACHE_KEY_PREFIX = "price:quote:";
+    // 8초 캐시(CACHE_KEY_PREFIX)와 별개로, KIS 호출이 실패했을 때 화면에 아무 값도 못
+    // 띄우는 대신 쓸 마지막 성공 응답을 TTL 없이(만료 없이) 보관한다.
+    private static final String LATEST_KEY_PREFIX = "price:rest:latest:";
     // price:rest:*는 매수/매도 체결가로도 쓰이므로(BuyTradeService/SellTradeService) 짧게 유지한다.
     private static final Duration CACHE_TTL = Duration.ofSeconds(8);
     // price:quote:*는 포트폴리오 조회/워밍업/랭킹 스케줄러 전용 캐시라 체결가에 영향이 없다.
@@ -63,9 +68,22 @@ public class KisPriceService {
             return objectMapper.readValue(cached, KisPriceResponse.class);
         }
 
-        KisPriceResponse response = fetchFromKis(stockCode);
-        redisTemplate.opsForValue().set(cacheKey, objectMapper.writeValueAsString(response), CACHE_TTL);
-        return response;
+        try {
+            KisPriceResponse response = fetchFromKis(stockCode);
+            String json = objectMapper.writeValueAsString(response);
+            redisTemplate.opsForValue().set(cacheKey, json, CACHE_TTL);
+            redisTemplate.opsForValue().set(LATEST_KEY_PREFIX + stockCode, json);
+            return response;
+        } catch (RuntimeException exception) {
+            String lastKnown = redisTemplate.opsForValue().get(LATEST_KEY_PREFIX + stockCode);
+            if (lastKnown == null) {
+                throw exception;
+            }
+
+            log.warn("KIS 현재가 조회 실패, 마지막으로 성공한 시세로 대체합니다. stockCode={}, message={}",
+                    stockCode, exception.getMessage());
+            return objectMapper.readValue(lastKnown, KisPriceResponse.class);
+        }
     }
 
     private KisPriceResponse fetchFromKis(String stockCode) {
@@ -86,7 +104,7 @@ public class KisPriceService {
                 .retrieve()
                 .onStatus(status -> status.value() == 500, response ->
                         response.bodyToMono(String.class).flatMap(body -> {
-                            System.out.println("[KIS 500 응답 본문] " + body);
+                            log.warn("[KIS 500 응답 본문] {}", body);
                             return response.createException();
                         }))
                 .bodyToMono(KisPriceEnvelope.class)

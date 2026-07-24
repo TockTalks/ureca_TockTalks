@@ -6,13 +6,18 @@ import com.tocktalks.domain.ranking.dto.response.*;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.type.RankingType;
+import com.tocktalks.domain.room.entity.RoomParticipant;
+import com.tocktalks.domain.room.repository.RoomParticipantRepository;
+import com.tocktalks.domain.trade.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +28,8 @@ public class RankingService {
     private final RankingPublisher rankingPublisher;
     private final RoomRankingArchiveRepository archiveRepository;
     private final MemberRepository memberRepository;
+    private final RoomParticipantRepository roomParticipantRepository;
+    private final TransactionRepository transactionRepository;
 
     public void updateRanking(Long roomId, Long memberId, Long finalAsset, Long seedMoney) {
         BigDecimal returnRate = ReturnRateCalculator.calculate(finalAsset, seedMoney);
@@ -37,6 +44,17 @@ public class RankingService {
         rankingRedisService.removeMember(roomId, memberId);
     }
 
+    public Map<Long, Boolean> getHasTradedByMemberId(Long roomId){
+        List<RoomParticipant> participants = roomParticipantRepository.findByRoomIdAndStatus(roomId, "ACTIVE");
+        if(participants.isEmpty()) return Map.of();
+
+        Set<Long> tradedParticipantIds = new HashSet<>(transactionRepository.findDistinctRoomParticipantIdsIn(
+                participants.stream().map(RoomParticipant::getId).toList()));
+
+        return participants.stream().collect(Collectors.toMap(RoomParticipant::getMemberId,
+                p -> tradedParticipantIds.contains(p.getId())));
+    }
+
     public void broadcastRanking(Long roomId){
         List<RankingDto> live = rankingRedisService.getAll(roomId, RankingType.TOTAL_ASSET);
         if(live.isEmpty()) return;
@@ -44,12 +62,15 @@ public class RankingService {
         Map<Long, String> nicknameByMemberId = memberRepository.findAllById(live.stream().map(RankingDto::memberId).toList())
                 .stream().collect(Collectors.toMap(Member::getId, Member::getNickname));
 
+        Map<Long, Boolean> hasTradedByMemberId = getHasTradedByMemberId(roomId);
+
         List<RankingMemberDto> ranking = live.stream()
                 .map(dto -> new RankingMemberDto(
                         dto.rank(),
                         dto.memberId(),
                         nicknameByMemberId.get(dto.memberId()),
-                        dto.score().longValue())).toList();
+                        dto.score().longValue(),
+                        hasTradedByMemberId.getOrDefault(dto.memberId(), false))).toList();
         rankingPublisher.publish(roomId, new RankingBroadcastEvent(ranking));
     }
 

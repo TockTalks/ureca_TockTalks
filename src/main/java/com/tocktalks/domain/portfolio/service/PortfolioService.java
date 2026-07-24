@@ -6,6 +6,7 @@ import com.tocktalks.domain.portfolio.dto.PortfolioDetailResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioHoldingResponse;
 import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
 import com.tocktalks.domain.portfolio.entity.AssetHistory;
+import com.tocktalks.domain.portfolio.event.AssetSnapshotRequestedEvent;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
@@ -24,6 +25,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Log4j2
 @Service
@@ -111,16 +114,32 @@ public class PortfolioService {
     }
     
     //보유 자산 변동 시 스냅샷 저장
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void recordSnapshot(RoomParticipant participant) {
-        HoldingSummaryResponse summary = holdingQueryService.getHoldingSummary(
-                participant.getMemberId(), participant.getId()
-        );
-        long stockValuation = summary.totalValuation().longValue();
-        long totalAsset = participant.getBalance() + stockValuation;
+    public void handleAssetSnapshotRequested(AssetSnapshotRequestedEvent event) {
+        try {
+            HoldingSummaryResponse summary = holdingQueryService.getHoldingSummary(
+                    event.memberId(), event.roomParticipantId()
+            );
+            long stockValuation = summary.totalValuation().longValue();
+            long totalAsset = event.balance() + stockValuation;
 
-        AssetHistory history = AssetHistory.create(participant.getId(), totalAsset);
-        assetHistoryRepository.save(history);
+            AssetHistory history = AssetHistory.create(
+                    event.roomParticipantId(),
+                    totalAsset,
+                    event.transactionId(),
+                    event.stockCode(),
+                    event.stockName(),
+                    event.tradeType(),
+                    event.quantity(),
+                    event.price(),
+                    event.profitAmount(),
+                    event.profitRate()
+            );
+            assetHistoryRepository.save(history);
+        } catch (Exception e) {
+            log.warn("자산 스냅샷 저장 실패 - 거래는 정상 처리됨 participantId={}", event.memberId(), e);
+        }
     }
 
     //RoomParticipant -> PortfolioSummaryResponse 변환 헬퍼 (목록, 상세 공용)
