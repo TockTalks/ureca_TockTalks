@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClientException;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +45,10 @@ public class HoldingQueryService {
 
     // KIS 응답을 무한정 기다리지 않고, 이 시간이 지나면 캐시/매입가로 즉시 응답한다.
     // 백그라운드 스레드에서는 KIS 호출이 계속 진행되어 다음 요청을 위해 캐시를 채워둔다.
-    private static final Duration PRICE_FETCH_TIMEOUT = Duration.ofMillis(500);
+    // KisRateLimiter는 한 번에 하나씩만 슬롯을 내주는데, 스케줄러 등과 겹쳐서 대기가
+    // 밀리면(줄서기) 초당 0.8건 간격(1250ms)의 배수만큼 밀릴 수 있고, 여기에 WebClient의
+    // 응답 타임아웃(kisWebClient, 4초)까지 더해질 수 있으므로 그보다 여유 있게 잡는다.
+    private static final Duration PRICE_FETCH_TIMEOUT = Duration.ofMillis(4500);
 
     private final StringRedisTemplate redisTemplate;
 
@@ -80,6 +85,8 @@ public class HoldingQueryService {
         Map<String, BigDecimal> currentPrices = fetchCurrentPrices(
                 holdings.stream().map(Holding::getStockCode).distinct().toList()
         );
+
+        persistLatestPrices(currentPrices);
 
         return holdings.stream()
                 .map(holding ->
@@ -151,6 +158,22 @@ public class HoldingQueryService {
         }
     }
 
+    // 보유 종목마다 따로 SET 하면 그만큼 Redis 왕복이 생기므로, 배치조회로 받은 현재가를
+    // 한 번의 파이프라인으로 묶어서 price:latest:*(최후 폴백용 캐시)에 반영한다.
+    private void persistLatestPrices(Map<String, BigDecimal> currentPrices) {
+        if (currentPrices.isEmpty()) {
+            return;
+        }
+
+        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            currentPrices.forEach((stockCode, price) -> connection.stringCommands().set(
+                    (LATEST_PRICE_KEY_PREFIX + stockCode).getBytes(StandardCharsets.UTF_8),
+                    price.toPlainString().getBytes(StandardCharsets.UTF_8)
+            ));
+            return null;
+        });
+    }
+
     private BigDecimal resolveValuationPrice(
             Holding holding,
             Map<String, BigDecimal> currentPrices
@@ -161,11 +184,6 @@ public class HoldingQueryService {
         BigDecimal currentPrice = currentPrices.get(holding.getStockCode());
 
         if (currentPrice != null) {
-            redisTemplate.opsForValue().set(
-                    cacheKey,
-                    currentPrice.toPlainString()
-            );
-
             return currentPrice;
         }
 
