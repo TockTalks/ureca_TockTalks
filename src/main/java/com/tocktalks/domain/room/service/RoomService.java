@@ -215,6 +215,21 @@ public class RoomService {
         log.warn("관리자에 의한 방 강제 종료 (roomId={}, adminId={})", roomId, adminId);
     }
 
+    // 관리자에 의한 방 삭제 (방 자체를 완전히 제거)
+    @Transactional
+    public void deleteRoomByAdmin(Long roomId, Long adminId) {
+        Room room = getRoom(roomId);
+
+        if (room.isDefault()) {
+            throw new IllegalArgumentException("기본방은 삭제할 수 없습니다.");
+        }
+
+        roomParticipantRepository.deleteByRoomId(roomId);
+        roomRepository.delete(room);
+
+        log.warn("관리자에 의한 방 삭제 (roomId={}, adminId={})", roomId, adminId);
+    }
+
     private void archiveAndClose(Room room) {
         List<RoomParticipant> participants =
                 roomParticipantRepository
