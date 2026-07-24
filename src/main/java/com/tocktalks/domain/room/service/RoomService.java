@@ -104,6 +104,38 @@ public class RoomService {
         participant.end();
     }
 
+    /**
+     * 회원탈퇴 시 기본방을 포함한 모든 진행 중 참가를 종료하고 실시간 랭킹에서 제거한다.
+     * 참가 상태를 ENDED로 먼저 바꾸므로 랭킹 갱신 스케줄러가 탈퇴 회원을 다시 추가하지 않는다.
+     */
+    @Transactional
+    public void endActiveParticipationsForWithdrawal(Long memberId) {
+        List<RoomParticipant> activeParticipants =
+                roomParticipantRepository.findByMemberIdAndStatus(memberId, PARTICIPANT_ACTIVE);
+
+        for (RoomParticipant participant : activeParticipants) {
+            endParticipationForWithdrawal(participant);
+        }
+    }
+
+    /**
+     * 기존 탈퇴자의 ACTIVE 참가와 Redis 랭킹 잔존 데이터를 서버 실행 후 자동 정리한다.
+     */
+    @Scheduled(fixedDelay = 30_000, initialDelay = 0)
+    @Transactional
+    public void cleanupLegacyWithdrawnParticipations() {
+        List<RoomParticipant> staleParticipants =
+                roomParticipantRepository.findActiveParticipantsOfWithdrawnMembers();
+
+        for (RoomParticipant participant : staleParticipants) {
+            endParticipationForWithdrawal(participant);
+        }
+
+        if (!staleParticipants.isEmpty()) {
+            log.info("기존 탈퇴 회원의 활성 방 참가 정리 완료 (count={})", staleParticipants.size());
+        }
+    }
+
     @Transactional
     public RoomResponse getRoomDetail(Long roomId, Long requesterId) {
         Room room = getRoom(roomId);
@@ -253,6 +285,14 @@ public class RoomService {
         );
 
         room.close();
+    }
+
+    private void endParticipationForWithdrawal(RoomParticipant participant) {
+        participant.end();
+        rankingService.removeMemberFromLiveRanking(
+                participant.getRoomId(),
+                participant.getMemberId()
+        );
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {

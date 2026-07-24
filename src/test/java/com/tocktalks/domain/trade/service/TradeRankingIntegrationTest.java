@@ -1,5 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
+import com.tocktalks.domain.portfolio.service.PortfolioService;
 import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
@@ -66,13 +67,17 @@ class TradeRankingIntegrationTest {
     @MockitoBean
     private RankingService rankingService;
 
+    // 랭킹 갱신 검증에서 포트폴리오 이력 기록 의존성은 격리한다.
+    @MockitoBean
+    private PortfolioService portfolioService;
+
     @Test
     @Transactional(
             propagation = Propagation.NOT_SUPPORTED
     )
     void buyUpdatesRankingWithTotalAsset() {
         Room room = roomRepository.saveAndFlush(
-                Room.createDefault(1_000_000L)
+                TradeTestRoomFactory.ongoing(1_000_000L)
         );
 
         RoomParticipant participant =
@@ -115,7 +120,7 @@ class TradeRankingIntegrationTest {
     )
     void sellUpdatesRankingWithTotalAsset() {
         Room room = roomRepository.saveAndFlush(
-                Room.createDefault(1_000_000L)
+                TradeTestRoomFactory.ongoing(1_000_000L)
         );
 
         RoomParticipant participant =
