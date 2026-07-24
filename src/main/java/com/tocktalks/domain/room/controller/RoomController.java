@@ -2,6 +2,7 @@ package com.tocktalks.domain.room.controller;
 
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.JoinByInviteCodeRequest;
+import com.tocktalks.domain.room.dto.RoomHistoryResponse;
 import com.tocktalks.domain.room.dto.RoomParticipantResponse;
 import com.tocktalks.domain.room.dto.RoomRankingResponse;
 import com.tocktalks.domain.room.dto.RoomResponse;
@@ -33,6 +34,11 @@ public class RoomController {
     @GetMapping("/mine")
     public List<RoomResponse> getMyRooms(Authentication authentication) {
         return roomService.getMyRooms(memberId(authentication));
+    }
+
+    @GetMapping("/mine/history")
+    public List<RoomHistoryResponse> getMyRoomHistory(Authentication authentication) {
+        return roomService.getMyRoomHistory(memberId(authentication));
     }
 
     @GetMapping("/default")
