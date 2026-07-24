@@ -1,5 +1,6 @@
 package com.tocktalks.domain.price.service;
 
+import com.tocktalks.domain.price.config.KisApiProperties;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
 import lombok.extern.log4j.Log4j2;
@@ -11,12 +12,20 @@ import org.springframework.stereotype.Component;
 // 서로의 호출을 모른 채 초당 제한을 넘기지 않도록 Redis(이미 shared 프로필에서 공용으로 쓰는
 // 것과 동일한 인스턴스)에 "다음 호출 가능 시각"을 두고 조율한다. local 프로필에서도 그대로
 // 동작하며(단일 프로세스라 사실상 기존과 동일), Redis가 잠깐 불가하면 로컬 제한으로 폴백한다.
+// KIS의 초당 호출 제한은 appKey 단위로 걸리므로, 이 키도 KisAuthService의 토큰 캐시처럼
+// appKey별로 분리한다 — 그래야 각자 개인 키를 쓸 때 서로의 호출 제한에 영향을 안 준다.
 @Log4j2
 @Component
 public class KisRateLimiter {
 
     private static final long INTERVAL_MS = 1250L; // 초당 0.8건
-    private static final String KEY = "kis:rate-limit:next-allowed-at";
+    private static final String KEY_PREFIX = "kis:rate-limit:next-allowed-at:";
+
+    private final KisApiProperties kisApiProperties;
+
+    private String key() {
+        return KEY_PREFIX + kisApiProperties.appKey();
+    }
 
     // KEYS[1] = 다음 호출 가능 시각을 담은 키, ARGV[1] = 호출 간격(ms), ARGV[2] = 현재 시각(ms)
     // 지금 호출해도 되면 그 즉시를, 아니면 예약된 다음 슬롯을 기준으로 "몇 ms 기다려야 하는지"를
@@ -40,8 +49,9 @@ public class KisRateLimiter {
 
     private long lastCallAt = 0L; // Redis 장애 시 폴백용
 
-    public KisRateLimiter(StringRedisTemplate redisTemplate) {
+    public KisRateLimiter(StringRedisTemplate redisTemplate, KisApiProperties kisApiProperties) {
         this.redisTemplate = redisTemplate;
+        this.kisApiProperties = kisApiProperties;
     }
 
     // Redis 커넥션 풀이 완전히 준비되기 전에 첫 acquire() 호출(EVAL)이 나가면 SET이
@@ -49,7 +59,7 @@ public class KisRateLimiter {
     @PostConstruct
     private void warmUpConnection() {
         try {
-            redisTemplate.opsForValue().get(KEY);
+            redisTemplate.opsForValue().get(key());
         } catch (Exception e) {
             log.warn("KIS 호출 제한용 Redis 커넥션 워밍업 실패 (기능에는 영향 없음)", e);
         }
@@ -70,7 +80,7 @@ public class KisRateLimiter {
     private void acquireViaRedis() throws InterruptedException {
         Long waitMs = redisTemplate.execute(
                 SCRIPT,
-                List.of(KEY),
+                List.of(key()),
                 String.valueOf(INTERVAL_MS),
                 String.valueOf(System.currentTimeMillis())
         );
