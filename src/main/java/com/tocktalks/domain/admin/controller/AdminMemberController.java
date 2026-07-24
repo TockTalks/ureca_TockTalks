@@ -43,6 +43,13 @@ public class AdminMemberController {
         return ResponseEntity.noContent().build();
     }
 
+    // 회원 강제 탈퇴 처리 (비밀번호 확인 없이 관리자가 직접 처리)
+    @PostMapping("/{memberId}/withdraw")
+    public ResponseEntity<Void> withdrawMember(@PathVariable Long memberId) {
+        adminMemberService.withdrawMember(memberId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/reported")
     public ResponseEntity<Page<AdminMemberResponse>> getReportedMembers(@PageableDefault(size = 20) Pageable pageable){
         return ResponseEntity.ok(adminMemberService.getReportedMembers(pageable));
