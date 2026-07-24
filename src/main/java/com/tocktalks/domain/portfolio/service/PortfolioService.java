@@ -8,6 +8,8 @@ import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
 import com.tocktalks.domain.portfolio.entity.AssetHistory;
 import com.tocktalks.domain.portfolio.event.AssetSnapshotRequestedEvent;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
+import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
+import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -38,6 +40,7 @@ public class PortfolioService {
     private final RoomRepository roomRepository;
     
     private final HoldingQueryService holdingQueryService;
+    private final RoomRankingArchiveRepository roomRankingArchiveRepository;
 
     //내 포트폴리오 목록 조회
     @Transactional(readOnly = true)
@@ -169,9 +172,19 @@ public class PortfolioService {
             );
         }
 
+        Integer finalRank = null;
+        Integer totalParticipantCount = null;
+        if ("closed".equals(room.getStatus())) {
+            finalRank = roomRankingArchiveRepository
+                    .findByRoomIdAndMemberId(room.getId(), participant.getMemberId())
+                    .map(RoomRankingArchive::getFinalRank)
+                    .orElse(null);
+            totalParticipantCount = (int)roomRankingArchiveRepository.countByRoomId(room.getId());
+        }
         return PortfolioSummaryResponse.of(
                 participant, room, totalAssetValue, stockValuation,
-                holdingSummary.holdings().size()
+                holdingSummary.holdings().size(),
+                finalRank, totalParticipantCount
         );
     }
 }
