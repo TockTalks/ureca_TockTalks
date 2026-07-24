@@ -4,6 +4,7 @@ public record RoomRankingResponse(
         int rank,
         Long memberId,
         String nickname,
-        Long balance
+        Long balance,
+        boolean hasTraded
 ) {
 }
