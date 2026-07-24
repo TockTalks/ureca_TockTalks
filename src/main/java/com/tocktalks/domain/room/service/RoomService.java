@@ -113,6 +113,7 @@ public class RoomService {
         // 배틀 시작 전 참가 취소이므로 참가를 종료하고 실시간 랭킹 잔여값도 제거한다.
         participant.end();
         rankingService.removeMemberFromLiveRanking(roomId, memberId);
+        log.info("[방 나가기] roomId={}, memberId={}", roomId, memberId);
     }
 
     /**
@@ -327,6 +328,7 @@ public class RoomService {
         );
 
         room.close();
+        log.info("[방 종료] roomId={}, participantCount={}", room.getId(), participants.size());
     }
 
     private void endParticipationForWithdrawal(RoomParticipant participant) {
@@ -352,7 +354,9 @@ public class RoomService {
                 && roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE) >= room.getMaxParticipants()) {
             throw new IllegalArgumentException("정원이 가득 찼습니다.");
         }
-        return roomParticipantRepository.save(RoomParticipant.join(room.getId(), memberId, room.getSeedMoney()));
+        RoomParticipant participant = roomParticipantRepository.save(RoomParticipant.join(room.getId(), memberId, room.getSeedMoney()));
+        log.info("[방 참가] roomId={}, memberId={}", room.getId(), memberId);
+        return participant;
     }
 
     private Room getRoom(Long roomId) {
