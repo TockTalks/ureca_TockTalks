@@ -61,6 +61,7 @@ class RoomServiceAdminTerminationTest {
         when(room.getEndAt()).thenReturn(null);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
         when(roomParticipantRepository.findByRoomIdAndStatus(1L, "ACTIVE"))
                 .thenReturn(List.of(participant));
 
