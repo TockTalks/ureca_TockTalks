@@ -100,6 +100,7 @@ public class PortfolioService {
     //보유 자산 변동 시 스냅샷 저장
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleAssetSnapshotRequested(AssetSnapshotRequestedEvent event) {
+        log.info("스냅샷 이벤트 수신: roomParticipantId={}, transactionId={}", event.roomParticipantId(), event.transactionId()); // ===== 임시 디버그 로그 =====
         try {
             recordSnapshot(event);
         } catch (Exception e) {

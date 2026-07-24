@@ -111,6 +111,7 @@ public class BuyTradeService {
                 participant
         );
 
+        log.info("이벤트 발행 시도 - txActive={}", org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive()); // ===== 임시 디버그 =====
         eventPublisher.publishEvent(new AssetSnapshotRequestedEvent(
                 participant.getId(),
                 participant.getMemberId(),
