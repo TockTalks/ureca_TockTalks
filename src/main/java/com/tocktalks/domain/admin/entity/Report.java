@@ -7,7 +7,11 @@ import java.time.LocalDateTime;
 import lombok.*;
 
 @Entity
-@Table(name = "report")
+@Table(name = "report",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_report_reporter_target",
+                columnNames = {"reporter_id", "target_type", "target_id"}
+                ))
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Report {
