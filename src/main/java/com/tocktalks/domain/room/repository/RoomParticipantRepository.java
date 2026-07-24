@@ -63,6 +63,21 @@ public interface RoomParticipantRepository
 
     List<RoomParticipant> findByStatus(String status);
 
+    /**
+     * 랭킹 제외 로직 도입 전에 탈퇴해 ACTIVE 참가가 남은 회원을 자동 보정한다.
+     */
+    @Query("""
+            SELECT rp
+            FROM RoomParticipant rp
+            WHERE rp.status = 'ACTIVE'
+              AND rp.memberId IN (
+                  SELECT m.id
+                  FROM Member m
+                  WHERE m.status = 'withdrawn'
+              )
+            """)
+    List<RoomParticipant> findActiveParticipantsOfWithdrawnMembers();
+
     long countByStatus(String status);
 
     void deleteByRoomId(Long roomId);
