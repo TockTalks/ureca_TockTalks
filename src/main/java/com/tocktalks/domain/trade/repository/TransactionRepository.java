@@ -15,6 +15,8 @@ import java.util.Optional;
 public interface TransactionRepository
         extends JpaRepository<Transaction, Long> {
 
+    void deleteAllByRoomParticipantId(Long roomParticipantId);
+
     Page<Transaction> findAllByRoomParticipantIdOrderByExecutedAtDesc(
             Long roomParticipantId,
             Pageable pageable

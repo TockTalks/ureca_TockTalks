@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -93,6 +95,38 @@ class KisCurrentPriceProviderTest {
         )
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("종목 코드는 필수입니다.");
+
+        verifyNoInteractions(kisPriceService);
+    }
+
+    @Test
+    void 여러_종목의_현재가를_배치로_조회한다() {
+        Map<String, BigDecimal> prices = Map.of(
+                "005930", new BigDecimal("70000"),
+                "035420", new BigDecimal("180000")
+        );
+
+        when(kisPriceService.getCurrentPrices(
+                List.of("005930", "035420")
+        )).thenReturn(prices);
+
+        Map<String, BigDecimal> result =
+                currentPriceProvider.getCurrentPrices(
+                        List.of("005930", "035420")
+                );
+
+        assertThat(result).isEqualTo(prices);
+    }
+
+    @Test
+    void 배치_조회시_종목_코드가_올바르지_않으면_KIS를_호출하지_않는다() {
+        assertThatThrownBy(() ->
+                currentPriceProvider.getCurrentPrices(
+                        List.of("005930", "00A930")
+                )
+        )
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("종목 코드는 6자리 숫자여야 합니다.");
 
         verifyNoInteractions(kisPriceService);
     }

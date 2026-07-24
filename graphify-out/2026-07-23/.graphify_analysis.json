@@ -77,9 +77,9 @@
       "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_java_roomrepository",
       "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_java_traderankingservice",
       "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest",
-      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_기본방은_강제종료할_수_없다",
-      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_이미_종료된_방은_다시_강제종료할_수_없다",
-      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_진행중인_방을_관리자가_강제종료하면_참가자_랭킹이_확정되고_방이_닫힌다",
+      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_\uae30\ubcf8\ubc29\uc740_\uac15\uc81c\uc885\ub8cc\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_\uc774\ubbf8_\uc885\ub8cc\ub41c_\ubc29\uc740_\ub2e4\uc2dc_\uac15\uc81c\uc885\ub8cc\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_service_roomserviceadminterminationtest_roomserviceadminterminationtest_\uc9c4\ud589\uc911\uc778_\ubc29\uc744_\uad00\ub9ac\uc790\uac00_\uac15\uc81c\uc885\ub8cc\ud558\uba74_\ucc38\uac00\uc790_\ub7ad\ud0b9\uc774_\ud655\uc815\ub418\uace0_\ubc29\uc774_\ub2eb\ud78c\ub2e4",
       "test"
     ],
     "1": [
@@ -138,22 +138,22 @@
       "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_java_test",
       "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest",
       "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_setup",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_로그인_회원의_거래_내역을_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_로그인_회원의_보유_종목_합계를_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_로그인_회원의_보유_종목을_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_로그인_회원이_종목을_매도한다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_로그인_회원이_종목을_매수한다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_매수_요청값이_올바르지_않으면_서비스를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_인증되지_않은_사용자는_거래_내역을_조회할_수_없다",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub85c\uadf8\uc778_\ud68c\uc6d0\uc758_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub85c\uadf8\uc778_\ud68c\uc6d0\uc758_\ubcf4\uc720_\uc885\ubaa9_\ud569\uacc4\ub97c_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub85c\uadf8\uc778_\ud68c\uc6d0\uc758_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub85c\uadf8\uc778_\ud68c\uc6d0\uc774_\uc885\ubaa9\uc744_\ub9e4\ub3c4\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub85c\uadf8\uc778_\ud68c\uc6d0\uc774_\uc885\ubaa9\uc744_\ub9e4\uc218\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\ub9e4\uc218_\uc694\uccad\uac12\uc774_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_\uc11c\ube44\uc2a4\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradecontrollertest_tradecontrollertest_\uc778\uc99d\ub418\uc9c0_\uc54a\uc740_\uc0ac\uc6a9\uc790\ub294_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest",
       "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest",
-      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_다른_회원의_거래_내역은_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_방_참가자_id가_올바르지_않으면_거래_내역_repository를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_본인_거래_내역을_최신순_페이지로_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_존재하지_않는_참가자의_거래_내역은_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_회원_id가_올바르지_않으면_거래_내역_repository를_호출하지_않는다"
+      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_\ub2e4\ub978_\ud68c\uc6d0\uc758_\uac70\ub798_\ub0b4\uc5ed\uc740_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_\ubc29_\ucc38\uac00\uc790_id\uac00_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_\uac70\ub798_\ub0b4\uc5ed_repository\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_\ubcf8\uc778_\uac70\ub798_\ub0b4\uc5ed\uc744_\ucd5c\uc2e0\uc21c_\ud398\uc774\uc9c0\ub85c_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_\uc874\uc7ac\ud558\uc9c0_\uc54a\ub294_\ucc38\uac00\uc790\uc758_\uac70\ub798_\ub0b4\uc5ed\uc740_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradehistoryservicetest_tradehistoryservicetest_\ud68c\uc6d0_id\uac00_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_\uac70\ub798_\ub0b4\uc5ed_repository\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4"
     ],
     "2": [
       "aftereach",
@@ -223,8 +223,8 @@
       "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_java_transactional",
       "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest",
       "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest_teardown",
-      "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest_랭킹_업데이트_후_수익률_순위가_정상적으로_계산된다",
-      "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest_방_종료시_최종랭킹이_db에_저장되고_redis는_비워진다",
+      "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest_\ub7ad\ud0b9_\uc5c5\ub370\uc774\ud2b8_\ud6c4_\uc218\uc775\ub960_\uc21c\uc704\uac00_\uc815\uc0c1\uc801\uc73c\ub85c_\uacc4\uc0b0\ub41c\ub2e4",
+      "src_test_java_com_tocktalks_domain_ranking_service_rankingservicetest_rankingservicetest_\ubc29_\uc885\ub8cc\uc2dc_\ucd5c\uc885\ub7ad\ud0b9\uc774_db\uc5d0_\uc800\uc7a5\ub418\uace0_redis\ub294_\ube44\uc6cc\uc9c4\ub2e4",
       "typedtuple"
     ],
     "3": [
@@ -518,23 +518,23 @@
       "src_main_java_com_tocktalks_domain_trade_service_stocknameprovider",
       "src_main_java_com_tocktalks_domain_trade_service_stocknameprovider_stocknameprovider",
       "src_main_java_com_tocktalks_domain_trade_service_stocknameprovider_stocknameprovider_getstockname",
-      "src_test_java_com_tocktalks_domain_trade_service_buysellconcurrencytest_buysellconcurrencytest_같은_참가자의_매수와_매도가_동시에_실행되어도_정합성이_유지된다",
+      "src_test_java_com_tocktalks_domain_trade_service_buysellconcurrencytest_buysellconcurrencytest_\uac19\uc740_\ucc38\uac00\uc790\uc758_\ub9e4\uc218\uc640_\ub9e4\ub3c4\uac00_\ub3d9\uc2dc\uc5d0_\uc2e4\ud589\ub418\uc5b4\ub3c4_\uc815\ud569\uc131\uc774_\uc720\uc9c0\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_매수_요청이_올바르지_않으면_저장소를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_본인의_활성_참가자가_아니면_매수할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_잔액이_부족하면_매수_처리를_실행하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_종료된_방에서는_매수할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_참가자를_잠그고_잔액을_차감한_뒤_매수한다",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_\ub9e4\uc218_\uc694\uccad\uc774_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_\uc800\uc7a5\uc18c\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_\ubcf8\uc778\uc758_\ud65c\uc131_\ucc38\uac00\uc790\uac00_\uc544\ub2c8\uba74_\ub9e4\uc218\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_\uc794\uc561\uc774_\ubd80\uc871\ud558\uba74_\ub9e4\uc218_\ucc98\ub9ac\ub97c_\uc2e4\ud589\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_\uc885\ub8cc\ub41c_\ubc29\uc5d0\uc11c\ub294_\ub9e4\uc218\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_buytradeservicetest_\ucc38\uac00\uc790\ub97c_\uc7a0\uadf8\uace0_\uc794\uc561\uc744_\ucc28\uac10\ud55c_\ub4a4_\ub9e4\uc218\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeservicetest_java_test",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeconcurrencytest_selltradeconcurrencytest_한_주를_동시에_두_번_매도해도_한_건만_체결된다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltraderollbackintegrationtest_selltraderollbackintegrationtest_잔액_입금에_실패하면_보유_종목과_거래_내역이_모두_롤백된다",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeconcurrencytest_selltradeconcurrencytest_\ud55c_\uc8fc\ub97c_\ub3d9\uc2dc\uc5d0_\ub450_\ubc88_\ub9e4\ub3c4\ud574\ub3c4_\ud55c_\uac74\ub9cc_\uccb4\uacb0\ub41c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltraderollbackintegrationtest_selltraderollbackintegrationtest_\uc794\uc561_\uc785\uae08\uc5d0_\uc2e4\ud328\ud558\uba74_\ubcf4\uc720_\uc885\ubaa9\uacfc_\uac70\ub798_\ub0b4\uc5ed\uc774_\ubaa8\ub450_\ub864\ubc31\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_매도_요청이_올바르지_않으면_저장소를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_보유_수량이_부족하면_잔액을_증가시키지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_본인의_활성_참가자가_아니면_매도할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_종료된_방에서는_매도할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_참가자를_잠그고_매도한_금액을_잔액에_반영한다",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_\ub9e4\ub3c4_\uc694\uccad\uc774_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_\uc800\uc7a5\uc18c\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_\ubcf4\uc720_\uc218\ub7c9\uc774_\ubd80\uc871\ud558\uba74_\uc794\uc561\uc744_\uc99d\uac00\uc2dc\ud0a4\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_\ubcf8\uc778\uc758_\ud65c\uc131_\ucc38\uac00\uc790\uac00_\uc544\ub2c8\uba74_\ub9e4\ub3c4\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_\uc885\ub8cc\ub41c_\ubc29\uc5d0\uc11c\ub294_\ub9e4\ub3c4\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeservicetest_selltradeservicetest_\ucc38\uac00\uc790\ub97c_\uc7a0\uadf8\uace0_\ub9e4\ub3c4\ud55c_\uae08\uc561\uc744_\uc794\uc561\uc5d0_\ubc18\uc601\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_traderankingintegrationtest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_traderankingintegrationtest_java_transactional",
       "src_test_java_com_tocktalks_domain_trade_service_traderankingintegrationtest_traderankingintegrationtest_buyupdatesrankingwithtotalasset",
@@ -596,13 +596,13 @@
       "src_main_java_com_tocktalks_domain_trade_service_holdingqueryservice_java_transactional",
       "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest",
       "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_다른_회원의_보유_종목은_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_방_참가자_id가_올바르지_않으면_repository를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_보유_종목의_평가금액과_평가손익_합계를_계산한다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_보유_종목이_없으면_평가_합계는_0이다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_본인의_보유_종목을_종목_코드순으로_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_존재하지_않는_참가자의_보유_종목은_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_회원_id가_올바르지_않으면_repository를_호출하지_않는다",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ub2e4\ub978_\ud68c\uc6d0\uc758_\ubcf4\uc720_\uc885\ubaa9\uc740_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ubc29_\ucc38\uac00\uc790_id\uac00_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_repository\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ubcf4\uc720_\uc885\ubaa9\uc758_\ud3c9\uac00\uae08\uc561\uacfc_\ud3c9\uac00\uc190\uc775_\ud569\uacc4\ub97c_\uacc4\uc0b0\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ubcf4\uc720_\uc885\ubaa9\uc774_\uc5c6\uc73c\uba74_\ud3c9\uac00_\ud569\uacc4\ub294_0\uc774\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ubcf8\uc778\uc758_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc885\ubaa9_\ucf54\ub4dc\uc21c\uc73c\ub85c_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\uc874\uc7ac\ud558\uc9c0_\uc54a\ub294_\ucc38\uac00\uc790\uc758_\ubcf4\uc720_\uc885\ubaa9\uc740_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_holdingqueryservicetest_\ud68c\uc6d0_id\uac00_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_repository\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_holdingqueryservicetest_java_test"
     ],
@@ -859,23 +859,23 @@
       "src_main_java_com_tocktalks_domain_trade_service_selltradeprocessor_selltradeprocessor_process",
       "src_test_java_com_tocktalks_domain_trade_entity_holdingtest",
       "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_거래_수량은_1_이상이어야_한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_보유_수량보다_많이_매도할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_일부_매도하면_수량만_감소한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_자리_숫자가_아닌_종목_코드로_holding을_생성할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_전량_매도하면_빈_holding이_된다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_최초_매수로_보유_종목을_생성한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_추가_매수하면_수량과_평균_매입가가_변경된다",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\uac70\ub798_\uc218\ub7c9\uc740_1_\uc774\uc0c1\uc774\uc5b4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\ubcf4\uc720_\uc218\ub7c9\ubcf4\ub2e4_\ub9ce\uc774_\ub9e4\ub3c4\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\uc77c\ubd80_\ub9e4\ub3c4\ud558\uba74_\uc218\ub7c9\ub9cc_\uac10\uc18c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\uc790\ub9ac_\uc22b\uc790\uac00_\uc544\ub2cc_\uc885\ubaa9_\ucf54\ub4dc\ub85c_holding\uc744_\uc0dd\uc131\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\uc804\ub7c9_\ub9e4\ub3c4\ud558\uba74_\ube48_holding\uc774_\ub41c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\ucd5c\ucd08_\ub9e4\uc218\ub85c_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc0dd\uc131\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_holdingtest_\ucd94\uac00_\ub9e4\uc218\ud558\uba74_\uc218\ub7c9\uacfc_\ud3c9\uade0_\ub9e4\uc785\uac00\uac00_\ubcc0\uacbd\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_entity_holdingtest_java_test",
-      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_보유_종목을_저장하고_참가자와_종목코드로_조회한다",
+      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc800\uc7a5\ud558\uace0_\ucc38\uac00\uc790\uc640_\uc885\ubaa9\ucf54\ub4dc\ub85c_\uc870\ud68c\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessorintegrationtest_java_test",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessorintegrationtest_selltradeprocessorintegrationtest_일부_매도하면_보유_수량과_거래_내역이_함께_저장된다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessorintegrationtest_selltradeprocessorintegrationtest_전량_매도하면_보유_종목은_삭제되고_거래_내역은_저장된다",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessorintegrationtest_selltradeprocessorintegrationtest_\uc77c\ubd80_\ub9e4\ub3c4\ud558\uba74_\ubcf4\uc720_\uc218\ub7c9\uacfc_\uac70\ub798_\ub0b4\uc5ed\uc774_\ud568\uaed8_\uc800\uc7a5\ub41c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessorintegrationtest_selltradeprocessorintegrationtest_\uc804\ub7c9_\ub9e4\ub3c4\ud558\uba74_\ubcf4\uc720_\uc885\ubaa9\uc740_\uc0ad\uc81c\ub418\uace0_\uac70\ub798_\ub0b4\uc5ed\uc740_\uc800\uc7a5\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_보유_수량보다_많이_매도하면_변경하거나_거래를_저장하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_보유_종목을_일부_매도하고_거래_내역을_저장한다",
-      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_보유_종목을_전량_매도하면_보유_정보를_삭제한다"
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_\ubcf4\uc720_\uc218\ub7c9\ubcf4\ub2e4_\ub9ce\uc774_\ub9e4\ub3c4\ud558\uba74_\ubcc0\uacbd\ud558\uac70\ub098_\uac70\ub798\ub97c_\uc800\uc7a5\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc77c\ubd80_\ub9e4\ub3c4\ud558\uace0_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc800\uc7a5\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_selltradeprocessortest_selltradeprocessortest_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc804\ub7c9_\ub9e4\ub3c4\ud558\uba74_\ubcf4\uc720_\uc815\ubcf4\ub97c_\uc0ad\uc81c\ud55c\ub2e4"
     ],
     "21": [
       "src_main_java_com_tocktalks_domain_room_entity_room",
@@ -942,13 +942,13 @@
       "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest",
       "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_createroom",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_거래_가능_시간에는_검증을_통과한다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_거래_시각은_필수이다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_방_정보는_필수이다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_시작_시각_전에는_거래할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_시작_시각에는_거래할_수_있다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_종료_시각부터는_거래할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_종료된_방에서는_거래할_수_없다"
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uac70\ub798_\uac00\ub2a5_\uc2dc\uac04\uc5d0\ub294_\uac80\uc99d\uc744_\ud1b5\uacfc\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uac70\ub798_\uc2dc\uac01\uc740_\ud544\uc218\uc774\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\ubc29_\uc815\ubcf4\ub294_\ud544\uc218\uc774\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uc2dc\uc791_\uc2dc\uac01_\uc804\uc5d0\ub294_\uac70\ub798\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uc2dc\uc791_\uc2dc\uac01\uc5d0\ub294_\uac70\ub798\ud560_\uc218_\uc788\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uc885\ub8cc_\uc2dc\uac01\ubd80\ud130\ub294_\uac70\ub798\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeavailabilityvalidatortest_tradeavailabilityvalidatortest_\uc885\ub8cc\ub41c_\ubc29\uc5d0\uc11c\ub294_\uac70\ub798\ud560_\uc218_\uc5c6\ub2e4"
     ],
     "24": [
       "src_main_java_com_tocktalks_domain_community_entity_comment",
@@ -1007,17 +1007,17 @@
       "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest",
       "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_java_test",
       "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_tradeexecutionresponsetest",
-      "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_tradeexecutionresponsetest_buy_거래를_체결_응답으로_변환한다",
-      "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_tradeexecutionresponsetest_sell_거래를_체결_응답으로_변환한다",
+      "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_tradeexecutionresponsetest_buy_\uac70\ub798\ub97c_\uccb4\uacb0_\uc751\ub2f5\uc73c\ub85c_\ubcc0\ud658\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_dto_response_tradeexecutionresponsetest_tradeexecutionresponsetest_sell_\uac70\ub798\ub97c_\uccb4\uacb0_\uc751\ub2f5\uc73c\ub85c_\ubcc0\ud658\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest",
       "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_long_범위를_초과한_거래금액은_허용하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_가격과_수량으로_정수_원화_거래금액을_계산한다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_거래_가격은_0보다_커야_한다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_거래_가격은_null일_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_거래_수량은_1_이상이어야_한다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_소수_원화_거래금액은_허용하지_않는다"
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_long_\ubc94\uc704\ub97c_\ucd08\uacfc\ud55c_\uac70\ub798\uae08\uc561\uc740_\ud5c8\uc6a9\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_\uac00\uaca9\uacfc_\uc218\ub7c9\uc73c\ub85c_\uc815\uc218_\uc6d0\ud654_\uac70\ub798\uae08\uc561\uc744_\uacc4\uc0b0\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_\uac70\ub798_\uac00\uaca9\uc740_0\ubcf4\ub2e4_\ucee4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_\uac70\ub798_\uac00\uaca9\uc740_null\uc77c_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_\uac70\ub798_\uc218\ub7c9\uc740_1_\uc774\uc0c1\uc774\uc5b4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradeamountcalculatortest_tradeamountcalculatortest_\uc18c\uc218_\uc6d0\ud654_\uac70\ub798\uae08\uc561\uc740_\ud5c8\uc6a9\ud558\uc9c0_\uc54a\ub294\ub2e4"
     ],
     "27": [
       "src_main_java_com_tocktalks_domain_trade_entity_transaction_java_entity",
@@ -1035,12 +1035,12 @@
       "src_test_java_com_tocktalks_domain_trade_entity_transactiontest",
       "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_java_test",
       "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_거래_수량은_1_이상이어야_한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_매도_거래_내역에_실현_손실을_계산한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_매도_거래_내역에_실현_수익을_계산한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_매도할_때_평균_매입가는_0보다_커야_한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_매수_거래_내역을_생성한다",
-      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_숫자가_아닌_문자가_포함된_종목_코드로_거래를_생성할_수_없다"
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\uac70\ub798_\uc218\ub7c9\uc740_1_\uc774\uc0c1\uc774\uc5b4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\ub9e4\ub3c4_\uac70\ub798_\ub0b4\uc5ed\uc5d0_\uc2e4\ud604_\uc190\uc2e4\uc744_\uacc4\uc0b0\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\ub9e4\ub3c4_\uac70\ub798_\ub0b4\uc5ed\uc5d0_\uc2e4\ud604_\uc218\uc775\uc744_\uacc4\uc0b0\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\ub9e4\ub3c4\ud560_\ub54c_\ud3c9\uade0_\ub9e4\uc785\uac00\ub294_0\ubcf4\ub2e4_\ucee4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\ub9e4\uc218_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc0dd\uc131\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_entity_transactiontest_transactiontest_\uc22b\uc790\uac00_\uc544\ub2cc_\ubb38\uc790\uac00_\ud3ec\ud568\ub41c_\uc885\ubaa9_\ucf54\ub4dc\ub85c_\uac70\ub798\ub97c_\uc0dd\uc131\ud560_\uc218_\uc5c6\ub2e4"
     ],
     "28": [
       "currentpriceprovider",
@@ -1099,9 +1099,9 @@
       "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest",
-      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_다른_회원의_거래는_인증할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_매수_거래는_인증할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_본인의_매도_거래를_인증한다",
+      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_\ub2e4\ub978_\ud68c\uc6d0\uc758_\uac70\ub798\ub294_\uc778\uc99d\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_\ub9e4\uc218_\uac70\ub798\ub294_\uc778\uc99d\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_tradetransactioncertificateprovidertest_tradetransactioncertificateprovidertest_\ubcf8\uc778\uc758_\ub9e4\ub3c4_\uac70\ub798\ub97c_\uc778\uc99d\ud55c\ub2e4",
       "transaction"
     ],
     "31": [
@@ -1137,12 +1137,12 @@
       "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest",
       "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_java_test",
       "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_매도_금액만큼_잔액을_증가시킨다",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_매수_금액만큼_잔액을_차감한다",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_잔액이_long_범위를_초과하면_증가시키지_않는다",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_잔액이_부족하면_차감하지_않는다",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_증가_금액이_양수가_아니면_예외가_발생한다",
-      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_차감_금액이_양수가_아니면_예외가_발생한다"
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\ub9e4\ub3c4_\uae08\uc561\ub9cc\ud07c_\uc794\uc561\uc744_\uc99d\uac00\uc2dc\ud0a8\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\ub9e4\uc218_\uae08\uc561\ub9cc\ud07c_\uc794\uc561\uc744_\ucc28\uac10\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\uc794\uc561\uc774_long_\ubc94\uc704\ub97c_\ucd08\uacfc\ud558\uba74_\uc99d\uac00\uc2dc\ud0a4\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\uc794\uc561\uc774_\ubd80\uc871\ud558\uba74_\ucc28\uac10\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\uc99d\uac00_\uae08\uc561\uc774_\uc591\uc218\uac00_\uc544\ub2c8\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_entity_roomparticipanttest_roomparticipanttest_\ucc28\uac10_\uae08\uc561\uc774_\uc591\uc218\uac00_\uc544\ub2c8\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4"
     ],
     "33": [
       "handlermethodargumentresolver",
@@ -1275,13 +1275,13 @@
       "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_kis_현재가를_bigdecimal로_변환한다",
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_kis_\ud604\uc7ac\uac00\ub97c_bigdecimal\ub85c_\ubcc0\ud658\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_priceresponse",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_종목_코드가_6자리_숫자가_아니면_kis를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_종목_코드가_비어_있으면_kis를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_현재가가_0_이하면_예외가_발생한다",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_현재가가_비어_있으면_예외가_발생한다",
-      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_현재가가_숫자가_아니면_예외가_발생한다"
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_\uc885\ubaa9_\ucf54\ub4dc\uac00_6\uc790\ub9ac_\uc22b\uc790\uac00_\uc544\ub2c8\uba74_kis\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_\uc885\ubaa9_\ucf54\ub4dc\uac00_\ube44\uc5b4_\uc788\uc73c\uba74_kis\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_\ud604\uc7ac\uac00\uac00_0_\uc774\ud558\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_\ud604\uc7ac\uac00\uac00_\ube44\uc5b4_\uc788\uc73c\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_kiscurrentpriceprovidertest_kiscurrentpriceprovidertest_\ud604\uc7ac\uac00\uac00_\uc22b\uc790\uac00_\uc544\ub2c8\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4"
     ],
     "41": [
       "src_main_java_com_tocktalks_domain_trade_service_buytradeprocessor",
@@ -1292,7 +1292,7 @@
       "src_main_java_com_tocktalks_domain_trade_service_buytradeprocessor_java_transactional",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_buytradeprocessorintegrationtest",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_buytradeprocessorintegrationtest_매수하면_보유_종목과_거래_내역이_함께_저장된다",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_buytradeprocessorintegrationtest_\ub9e4\uc218\ud558\uba74_\ubcf4\uc720_\uc885\ubaa9\uacfc_\uac70\ub798_\ub0b4\uc5ed\uc774_\ud568\uaed8_\uc800\uc7a5\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_java_autoconfiguretestdatabase",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_java_datajpatest",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessorintegrationtest_java_entitymanager",
@@ -1339,9 +1339,9 @@
       "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_java_test",
       "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest",
       "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_setup",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_미인증_사용자는_거래_내역을_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_미인증_사용자는_종목을_매도할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_미인증_사용자는_종목을_매수할_수_없다",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_\ubbf8\uc778\uc99d_\uc0ac\uc6a9\uc790\ub294_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_\ubbf8\uc778\uc99d_\uc0ac\uc6a9\uc790\ub294_\uc885\ubaa9\uc744_\ub9e4\ub3c4\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_controller_tradesecurityintegrationtest_tradesecurityintegrationtest_\ubbf8\uc778\uc99d_\uc0ac\uc6a9\uc790\ub294_\uc885\ubaa9\uc744_\ub9e4\uc218\ud560_\uc218_\uc5c6\ub2e4",
       "webappconfiguration",
       "webapplicationcontext"
     ],
@@ -1526,10 +1526,10 @@
       "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_java_import",
       "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_java_test",
       "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest",
-      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_거래_내역을_저장하고_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_참가자의_거래_내역을_최신순으로_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_참가자의_거래_내역을_페이지로_나누어_조회한다",
-      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_회원이_소유한_거래만_조회한다"
+      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc800\uc7a5\ud558\uace0_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_\ucc38\uac00\uc790\uc758_\uac70\ub798_\ub0b4\uc5ed\uc744_\ucd5c\uc2e0\uc21c\uc73c\ub85c_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_\ucc38\uac00\uc790\uc758_\uac70\ub798_\ub0b4\uc5ed\uc744_\ud398\uc774\uc9c0\ub85c_\ub098\ub204\uc5b4_\uc870\ud68c\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_repository_transactionrepositorytest_transactionrepositorytest_\ud68c\uc6d0\uc774_\uc18c\uc720\ud55c_\uac70\ub798\ub9cc_\uc870\ud68c\ud55c\ub2e4"
     ],
     "58": [
       "domain_admin",
@@ -1640,9 +1640,9 @@
       "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_java_test",
       "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest",
-      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_조회된_종목명이_비어_있으면_예외가_발생한다",
-      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_종목_코드가_올바르지_않으면_stockmasterservice를_호출하지_않는다",
-      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_종목_코드로_종목명을_조회한다"
+      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_\uc870\ud68c\ub41c_\uc885\ubaa9\uba85\uc774_\ube44\uc5b4_\uc788\uc73c\uba74_\uc608\uc678\uac00_\ubc1c\uc0dd\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_\uc885\ubaa9_\ucf54\ub4dc\uac00_\uc62c\ubc14\ub974\uc9c0_\uc54a\uc73c\uba74_stockmasterservice\ub97c_\ud638\ucd9c\ud558\uc9c0_\uc54a\ub294\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_stockmasterstocknameprovidertest_stockmasterstocknameprovidertest_\uc885\ubaa9_\ucf54\ub4dc\ub85c_\uc885\ubaa9\uba85\uc744_\uc870\ud68c\ud55c\ub2e4"
     ],
     "67": [
       "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest",
@@ -1652,26 +1652,26 @@
       "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_java_import",
       "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_java_test",
       "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest",
-      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_다른_회원의_참가자는_잠금_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_종료된_참가자는_잠금_조회할_수_없다",
-      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_활성_참가자를_소유권과_함께_쓰기_잠금으로_조회한다"
+      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_\ub2e4\ub978_\ud68c\uc6d0\uc758_\ucc38\uac00\uc790\ub294_\uc7a0\uae08_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_\uc885\ub8cc\ub41c_\ucc38\uac00\uc790\ub294_\uc7a0\uae08_\uc870\ud68c\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_room_repository_roomparticipantrepositorytest_roomparticipantrepositorytest_\ud65c\uc131_\ucc38\uac00\uc790\ub97c_\uc18c\uc720\uad8c\uacfc_\ud568\uaed8_\uc4f0\uae30_\uc7a0\uae08\uc73c\ub85c_\uc870\ud68c\ud55c\ub2e4"
     ],
     "68": [
       "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest",
       "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_java_test",
       "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest",
-      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_거래_수량은_1_이상이어야_한다",
-      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_거래_수량은_필수이다",
-      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_올바른_종목_코드와_수량은_검증을_통과한다",
-      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_종목_코드는_6자리_숫자여야_한다",
-      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_종목_코드에_문자가_포함되면_검증에_실패한다",
+      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_\uac70\ub798_\uc218\ub7c9\uc740_1_\uc774\uc0c1\uc774\uc5b4\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_\uac70\ub798_\uc218\ub7c9\uc740_\ud544\uc218\uc774\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_\uc62c\ubc14\ub978_\uc885\ubaa9_\ucf54\ub4dc\uc640_\uc218\ub7c9\uc740_\uac80\uc99d\uc744_\ud1b5\uacfc\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_\uc885\ubaa9_\ucf54\ub4dc\ub294_6\uc790\ub9ac_\uc22b\uc790\uc5ec\uc57c_\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_dto_request_tradeorderrequesttest_tradeorderrequesttest_\uc885\ubaa9_\ucf54\ub4dc\uc5d0_\ubb38\uc790\uac00_\ud3ec\ud568\ub418\uba74_\uac80\uc99d\uc5d0_\uc2e4\ud328\ud55c\ub2e4",
       "validator"
     ],
     "69": [
       "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest",
       "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest",
-      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_같은_참가자와_종목코드는_중복_저장할_수_없다",
-      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_참가자의_전체_보유_종목을_조회한다",
+      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_\uac19\uc740_\ucc38\uac00\uc790\uc640_\uc885\ubaa9\ucf54\ub4dc\ub294_\uc911\ubcf5_\uc800\uc7a5\ud560_\uc218_\uc5c6\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_holdingrepositorytest_\ucc38\uac00\uc790\uc758_\uc804\uccb4_\ubcf4\uc720_\uc885\ubaa9\uc744_\uc870\ud68c\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_java_autoconfiguretestdatabase",
       "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_java_datajpatest",
       "src_test_java_com_tocktalks_domain_trade_repository_holdingrepositorytest_java_entitymanager",
@@ -1711,7 +1711,7 @@
     "73": [
       "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_buytradeconcurrencytest",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_buytradeconcurrencytest_동시에_잔액보다_많이_매수해도_한_건만_체결된다",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_buytradeconcurrencytest_\ub3d9\uc2dc\uc5d0_\uc794\uc561\ubcf4\ub2e4_\ub9ce\uc774_\ub9e4\uc218\ud574\ub3c4_\ud55c_\uac74\ub9cc_\uccb4\uacb0\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_java_autoconfiguretestdatabase",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_java_datajpatest",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeconcurrencytest_java_import",
@@ -1721,7 +1721,7 @@
     "74": [
       "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest",
       "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_buytraderollbackintegrationtest",
-      "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_buytraderollbackintegrationtest_거래_저장에_실패하면_잔액과_보유_종목이_모두_롤백된다",
+      "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_buytraderollbackintegrationtest_\uac70\ub798_\uc800\uc7a5\uc5d0_\uc2e4\ud328\ud558\uba74_\uc794\uc561\uacfc_\ubcf4\uc720_\uc885\ubaa9\uc774_\ubaa8\ub450_\ub864\ubc31\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_java_autoconfiguretestdatabase",
       "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_java_datajpatest",
       "src_test_java_com_tocktalks_domain_trade_service_buytraderollbackintegrationtest_java_import",
@@ -1731,7 +1731,7 @@
     "75": [
       "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest",
       "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_differentparticipantconcurrencytest",
-      "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_differentparticipantconcurrencytest_다른_참가자의_주문은_서로를_잠그지_않고_동시에_처리된다",
+      "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_differentparticipantconcurrencytest_\ub2e4\ub978_\ucc38\uac00\uc790\uc758_\uc8fc\ubb38\uc740_\uc11c\ub85c\ub97c_\uc7a0\uadf8\uc9c0_\uc54a\uace0_\ub3d9\uc2dc\uc5d0_\ucc98\ub9ac\ub41c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_java_autoconfiguretestdatabase",
       "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_java_datajpatest",
       "src_test_java_com_tocktalks_domain_trade_service_differentparticipantconcurrencytest_java_import",
@@ -1742,8 +1742,8 @@
       "src_main_java_com_tocktalks_domain_trade_entity_transaction",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_buytradeprocessortest",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_buytradeprocessortest_기존_보유_종목을_추가_매수하고_거래_내역을_저장한다",
-      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_buytradeprocessortest_처음_매수하는_종목의_보유_정보와_거래_내역을_저장한다",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_buytradeprocessortest_\uae30\uc874_\ubcf4\uc720_\uc885\ubaa9\uc744_\ucd94\uac00_\ub9e4\uc218\ud558\uace0_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc800\uc7a5\ud55c\ub2e4",
+      "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_buytradeprocessortest_\ucc98\uc74c_\ub9e4\uc218\ud558\ub294_\uc885\ubaa9\uc758_\ubcf4\uc720_\uc815\ubcf4\uc640_\uac70\ub798_\ub0b4\uc5ed\uc744_\uc800\uc7a5\ud55c\ub2e4",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_java_extendwith",
       "src_test_java_com_tocktalks_domain_trade_service_buytradeprocessortest_java_test"
     ],
@@ -2230,41 +2230,8 @@
       "why": "bridges separate communities"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `MemberRepository` connect `MemberRepository` to `RoomService`, `RankingService`, `Report`, `DailyStatsService.java`, `JpaRepository`, `CommentService`, `PostService`, `RoomRepository`, `AdminMemberService`?",
-      "why": "High betweenness centrality (0.227) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `RoomParticipantRepository` connect `RoomParticipantRepository` to `RoomService`, `TradeController.java`, `RoomParticipantRepositoryTest`, `PortfolioService.java`, `MySqlTestContainerConfiguration.java`, `TradeOrderRequest`, `BuyTradeConcurrencyTest.java`, `HoldingQueryService`, `JpaRepository`, `BuyTradeRollbackIntegrationTest.java`, `DifferentParticipantConcurrencyTest.java`, `SellTradeService`, `BuyTradeService`, `RoomParticipant.java`, `RoomRepository`?",
-      "why": "High betweenness centrality (0.180) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `RoomService` connect `RoomService` to `RankingService`, `MemberRepository`, `NoticeController.java`, `AuthService`, `RoomParticipantRepository`, `RoomRepository`?",
-      "why": "High betweenness centrality (0.167) - this node is a cross-community bridge."
-    },
-    {
-      "type": "verify_inferred",
-      "question": "Are the 25 inferred relationships involving `TradeOrderRequest` (e.g. with `.로그인_회원이_종목을_매도한다()` and `.로그인_회원이_종목을_매수한다()`) actually correct?",
-      "why": "`TradeOrderRequest` has 25 INFERRED edges - model-reasoned connections that need verification."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `EmailCheckResponse`, `KakaoLoginRequest`, `LoginRequest` to the rest of the system?",
-      "why": "38 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `RoomService` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05886075949367089 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `TradeController.java` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.06398390342052314 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 1364,
+    "output": 996
+  }
 }
