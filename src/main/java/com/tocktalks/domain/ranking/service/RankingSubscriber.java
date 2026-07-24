@@ -28,7 +28,7 @@ public class RankingSubscriber implements MessageListener {
 
             RankingBroadcastEvent event = objectMapper.readValue(body, RankingBroadcastEvent.class);
 
-            log.info("[RankingSubscriber] channel={}, event={}", channel, event);
+            log.debug("[RankingSubscriber] channel={}, event={}", channel, event);
 
             messagingTemplate.convertAndSend("/topic/room-ranking/" + roomId, event);
         } catch (Exception e) {
