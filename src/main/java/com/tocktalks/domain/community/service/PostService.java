@@ -101,7 +101,7 @@ public class PostService {
         return post;
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = CommunityException.class)
     public void deletePostByAdmin(Long postId){
         Post post = getPostOrThrow(postId);
         postRepository.delete(post);
