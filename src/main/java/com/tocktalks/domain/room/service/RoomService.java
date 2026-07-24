@@ -93,15 +93,16 @@ public class RoomService {
         if (room.isDefault()) {
             throw new IllegalArgumentException("기본방은 탈퇴할 수 없습니다.");
         }
+        if (room.getStartAt() == null || !LocalDateTime.now().isBefore(room.getStartAt())) {
+            throw new IllegalArgumentException("배틀이 시작된 후에는 방에서 나갈 수 없습니다.");
+        }
         RoomParticipant participant = roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, memberId, PARTICIPANT_ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException("참가 중인 방이 아닙니다."));
 
-        // 나가는 시점의 총자산(현금+보유종목 평가액)을 Redis 랭킹에 확정 반영한다.
-        // 한 번 나가면 이 방에 다시 못 들어오므로, 이 값이 그 사람의 최종 결과로 남는다.
-        tradeRankingService.updateRanking(participant);
-
+        // 배틀 시작 전 참가 취소이므로 참가를 종료하고 실시간 랭킹 잔여값도 제거한다.
         participant.end();
+        rankingService.removeMemberFromLiveRanking(roomId, memberId);
     }
 
     /**
