@@ -18,5 +18,8 @@ public interface RoomRankingArchiveRepository extends JpaRepository<RoomRankingA
 
     List<RoomRankingArchive> findAllByOrderByFinalReturnRateDesc(Pageable pageable);
 
+    List<RoomRankingArchive> findByMemberIdOrderByCreatedAtDesc(Long memberId);
+
     long countByRoomId(Long roomId);
+
 }
