@@ -46,7 +46,9 @@ public class TradeTransactionCertificateProvider
         return new TransactionSnapshot(
                 transaction.getProfitAmount(),
                 transaction.getProfitRate(),
-                transaction.getStockCode()
+                transaction.getStockCode(),
+                transaction.getStockName(),
+                transaction.getQuantity()
         );
     }
 
