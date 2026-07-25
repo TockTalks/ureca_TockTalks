@@ -7,6 +7,7 @@ import com.tocktalks.domain.admin.repository.ReportRepository;
 import com.tocktalks.domain.community.exception.CommunityException;
 import com.tocktalks.domain.community.service.CommentService;
 import com.tocktalks.domain.community.service.PostService;
+import com.tocktalks.domain.member.entity.Member;
 import com.tocktalks.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -72,14 +76,14 @@ public class ReportService {
         Page<Report> reports = StringUtils.hasText(targetType) ?
                 reportRepository.findByStatusAndTargetTypeOrderByCreatedAtDesc(STATUS_PENDING, targetType, pageable) :
                 reportRepository.findByStatusOrderByCreatedAtDesc(STATUS_PENDING, pageable);
-        return reports.map(ReportResponse::from);
+        return toResponsePage(reports);
     }
 
     public Page<ReportResponse> getReportHistory(String targetType, Pageable pageable){
         Page<Report> reports = StringUtils.hasText(targetType) ?
                 reportRepository.findByStatusInAndTargetTypeOrderByResolvedAtDesc(HISTORY_STATUSES, targetType, pageable) :
                 reportRepository.findByStatusInOrderByResolvedAtDesc(HISTORY_STATUSES, pageable);
-        return reports.map(ReportResponse::from);
+        return toResponsePage(reports);
     }
     
     //반려 처리
@@ -118,4 +122,17 @@ public class ReportService {
 
         return report;
     }
+
+    private Page<ReportResponse> toResponsePage(Page<Report> reports){
+        List<Long> memberIds = Stream.concat(
+                reports.stream().map(Report::getReporterId),
+                reports.stream().map(Report::getTargetMemberId)
+        ).distinct().toList();
+
+        Map<Long, String> nicknameById = memberRepository.findAllById(memberIds).stream()
+                .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        return reports.map(report -> ReportResponse.from(report, nicknameById));
+    }
+
 }
