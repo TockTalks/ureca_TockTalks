@@ -26,6 +26,12 @@ public class Post {
     @Column(name = "stock_code", length = 20)
     private String stockCode;
 
+    @Column(name = "stock_name", length = 100)
+    private String stockName;
+
+    @Column
+    private Long quantity;
+
     // 매도 체결 완료된 거래만 첨부 가능. 손익 스냅샷 대체용(profit_amount/profit_rate 고정값)
     @Column(name = "transaction_id")
     private Long transactionId;
@@ -48,12 +54,14 @@ public class Post {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    private Post(Long memberId, String content, String stockCode,
-                 Long transactionId, BigDecimal profitAmount, BigDecimal profitRate){
+    private Post(Long memberId, String content, String stockCode, String stockName,
+                 Long transactionId, Long quantity, BigDecimal profitAmount, BigDecimal profitRate){
         this.memberId = memberId;
         this.content = content;
         this.stockCode = stockCode;
+        this.stockName = stockName;
         this.transactionId = transactionId;
+        this.quantity = quantity;
         this.profitAmount = profitAmount;
         this.profitRate = profitRate;
         this.likeCount = 0;
@@ -63,12 +71,12 @@ public class Post {
     }
 
     public static Post createTextPost(Long memberId, String content, String stockCode) {
-        return new Post(memberId, content, stockCode, null, null, null);
+        return new Post(memberId, content, stockCode, null, null, null, null, null);
     }
 
-    public static Post createWithCertificate(Long memberId, String content, String stockCode,
-                                     Long transactionId, BigDecimal profitAmount, BigDecimal profitRate) {
-        return new Post(memberId, content, stockCode, transactionId, profitAmount, profitRate);
+    public static Post createWithCertificate(Long memberId, String content, String stockCode, String stockName,
+                                     Long transactionId, Long quantity, BigDecimal profitAmount, BigDecimal profitRate) {
+        return new Post(memberId, content, stockCode, stockName, transactionId, quantity, profitAmount, profitRate);
     }
 
     public void updateContent(String content, String stockCode){
