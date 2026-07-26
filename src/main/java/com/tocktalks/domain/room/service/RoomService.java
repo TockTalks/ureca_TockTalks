@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -154,11 +155,11 @@ public class RoomService {
         boolean isParticipant = requesterId != null && roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, requesterId, PARTICIPANT_ACTIVE)
                 .isPresent();
-        // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 그동안 참가했던 인원 전체를 센다.
-        // (모집중/진행중은 둘 다 아직 안 닫힌 상태라 active만 세면 된다 — recruiting 단계에서
-        // 들어왔다 나간 사람까지 세면 중복 집계가 되므로)
+        // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 active만 세면 0이 되어
+        // 실제로 게임에 참여했던 인원(모집중 단계에 들어왔다 나간 사람은 제외)을 센다.
+        // (모집중/진행중은 둘 다 아직 안 닫힌 상태라 active만 세면 된다)
         long participantCount = STATUS_CLOSED.equals(room.getStatus())
-                ? roomParticipantRepository.countByRoomId(roomId)
+                ? roomParticipantRepository.countRealParticipantsByRoomId(roomId, room.getStartAt())
                 : roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE);
         return RoomResponse.of(room, participantCount, isParticipant);
     }
@@ -238,10 +239,17 @@ public class RoomService {
 
     @Transactional(readOnly = true)
     public List<RoomHistoryResponse> getMyRoomHistory(Long memberId) {
-        return roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId).stream()
+        List<RoomRankingArchive> archives = roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId);
+        // 과거 동시성 버그로 남아있을 수 있는 방별 중복 아카이브 row 때문에 같은 방이
+        // 역대 결과 목록에 두 번 뜨지 않도록 방 단위로 하나만 남긴다.
+        List<RoomRankingArchive> dedupedByRoom = archives.stream()
+                .collect(Collectors.toMap(RoomRankingArchive::getRoomId, a -> a, (first, second) -> first, LinkedHashMap::new))
+                .values().stream().toList();
+
+        return dedupedByRoom.stream()
                 .map(archive -> roomRepository.findById(archive.getRoomId())
                         .map(room -> RoomHistoryResponse.of(
-                                room, archive, roomRankingArchiveRepository.countByRoomId(archive.getRoomId())))
+                                room, archive, roomRankingArchiveRepository.countDistinctMemberIdByRoomId(archive.getRoomId())))
                         .orElse(null))
                 .filter(Objects::nonNull)
                 .toList();

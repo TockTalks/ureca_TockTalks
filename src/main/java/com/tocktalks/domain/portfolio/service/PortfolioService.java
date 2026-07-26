@@ -197,7 +197,7 @@ public class PortfolioService {
                     .findFirst()
                     .map(RoomRankingArchive::getFinalRank)
                     .orElse(null);
-            totalParticipantCount = (int)roomRankingArchiveRepository.countByRoomId(room.getId());
+            totalParticipantCount = (int)roomRankingArchiveRepository.countDistinctMemberIdByRoomId(room.getId());
         }
         return PortfolioSummaryResponse.of(
                 participant, room, totalAssetValue, stockValuation,

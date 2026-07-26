@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -118,10 +119,15 @@ public class RankingService {
     }
 
     public List<RankingArchiveResponse> getFinalRanking(Long roomId, RankingType type){
-        List<RoomRankingArchive> archives = switch(type){
+        List<RoomRankingArchive> rawArchives = switch(type){
             case RETURN_RATE -> archiveRepository.findByRoomIdOrderByFinalRankAsc(roomId);
             case TOTAL_ASSET -> archiveRepository.findByRoomIdOrderByFinalAssetDesc(roomId);
         };
+        // 과거 동시성 버그로 남아있을 수 있는 회원별 중복 아카이브 row를 방어적으로 하나만 남긴다.
+        List<RoomRankingArchive> archives = rawArchives.stream()
+                .collect(Collectors.toMap(
+                        RoomRankingArchive::getMemberId, a -> a, (first, second) -> first, LinkedHashMap::new))
+                .values().stream().toList();
 
         Map<Long, String> nicknameByMemberId = memberRepository
                 .findAllById(archives.stream().map(RoomRankingArchive::getMemberId).toList()).stream()
