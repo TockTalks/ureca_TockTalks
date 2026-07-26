@@ -11,7 +11,9 @@ public class StubTransactionCertificateProvider implements TransactionCertificat
         return new TransactionSnapshot(
                 BigDecimal.valueOf(10000),   // profitAmount 더미값
                 BigDecimal.valueOf(5.0),     // profitRate 더미값 (5%)
-                "005930"                     // stockCode 더미값 (예: 삼성전자)
+                "005930",                      // stockCode 더미값 (예: 삼성전자)
+                "삼성전자",
+                10L
         );
     }
 }

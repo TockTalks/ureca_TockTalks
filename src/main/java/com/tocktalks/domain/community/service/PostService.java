@@ -44,7 +44,9 @@ public class PostService {
                     memberId,
                     request.content(),
                     request.stockCode() != null ? request.stockCode() : snapshot.stockCode(),
+                    snapshot.stockName(),
                     request.transactionId(),
+                    snapshot.quantity(),
                     snapshot.profitAmount(),
                     snapshot.profitRate()
             );
