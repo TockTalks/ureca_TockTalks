@@ -33,8 +33,11 @@ public class RoomRankingArchive {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "has_traded", nullable = false)
+    private boolean hasTraded;
+
     public static RoomRankingArchive of(Long roomId, Long memberId, Long finalAsset,
-                                        BigDecimal finalReturnRate, Integer finalRank) {
+                                        BigDecimal finalReturnRate, Integer finalRank, boolean hasTraded) {
         RoomRankingArchive archive = new RoomRankingArchive();
         archive.roomId = roomId;
         archive.memberId = memberId;
@@ -42,6 +45,7 @@ public class RoomRankingArchive {
         archive.finalReturnRate = finalReturnRate;
         archive.finalRank = finalRank;
         archive.createdAt = LocalDateTime.now();
+        archive.hasTraded = hasTraded;
         return archive;
     }
 }
