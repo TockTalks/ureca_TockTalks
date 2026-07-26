@@ -91,7 +91,7 @@ public class KisPriceService {
         try {
             return redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
-            log.warn("Redis 조회 실패, 캐시 없는 것으로 간주합니다. key={}", key, e);
+            log.warn("Redis 조회 실패, 캐시 없는 것으로 간주합니다. key={}, error={}", key, e.getMessage());
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class KisPriceService {
                 redisTemplate.opsForValue().set(key, value, ttl);
             }
         } catch (Exception e) {
-            log.warn("Redis 쓰기 실패, 캐시 갱신을 건너뜁니다. key={}", key, e);
+            log.warn("Redis 쓰기 실패, 캐시 갱신을 건너뜁니다. key={}, error={}", key, e.getMessage());
         }
     }
 
@@ -198,7 +198,7 @@ public class KisPriceService {
                     distinctCodes.stream().map(code -> QUOTE_CACHE_KEY_PREFIX + code).toList()
             );
         } catch (Exception e) {
-            log.warn("Redis 다중 조회 실패, 전부 캐시 미스로 간주합니다. stockCodes={}", distinctCodes, e);
+            log.warn("Redis 다중 조회 실패, 전부 캐시 미스로 간주합니다. stockCodes={}, error={}", distinctCodes, e.getMessage());
             cachedValues = null;
         }
 
@@ -252,7 +252,7 @@ public class KisPriceService {
             });
         } catch (Exception e) {
             // 캐시 쓰기 실패는 응답 자체엔 영향이 없으니 조용히 무시한다.
-            log.warn("Redis 다중 캐싱 실패, 캐시 갱신을 건너뜁니다. stockCodes={}", prices.keySet(), e);
+            log.warn("Redis 다중 캐싱 실패, 캐시 갱신을 건너뜁니다. stockCodes={}, error={}", prices.keySet(), e.getMessage());
         }
     }
 }
