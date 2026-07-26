@@ -193,6 +193,8 @@ public class PortfolioService {
         if ("closed".equals(room.getStatus())) {
             finalRank = roomRankingArchiveRepository
                     .findByRoomIdAndMemberId(room.getId(), participant.getMemberId())
+                    .stream()
+                    .findFirst()
                     .map(RoomRankingArchive::getFinalRank)
                     .orElse(null);
             totalParticipantCount = (int)roomRankingArchiveRepository.countByRoomId(room.getId());
