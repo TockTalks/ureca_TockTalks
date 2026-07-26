@@ -48,8 +48,24 @@ public class PortfolioService {
         List<RoomParticipant> participants = roomParticipantRepository.findByMemberId(memberId);
 
         return participants.stream()
+                .filter(this::isVisibleInPortfolioList)
                 .map(this::toSummary)
                 .collect(Collectors.toList());
+    }
+
+    //모집중인 방, 그리고 시작 전에 들어왔다 나간 기록은 목록에서 제외
+    private boolean isVisibleInPortfolioList(RoomParticipant participant) {
+        Room room = roomRepository.findById(participant.getRoomId())
+                .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
+
+        if ("recruiting".equals(room.getStatus())) {
+            return false;
+        }
+
+        //모집중에 들어왔다 나간 기록은 숨긴다
+        return participant.getEndedAt() == null
+                || room.getStartAt() == null
+                || !participant.getEndedAt().isBefore(room.getStartAt());
     }
 
     //포트폴리오 상세 조회
