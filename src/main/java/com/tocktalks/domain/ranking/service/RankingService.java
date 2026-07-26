@@ -98,6 +98,8 @@ public class RankingService {
         List<RankingDto> finalRanking = rankingRedisService.getAll(roomId, RankingType.RETURN_RATE);
         if(finalRanking.isEmpty()) return List.of();
 
+        Map<Long, Boolean> hasTradedByMemberId = getHasTradedByMemberId(roomId);
+
         List<RoomRankingArchive> archives = finalRanking.stream()
                 .map(dto -> {
                     Long finalAsset = rankingRedisService
@@ -108,7 +110,8 @@ public class RankingService {
                             dto.memberId(),
                             finalAsset,
                             BigDecimal.valueOf(dto.score()),
-                            dto.rank()
+                            dto.rank(),
+                            hasTradedByMemberId.getOrDefault(dto.memberId(), false)
                     );
                 })
                 .toList();
