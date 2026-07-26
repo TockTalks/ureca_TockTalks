@@ -28,7 +28,7 @@ public class ActiveMemberTracker {
             redisTemplate.opsForSet().add(key, memberId.toString());
             redisTemplate.expire(key, Duration.ofDays(KEY_TTL_DAYS));
         } catch (Exception e) {
-            log.warn("접속자 기록 실패, Redis 장애로 간주하고 건너뜁니다. memberId={}", memberId, e);
+            log.warn("접속자 기록 실패, Redis 장애로 간주하고 건너뜁니다. memberId={}, error={}", memberId, e.getMessage());
         }
     }
 

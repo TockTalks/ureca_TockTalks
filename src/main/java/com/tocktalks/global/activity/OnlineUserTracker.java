@@ -35,7 +35,7 @@ public class OnlineUserTracker {
         try {
             redisTemplate.opsForZSet().add(ONLINE_SESSIONS_KEY, sessionId, System.currentTimeMillis());
         } catch (Exception e) {
-            log.warn("접속자 기록 실패, Redis 장애로 간주하고 건너뜁니다. sessionId={}", sessionId, e);
+            log.warn("접속자 기록 실패, Redis 장애로 간주하고 건너뜁니다. sessionId={}, error={}", sessionId, e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class OnlineUserTracker {
         try {
             redisTemplate.opsForZSet().remove(ONLINE_SESSIONS_KEY, sessionId);
         } catch (Exception e) {
-            log.warn("접속자 제거 실패, Redis 장애로 간주하고 건너뜁니다. sessionId={}", sessionId, e);
+            log.warn("접속자 제거 실패, Redis 장애로 간주하고 건너뜁니다. sessionId={}, error={}", sessionId, e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class OnlineUserTracker {
             }
             redisTemplate.opsForZSet().removeRangeByScore(ONLINE_SESSIONS_KEY, 0, now - STALE_THRESHOLD_MS);
         } catch (Exception e) {
-            log.warn("접속자 하트비트 갱신 실패, Redis 장애로 간주하고 다음 주기를 기다립니다.", e);
+            log.warn("접속자 하트비트 갱신 실패, Redis 장애로 간주하고 다음 주기를 기다립니다. error={}", e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class OnlineUserTracker {
                     .count(ONLINE_SESSIONS_KEY, now - STALE_THRESHOLD_MS, now + 1000);
             return count == null ? 0 : count.intValue();
         } catch (Exception e) {
-            log.warn("접속자 수 조회 실패, Redis 장애로 간주하고 0을 반환합니다.", e);
+            log.warn("접속자 수 조회 실패, Redis 장애로 간주하고 0을 반환합니다. error={}", e.getMessage());
             return 0;
         }
     }
