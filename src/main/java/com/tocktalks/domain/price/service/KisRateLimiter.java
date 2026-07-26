@@ -61,7 +61,7 @@ public class KisRateLimiter {
         try {
             redisTemplate.opsForValue().get(key());
         } catch (Exception e) {
-            log.warn("KIS 호출 제한용 Redis 커넥션 워밍업 실패 (기능에는 영향 없음)", e);
+            log.warn("KIS 호출 제한용 Redis 커넥션 워밍업 실패 (기능에는 영향 없음): {}", e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class KisRateLimiter {
             Thread.currentThread().interrupt();
             throw new IllegalStateException("KIS 호출 대기 중 인터럽트 발생", e);
         } catch (Exception e) {
-            log.warn("Redis 기반 KIS 호출 제한 실패, 로컬 제한으로 대체", e);
+            log.warn("Redis 기반 KIS 호출 제한 실패, 로컬 제한으로 대체: {}", e.getMessage());
             acquireLocally();
         }
     }
