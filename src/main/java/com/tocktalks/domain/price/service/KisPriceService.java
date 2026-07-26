@@ -63,7 +63,7 @@ public class KisPriceService {
 
     public KisPriceResponse getCurrentPrice(String stockCode) {
         String cacheKey = CACHE_KEY_PREFIX + stockCode;
-        String cached = redisTemplate.opsForValue().get(cacheKey);
+        String cached = tryGet(cacheKey);
         if (cached != null) {
             return objectMapper.readValue(cached, KisPriceResponse.class);
         }
@@ -71,11 +71,11 @@ public class KisPriceService {
         try {
             KisPriceResponse response = fetchFromKis(stockCode);
             String json = objectMapper.writeValueAsString(response);
-            redisTemplate.opsForValue().set(cacheKey, json, CACHE_TTL);
-            redisTemplate.opsForValue().set(LATEST_KEY_PREFIX + stockCode, json);
+            trySet(cacheKey, json, CACHE_TTL);
+            trySet(LATEST_KEY_PREFIX + stockCode, json, null);
             return response;
         } catch (RuntimeException exception) {
-            String lastKnown = redisTemplate.opsForValue().get(LATEST_KEY_PREFIX + stockCode);
+            String lastKnown = tryGet(LATEST_KEY_PREFIX + stockCode);
             if (lastKnown == null) {
                 throw exception;
             }
@@ -83,6 +83,29 @@ public class KisPriceService {
             log.warn("KIS 현재가 조회 실패, 마지막으로 성공한 시세로 대체합니다. stockCode={}, message={}",
                     stockCode, exception.getMessage());
             return objectMapper.readValue(lastKnown, KisPriceResponse.class);
+        }
+    }
+
+    // Redis 장애로 이 조회 자체가 실패하면 캐시 미스로 간주한다 (KIS 직접 호출/최근값 폴백으로 이어짐).
+    private String tryGet(String key) {
+        try {
+            return redisTemplate.opsForValue().get(key);
+        } catch (Exception e) {
+            log.warn("Redis 조회 실패, 캐시 없는 것으로 간주합니다. key={}", key, e);
+            return null;
+        }
+    }
+
+    // 캐시 쓰기는 실패해도 응답 자체엔 영향이 없으니 조용히 무시한다.
+    private void trySet(String key, String value, Duration ttl) {
+        try {
+            if (ttl == null) {
+                redisTemplate.opsForValue().set(key, value);
+            } else {
+                redisTemplate.opsForValue().set(key, value, ttl);
+            }
+        } catch (Exception e) {
+            log.warn("Redis 쓰기 실패, 캐시 갱신을 건너뜁니다. key={}", key, e);
         }
     }
 
@@ -168,9 +191,16 @@ public class KisPriceService {
         List<String> distinctCodes = stockCodes.stream().distinct().toList();
         // shared 프로필(원격 Upstash)에서는 Redis 호출 한 번 한 번이 네트워크 왕복이라,
         // 종목마다 따로 GET 하면 그것만으로도 수백 ms가 든다. MGET으로 한 번에 묶는다.
-        List<String> cachedValues = redisTemplate.opsForValue().multiGet(
-                distinctCodes.stream().map(code -> QUOTE_CACHE_KEY_PREFIX + code).toList()
-        );
+        // Redis 장애로 이 조회가 실패하면 전부 캐시 미스로 간주하고 KIS에서 새로 받아온다.
+        List<String> cachedValues;
+        try {
+            cachedValues = redisTemplate.opsForValue().multiGet(
+                    distinctCodes.stream().map(code -> QUOTE_CACHE_KEY_PREFIX + code).toList()
+            );
+        } catch (Exception e) {
+            log.warn("Redis 다중 조회 실패, 전부 캐시 미스로 간주합니다. stockCodes={}", distinctCodes, e);
+            cachedValues = null;
+        }
 
         Map<String, BigDecimal> result = new LinkedHashMap<>();
         List<String> missing = new ArrayList<>();
@@ -209,15 +239,20 @@ public class KisPriceService {
         // executePipelined가 넘겨주는 connection은 Lettuce 파이프라인용 프록시라
         // StringRedisConnection으로 캐스팅이 안 될 수 있다 (ClassCastException).
         // 캐스팅 없이 쓸 수 있는 stringCommands()로 직접 SET+EX를 건다.
-        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
-            prices.forEach((code, price) -> connection.stringCommands().set(
-                    (QUOTE_CACHE_KEY_PREFIX + code).getBytes(StandardCharsets.UTF_8),
-                    price.toPlainString().getBytes(StandardCharsets.UTF_8),
-                    Expiration.seconds(QUOTE_CACHE_TTL.getSeconds()),
-                    RedisStringCommands.SetOption.upsert()
-            ));
+        try {
+            redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+                prices.forEach((code, price) -> connection.stringCommands().set(
+                        (QUOTE_CACHE_KEY_PREFIX + code).getBytes(StandardCharsets.UTF_8),
+                        price.toPlainString().getBytes(StandardCharsets.UTF_8),
+                        Expiration.seconds(QUOTE_CACHE_TTL.getSeconds()),
+                        RedisStringCommands.SetOption.upsert()
+                ));
 
-            return null;
-        });
+                return null;
+            });
+        } catch (Exception e) {
+            // 캐시 쓰기 실패는 응답 자체엔 영향이 없으니 조용히 무시한다.
+            log.warn("Redis 다중 캐싱 실패, 캐시 갱신을 건너뜁니다. stockCodes={}", prices.keySet(), e);
+        }
     }
 }
