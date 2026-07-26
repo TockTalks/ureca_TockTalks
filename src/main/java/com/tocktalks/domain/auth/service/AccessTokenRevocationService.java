@@ -35,7 +35,8 @@ public class AccessTokenRevocationService {
         try {
             return Boolean.TRUE.equals(redisTemplate.hasKey(key(memberId)));
         } catch (Exception e) {
-            log.warn("토큰 폐기 여부 확인 실패, Redis 장애로 간주하고 통과시킵니다. memberId={}", memberId, e);
+            log.warn("토큰 폐기 여부 확인 실패, Redis 장애로 간주하고 통과시킵니다. memberId={}, error={}",
+                    memberId, e.getMessage());
             return false;
         }
     }
