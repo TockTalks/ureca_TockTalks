@@ -47,7 +47,7 @@ public class PortfolioService {
     public List<PortfolioSummaryResponse> getPortfolios(Long memberId) {
         List<RoomParticipant> participants = roomParticipantRepository.findByMemberId(memberId);
 
-        return participants.stream()
+        return participants.parallelStream()
                 .filter(this::isVisibleInPortfolioList)
                 .map(this::toSummary)
                 .collect(Collectors.toList());
