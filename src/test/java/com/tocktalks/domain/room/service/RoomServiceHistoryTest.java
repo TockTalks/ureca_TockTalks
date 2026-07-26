@@ -66,7 +66,7 @@ class RoomServiceHistoryTest {
         when(roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(10L))
                 .thenReturn(List.of(archive));
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
-        when(roomRankingArchiveRepository.countByRoomId(1L)).thenReturn(5L);
+        when(roomRankingArchiveRepository.countDistinctMemberIdByRoomId(1L)).thenReturn(5L);
 
         List<RoomHistoryResponse> history = roomService.getMyRoomHistory(10L);
 
@@ -77,6 +77,32 @@ class RoomServiceHistoryTest {
         assertThat(entry.finalRank()).isEqualTo(2);
         assertThat(entry.finalAsset()).isEqualTo(11_000_000L);
         assertThat(entry.participantCount()).isEqualTo(5L);
+    }
+
+    @Test
+    void 같은_방에_중복_아카이브가_있어도_역대_결과에는_한_번만_나온다() {
+        RoomRankingArchive first = mock(RoomRankingArchive.class);
+        when(first.getRoomId()).thenReturn(1L);
+        when(first.getFinalRank()).thenReturn(1);
+        when(first.getFinalAsset()).thenReturn(11_000_000L);
+        when(first.getFinalReturnRate()).thenReturn(BigDecimal.valueOf(10.0));
+
+        RoomRankingArchive duplicate = mock(RoomRankingArchive.class);
+        when(duplicate.getRoomId()).thenReturn(1L);
+
+        Room room = mock(Room.class);
+        when(room.getId()).thenReturn(1L);
+        when(room.getName()).thenReturn("테스트방");
+
+        when(roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(10L))
+                .thenReturn(List.of(first, duplicate));
+        when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRankingArchiveRepository.countDistinctMemberIdByRoomId(1L)).thenReturn(3L);
+
+        List<RoomHistoryResponse> history = roomService.getMyRoomHistory(10L);
+
+        assertThat(history).hasSize(1);
+        assertThat(history.get(0).finalRank()).isEqualTo(1);
     }
 
     @Test
