@@ -12,6 +12,10 @@ spring:
     username: tocktalks
     password: tocktalks
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # DB/네트워크 쪽에서 idle 커넥션을 기본값(30분)보다 먼저 끊는 경우가 있어서,
+      # 죽은 커넥션을 오래 들고 있지 않도록 커넥션 수명을 짧게 잡는다.
+      max-lifetime: 600000   # 10분
 # hello world!
   jpa:
     hibernate:
@@ -26,6 +30,10 @@ spring:
     redis:
       host: localhost
       port: 6379
+      # 기본값(60초)이면 Redis 연결이 잠깐 끊겼을 때 그 순간 요청들이 최대 1분씩
+      # 멈춰버린다 (JwtAuthenticationFilter가 모든 인증 요청마다 Redis를 거치므로 영향이 큼).
+      # 짧게 잡아서 빨리 실패하고 다음 재연결을 기다리게 한다.
+      timeout: 3s
 
 server:
   port: 8080

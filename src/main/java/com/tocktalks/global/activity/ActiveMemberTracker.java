@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ActiveMemberTracker {
@@ -19,10 +21,15 @@ public class ActiveMemberTracker {
 
     private final RedisTemplate<String, String> redisTemplate;
 
+    // 접속자 통계용 기록이라 요청 자체를 막을 이유가 없다 - Redis 장애 시 조용히 건너뛴다.
     public void markActive(Long memberId) {
-        String key = dailyKey(LocalDate.now());
-        redisTemplate.opsForSet().add(key, memberId.toString());
-        redisTemplate.expire(key, Duration.ofDays(KEY_TTL_DAYS));
+        try {
+            String key = dailyKey(LocalDate.now());
+            redisTemplate.opsForSet().add(key, memberId.toString());
+            redisTemplate.expire(key, Duration.ofDays(KEY_TTL_DAYS));
+        } catch (Exception e) {
+            log.warn("접속자 기록 실패, Redis 장애로 간주하고 건너뜁니다. memberId={}, error={}", memberId, e.getMessage());
+        }
     }
 
     public long countToday() {
