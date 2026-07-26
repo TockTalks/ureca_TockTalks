@@ -8,9 +8,10 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -41,10 +42,7 @@ public class RankingRedisService {
             return List.of();
         }
 
-        List<ZSetOperations.TypedTuple<String>> list = List.copyOf(tuples);
-        return IntStream.range(0, list.size())
-                .mapToObj(i -> RankingDto.of(list.get(i), i + 1))
-                .toList();
+        return toRankedList(List.copyOf(tuples));
     }
 
     public List<RankingDto> getAll(Long roomId, RankingType type){
@@ -55,10 +53,20 @@ public class RankingRedisService {
             return List.of();
         }
 
-        List<ZSetOperations.TypedTuple<String>> list = List.copyOf(tuples);
-        return IntStream.range(0, list.size())
-                .mapToObj(i -> RankingDto.of(list.get(i), i + 1))
-                .toList();
+        return toRankedList(List.copyOf(tuples));
+    }
+
+    //동순위 표시
+    private List<RankingDto> toRankedList(List<ZSetOperations.TypedTuple<String>> list){
+        List<RankingDto> result = new ArrayList<>(list.size());
+        int rank = 1;
+        for (int i = 0; i < list.size(); i++) {
+            if (i > 0 && !Objects.equals(list.get(i-1).getScore(), list.get(i).getScore())){
+                rank = i + 1;
+            }
+            result.add(RankingDto.of(list.get(i), rank));
+        }
+        return result;
     }
 
     // 아직 랭킹 데이터가 없는 회원(비로그인, 미참여 등)이면 null을 반환한다.
@@ -67,20 +75,15 @@ public class RankingRedisService {
             return null;
         }
 
-        String key = keyOf(roomId, type);
-        Long rank = redisTemplate.opsForZSet().reverseRank(key, String.valueOf(memberId));
-        Double score = redisTemplate.opsForZSet().score(key, String.valueOf(memberId));
-
-        if(rank == null || score == null){
-            return null;
-        }
-        return new RankingDto(memberId, score, rank.intValue() + 1);
+        return getAll(roomId, type).stream()
+                .filter(dto -> dto.memberId().equals(memberId))
+                .findFirst()
+                .orElse(null);
     }
 
     public Integer getRank(Long roomId, Long memberId, RankingType type){
-        Long rank = redisTemplate.opsForZSet()
-                .reverseRank(keyOf(roomId, type), String.valueOf(memberId));
-        return rank == null ? null : rank.intValue() + 1;
+        RankingDto myRank = getMyRank(roomId, memberId, type);
+        return myRank == null ? null : myRank.rank();
     }
 
     public Double getScore(Long roomId, Long memberId, RankingType type){
