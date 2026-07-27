@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,10 @@ public interface RoomParticipantRepository
             String status
     );
 
-    // 상태 무관하게 한 번이라도 참가한 적 있는지 확인 (한 번 나간 방은 재입장 불가 정책)
-    boolean existsByRoomIdAndMemberId(
+    boolean existsByRoomIdAndMemberIdAndStatus(
             Long roomId,
-            Long memberId
+            Long memberId,
+            String status
     );
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -48,6 +49,19 @@ public interface RoomParticipantRepository
     );
 
     long countByRoomId(Long roomId);
+
+    // 종료된 방의 실제 참가자 수: 시작 전(모집중)에 들어왔다 나간 기록은 게임에 참여한 적이
+    // 없으므로 제외하고, 회원 단위로 센다(재입장으로 같은 회원의 row가 여러 개일 수 있음).
+    @Query("""
+            SELECT COUNT(DISTINCT rp.memberId)
+            FROM RoomParticipant rp
+            WHERE rp.roomId = :roomId
+              AND (rp.endedAt IS NULL OR :startAt IS NULL OR rp.endedAt >= :startAt)
+            """)
+    long countRealParticipantsByRoomId(
+            @Param("roomId") Long roomId,
+            @Param("startAt") LocalDateTime startAt
+    );
 
     List<RoomParticipant> findByRoomIdAndStatus(
             Long roomId,

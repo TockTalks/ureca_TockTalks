@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 
 public interface TransactionCertificateProvider {
 
-    TransactionSnapshot certifySellTransaction(Long transactionId, Long memberId);
+    TransactionSnapshot certifyTransaction(Long transactionId, Long memberId);
 
-    record TransactionSnapshot(BigDecimal profitAmount, BigDecimal profitRate, String stockCode){
+    record TransactionSnapshot(BigDecimal profitAmount, BigDecimal profitRate, String stockCode,
+                               String stockName, Long quantity){
     }
 }

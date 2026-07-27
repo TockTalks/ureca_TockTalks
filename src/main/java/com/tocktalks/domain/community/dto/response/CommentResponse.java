@@ -8,6 +8,7 @@ public record CommentResponse(
         Long id,
         Long postId,
         Long memberId,
+        String nickname,
         String content,
         int likeCount,
         boolean likedByMe,
@@ -15,11 +16,12 @@ public record CommentResponse(
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
-    public static CommentResponse of(Comment comment, boolean likedByMe){
+    public static CommentResponse of(Comment comment, boolean likedByMe, String nickname){
         return new CommentResponse(
                 comment.getId(),
                 comment.getPostId(),
                 comment.getMemberId(),
+                nickname,
                 comment.getContent(),
                 comment.getLikeCount(),
                 likedByMe,

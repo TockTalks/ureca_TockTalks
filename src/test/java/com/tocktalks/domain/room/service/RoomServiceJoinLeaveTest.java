@@ -60,11 +60,53 @@ class RoomServiceJoinLeaveTest {
         when(room.getMaxParticipants()).thenReturn(null);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
-        when(roomParticipantRepository.existsByRoomIdAndMemberId(1L, 10L)).thenReturn(false);
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
+        when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
         when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         assertThatCode(() -> roomService.joinRoomById(1L, 10L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void 나갔던_방도_모집중이면_다시_참가할_수_있다() {
+        Room room = mock(Room.class);
+        when(room.getId()).thenReturn(1L);
+        when(room.isDefault()).thenReturn(false);
+        when(room.getStatus()).thenReturn("recruiting");
+        when(room.getStartAt()).thenReturn(LocalDateTime.now().plusHours(1));
+        when(room.isPublic()).thenReturn(true);
+        when(room.getSeedMoney()).thenReturn(10_000_000L);
+        when(room.getMaxParticipants()).thenReturn(null);
+
+        when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
+        // 예전에 나간 적 있어도(ENDED 이력 존재) 현재 ACTIVE만 아니면 재참가 가능해야 한다.
+        when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
+        when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        assertThatCode(() -> roomService.joinRoomById(1L, 10L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    void 이미_참가중인_방은_중복_참가할_수_없다() {
+        Room room = mock(Room.class);
+        when(room.getId()).thenReturn(1L);
+        when(room.isDefault()).thenReturn(false);
+        when(room.getStatus()).thenReturn("recruiting");
+        when(room.getStartAt()).thenReturn(LocalDateTime.now().plusHours(1));
+        when(room.isPublic()).thenReturn(true);
+
+        when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
+        when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(true);
+
+        assertThatThrownBy(() -> roomService.joinRoomById(1L, 10L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("이미 참가 중");
+
+        verify(roomParticipantRepository, never()).save(org.mockito.ArgumentMatchers.any());
     }
 
     @Test
@@ -98,8 +140,9 @@ class RoomServiceJoinLeaveTest {
 
         roomService.leaveRoom(1L, 10L);
 
-        verify(tradeRankingService).updateRanking(participant);
         verify(participant).end();
+        verify(rankingService).removeMemberFromLiveRanking(1L, 10L);
+        verify(tradeRankingService, never()).updateRanking(participant);
     }
 
     @Test
@@ -133,7 +176,8 @@ class RoomServiceJoinLeaveTest {
         when(room.getSeedMoney()).thenReturn(10_000_000L);
 
         when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
-        when(roomParticipantRepository.existsByRoomIdAndMemberId(1L, 10L)).thenReturn(false);
+        when(roomRepository.findByIdForUpdate(1L)).thenReturn(Optional.of(room));
+        when(roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(1L, 10L, "ACTIVE")).thenReturn(false);
         when(roomParticipantRepository.save(org.mockito.ArgumentMatchers.any()))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 

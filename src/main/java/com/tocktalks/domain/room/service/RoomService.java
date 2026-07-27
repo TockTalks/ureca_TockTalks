@@ -7,6 +7,10 @@ import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.ranking.type.RankingType;
+import com.tocktalks.domain.trade.dto.response.HoldingResponse;
+import com.tocktalks.domain.trade.entity.HoldingArchive;
+import com.tocktalks.domain.trade.repository.HoldingArchiveRepository;
+import com.tocktalks.domain.trade.service.HoldingQueryService;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomHistoryResponse;
@@ -27,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -50,6 +55,8 @@ public class RoomService {
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
     private final RoomRankingArchiveRepository roomRankingArchiveRepository;
+    private final HoldingQueryService holdingQueryService;
+    private final HoldingArchiveRepository holdingArchiveRepository;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
@@ -101,18 +108,19 @@ public class RoomService {
         if (room.isDefault()) {
             throw new IllegalArgumentException("기본방은 탈퇴할 수 없습니다.");
         }
-        if (!STATUS_RECRUITING.equals(room.getStatus())) {
+        if (!STATUS_RECRUITING.equals(room.getStatus())
+                || room.getStartAt() == null
+                || !LocalDateTime.now().isBefore(room.getStartAt())) {
             throw new IllegalArgumentException("이미 시작된 방은 나갈 수 없습니다.");
         }
         RoomParticipant participant = roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, memberId, PARTICIPANT_ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException("참가 중인 방이 아닙니다."));
 
-        // 나가는 시점의 총자산(현금+보유종목 평가액)을 Redis 랭킹에 확정 반영한다.
-        // 한 번 나가면 이 방에 다시 못 들어오므로, 이 값이 그 사람의 최종 결과로 남는다.
-        tradeRankingService.updateRanking(participant);
-
+        // 배틀 시작 전 참가 취소이므로 참가를 종료하고 실시간 랭킹 잔여값도 제거한다.
         participant.end();
+        rankingService.removeMemberFromLiveRanking(roomId, memberId);
+        log.info("[방 나가기] roomId={}, memberId={}", roomId, memberId);
     }
 
     /**
@@ -153,11 +161,11 @@ public class RoomService {
         boolean isParticipant = requesterId != null && roomParticipantRepository
                 .findByRoomIdAndMemberIdAndStatus(roomId, requesterId, PARTICIPANT_ACTIVE)
                 .isPresent();
-        // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 그동안 참가했던 인원 전체를 센다.
-        // (모집중/진행중은 둘 다 아직 안 닫힌 상태라 active만 세면 된다 — recruiting 단계에서
-        // 들어왔다 나간 사람까지 세면 중복 집계가 되므로)
+        // 방이 닫히면 참가자 전원이 ENDED 처리되므로, 종료된 방은 active만 세면 0이 되어
+        // 실제로 게임에 참여했던 인원(모집중 단계에 들어왔다 나간 사람은 제외)을 센다.
+        // (모집중/진행중은 둘 다 아직 안 닫힌 상태라 active만 세면 된다)
         long participantCount = STATUS_CLOSED.equals(room.getStatus())
-                ? roomParticipantRepository.countByRoomId(roomId)
+                ? roomParticipantRepository.countRealParticipantsByRoomId(roomId, room.getStartAt())
                 : roomParticipantRepository.countByRoomIdAndStatus(roomId, PARTICIPANT_ACTIVE);
         return RoomResponse.of(room, participantCount, isParticipant);
     }
@@ -237,10 +245,17 @@ public class RoomService {
 
     @Transactional(readOnly = true)
     public List<RoomHistoryResponse> getMyRoomHistory(Long memberId) {
-        return roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId).stream()
+        List<RoomRankingArchive> archives = roomRankingArchiveRepository.findByMemberIdOrderByCreatedAtDesc(memberId);
+        // 과거 동시성 버그로 남아있을 수 있는 방별 중복 아카이브 row 때문에 같은 방이
+        // 역대 결과 목록에 두 번 뜨지 않도록 방 단위로 하나만 남긴다.
+        List<RoomRankingArchive> dedupedByRoom = archives.stream()
+                .collect(Collectors.toMap(RoomRankingArchive::getRoomId, a -> a, (first, second) -> first, LinkedHashMap::new))
+                .values().stream().toList();
+
+        return dedupedByRoom.stream()
                 .map(archive -> roomRepository.findById(archive.getRoomId())
                         .map(room -> RoomHistoryResponse.of(
-                                room, archive, roomRankingArchiveRepository.countByRoomId(archive.getRoomId())))
+                                room, archive, roomRankingArchiveRepository.countDistinctMemberIdByRoomId(archive.getRoomId())))
                         .orElse(null))
                 .filter(Objects::nonNull)
                 .toList();
@@ -264,7 +279,7 @@ public class RoomService {
         List<Room> expiredRooms = roomRepository.findByStatusAndEndAtBefore(STATUS_ONGOING, LocalDateTime.now());
         for (Room room : expiredRooms) {
             try {
-                archiveAndClose(room);
+                closeRoomLocked(room.getId());
             } catch (Exception e) {
                 // 특정 방(예: 시세 조회 실패)에서 터져도 다른 만료된 방들은 계속 정상 종료되도록 격리한다.
                 log.error("방 종료 처리 실패 (roomId={})", room.getId(), e);
@@ -284,7 +299,7 @@ public class RoomService {
             throw new IllegalArgumentException("이미 종료된 방입니다.");
         }
 
-        archiveAndClose(room);
+        closeRoomLocked(roomId);
 
         log.warn("관리자에 의한 방 강제 종료 (roomId={}, adminId={})", roomId, adminId);
     }
@@ -316,6 +331,7 @@ public class RoomService {
             tradeRankingService.updateRanking(
                     participant
             );
+            archiveHoldings(participant);
         }
 
         rankingService.finalizeRanking(
@@ -327,6 +343,18 @@ public class RoomService {
         );
 
         room.close();
+        log.info("[방 종료] roomId={}, participantCount={}", room.getId(), participants.size());
+    }
+
+    //방 종료 시점의 보유 종목 시세를 그대로 저장 (종료된 방 포트폴리오가 이후 시세 변동에 영향 받지 않도록)
+    private void archiveHoldings(RoomParticipant participant) {
+        List<HoldingResponse> holdings = holdingQueryService.getHoldings(
+                participant.getMemberId(), participant.getId()
+        );
+        List<HoldingArchive> archives = holdings.stream()
+                .map(HoldingArchive::from)
+                .toList();
+        holdingArchiveRepository.saveAll(archives);
     }
 
     private void endParticipationForWithdrawal(RoomParticipant participant) {
@@ -338,15 +366,23 @@ public class RoomService {
     }
 
     private RoomParticipant joinRoom(Room room, Long memberId) {
-        // 상태 무관하게 한 번이라도 참가한 적 있으면 재입장 불가 (한 번 나간 방은 다시 못 들어옴)
-        if (roomParticipantRepository.existsByRoomIdAndMemberId(room.getId(), memberId)) {
-            throw new IllegalArgumentException("이미 참가했거나 나간 적이 있는 방입니다.");
+        // 같은 방에 동시에 여러 참가 요청이 들어와도 중복 참가/정원 초과가 안 생기도록
+        // 방 단위로 락을 잡아 "중복 참가 확인 -> 정원 확인 -> 저장"을 직렬화한다.
+        roomRepository.findByIdForUpdate(room.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+
+        // 시작 전(모집중)에는 자유롭게 들어왔다 나갈 수 있어야 하므로, 이미 나간 적이 있어도
+        // 재입장을 막지 않는다. 현재 ACTIVE로 참가 중인 경우만 중복 참가로 막는다.
+        if (roomParticipantRepository.existsByRoomIdAndMemberIdAndStatus(room.getId(), memberId, PARTICIPANT_ACTIVE)) {
+            throw new IllegalArgumentException("이미 참가 중인 방입니다.");
         }
         if (room.getMaxParticipants() != null
                 && roomParticipantRepository.countByRoomIdAndStatus(room.getId(), PARTICIPANT_ACTIVE) >= room.getMaxParticipants()) {
             throw new IllegalArgumentException("정원이 가득 찼습니다.");
         }
-        return roomParticipantRepository.save(RoomParticipant.join(room.getId(), memberId, room.getSeedMoney()));
+        RoomParticipant participant = roomParticipantRepository.save(RoomParticipant.join(room.getId(), memberId, room.getSeedMoney()));
+        log.info("[방 참가] roomId={}, memberId={}", room.getId(), memberId);
+        return participant;
     }
 
     private Room getRoom(Long roomId) {
@@ -370,10 +406,25 @@ public class RoomService {
     // 스케줄러(closeExpiredRooms)가 아직 못 돌았어도, 방을 조회하는 시점에 종료 시각이 지났으면
     // 그 자리에서 바로 닫아서 화면에 최신 상태가 즉시 반영되도록 한다.
     private void closeIfExpired(Room room) {
-        if (STATUS_ONGOING.equals(room.getStatus())
+        if (isExpired(room)) {
+            closeRoomLocked(room.getId());
+        }
+    }
+
+    private boolean isExpired(Room room) {
+        return STATUS_ONGOING.equals(room.getStatus())
                 && room.getEndAt() != null
-                && room.getEndAt().isBefore(LocalDateTime.now())) {
-            archiveAndClose(room);
+                && room.getEndAt().isBefore(LocalDateTime.now());
+    }
+
+    // 같은 방에 대한 종료 처리(자연 만료 / 스케줄러 / 관리자 강제종료)가 동시에 들어와도
+    // 아카이브가 중복 저장되지 않도록 방 단위로 락을 잡고, 락을 얻는 사이 다른 트랜잭션이
+    // 이미 종료 처리했을 수 있으니 락을 잡은 뒤 상태를 다시 확인한다.
+    private void closeRoomLocked(Long roomId) {
+        Room locked = roomRepository.findByIdForUpdate(roomId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 방입니다."));
+        if (!STATUS_CLOSED.equals(locked.getStatus())) {
+            archiveAndClose(locked);
         }
     }
 

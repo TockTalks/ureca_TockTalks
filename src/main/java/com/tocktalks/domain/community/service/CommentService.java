@@ -35,13 +35,15 @@ public class CommentService {
 
     @Transactional
     public CommentResponse createComment(Long postId, Long memberId, CommentCreateRequest request){
-        validateNotBlocked(memberId);
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        validateNotBlocked(member);
         Post post = getPostOrThrow(postId);
 
         Comment saved = commentRepository.save(Comment.create(postId, memberId, request.content()));
         post.increaseCommentCount();
 
-        return CommentResponse.of(saved, false);
+        return CommentResponse.of(saved, false, member.getNickname());
     }
 
     public Page<CommentResponse> getComments(Long postId, Long viewerId, Pageable pageable){
@@ -52,7 +54,12 @@ public class CommentService {
                 .findByMemberIdAndCommentIdIn(viewerId, commentIds).stream()
                 .collect(Collectors.toMap(CommentLike::getCommentId, like -> true));
 
-        return comments.map(c -> CommentResponse.of(c, likedMap.getOrDefault(c.getId(), false)));
+        Map<Long, String> nicknameByMemberId = memberRepository
+                .findAllById(comments.getContent().stream().map(Comment::getMemberId).distinct().toList()).stream()
+                .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        return comments.map(c -> CommentResponse.of(
+                c, likedMap.getOrDefault(c.getId(), false), nicknameByMemberId.get(c.getMemberId())));
     }
 
     @Transactional
@@ -61,7 +68,8 @@ public class CommentService {
         comment.updateContent(request.content());
 
         boolean likedByMe = commentLikeRepository.existsByCommentIdAndMemberId(commentId, memberId);
-        return CommentResponse.of(comment, likedByMe);
+        String nickname = memberRepository.findById(memberId).map(Member::getNickname).orElse(null);
+        return CommentResponse.of(comment, likedByMe, nickname);
     }
 
     @Transactional
@@ -104,9 +112,7 @@ public class CommentService {
         return getCommentOrThrow(commentId).getContent();
     }
 
-    private void validateNotBlocked(Long memberId){
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    private void validateNotBlocked(Member member){
         if(member.isBlocked()){
             throw new CommunityException(CommunityErrorCode.MEMBER_BLOCKED);
         }

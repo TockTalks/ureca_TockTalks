@@ -1,7 +1,6 @@
 package com.tocktalks.domain.trade.service;
 
 import com.tocktalks.domain.community.service.TransactionCertificateProvider;
-import com.tocktalks.domain.trade.entity.TradeType;
 import com.tocktalks.domain.trade.entity.Transaction;
 import com.tocktalks.domain.trade.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class TradeTransactionCertificateProvider
     private final TransactionRepository transactionRepository;
 
     @Override
-    public TransactionSnapshot certifySellTransaction(
+    public TransactionSnapshot certifyTransaction(
             Long transactionId,
             Long memberId
     ) {
@@ -37,16 +36,12 @@ public class TradeTransactionCertificateProvider
                         )
                 );
 
-        if (transaction.getType() != TradeType.SELL) {
-            throw new IllegalArgumentException(
-                    "매도 거래만 투자 인증에 사용할 수 있습니다."
-            );
-        }
-
         return new TransactionSnapshot(
                 transaction.getProfitAmount(),
                 transaction.getProfitRate(),
-                transaction.getStockCode()
+                transaction.getStockCode(),
+                transaction.getStockName(),
+                transaction.getQuantity()
         );
     }
 
