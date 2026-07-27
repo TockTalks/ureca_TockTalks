@@ -33,7 +33,9 @@ public class PostService {
 
     @Transactional
     public PostResponse createPost(Long memberId, PostCreateRequest request) {
-        validateNotBlocked(memberId);
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        validateNotBlocked(member);
         Post post;
 
         if (request.transactionId() != null) {
@@ -55,13 +57,15 @@ public class PostService {
         }
 
         Post saved = postRepository.save(post);
-        return PostResponse.of(saved, false);
+        return PostResponse.of(saved, false, member.getNickname());
     }
 
     public PostResponse getPost(Long postId, Long viewerId) {
         Post post = getPostOrThrow(postId);
         boolean likedByMe = postLikeRepository.existsByPostIdAndMemberId(postId, viewerId);
-        return PostResponse.of(post, likedByMe);
+        String nickname = memberRepository.findById(post.getMemberId())
+                .map(Member::getNickname).orElse(null);
+        return PostResponse.of(post, likedByMe, nickname);
     }
 
     public Page<PostResponse> getPosts(String stockCode, Long viewerId, Pageable pageable) {
@@ -74,14 +78,20 @@ public class PostService {
                 .findByMemberIdAndPostIdIn(viewerId, postIds).stream()
                 .collect(Collectors.toMap(PostLike::getPostId, like -> true));
 
-        return posts.map(post -> PostResponse.of(post, likedMap.getOrDefault(post.getId(), false)));
+        Map<Long, String> nicknameByMemberId = memberRepository
+                .findAllById(posts.getContent().stream().map(Post::getMemberId).distinct().toList()).stream()
+                .collect(Collectors.toMap(Member::getId, Member::getNickname));
+
+        return posts.map(post -> PostResponse.of(
+                post, likedMap.getOrDefault(post.getId(), false), nicknameByMemberId.get(post.getMemberId())));
     }
 
     @Transactional
     public PostResponse updatePost(Long postId, Long memberId, PostUpdateRequest request){
         Post post = getOwnedPostOrThrow(postId, memberId);
         post.updateContent(request.content(), request.stockCode());
-        return PostResponse.of(post, postLikeRepository.existsByPostIdAndMemberId(postId, memberId));
+        String nickname = memberRepository.findById(memberId).map(Member::getNickname).orElse(null);
+        return PostResponse.of(post, postLikeRepository.existsByPostIdAndMemberId(postId, memberId), nickname);
     }
 
     @Transactional
@@ -113,9 +123,7 @@ public class PostService {
         return getPostOrThrow(postId).getContent();
     }
 
-    private void validateNotBlocked(Long memberId){
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    private void validateNotBlocked(Member member){
         if(member.isBlocked()){
             throw new CommunityException(CommunityErrorCode.MEMBER_BLOCKED);
         }
