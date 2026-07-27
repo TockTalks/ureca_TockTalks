@@ -16,7 +16,6 @@
 [![JWT](https://img.shields.io/badge/JWT-black?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![Kakao](https://img.shields.io/badge/Kakao%20Login-FFCD00?logo=kakaotalk&logoColor=black)](https://developers.kakao.com/)
-[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](https://github.com/features/actions)
 [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-000000?logo=intellijidea&logoColor=white)](https://www.jetbrains.com/idea/)
 
 </div>
@@ -25,7 +24,7 @@
 
 ## 💡 소개
 
-**톡톡스**는 실제 증권/암호화폐 시세를 실시간으로 반영한 모의투자 서비스입니다.
+**톡톡스**는 한국투자증권(KIS) Open API로 받은 실시간 국내 주식 시세를 반영한 모의투자 서비스입니다.
 
 기존 모의투자 서비스와 다르게, 유저가 직접 **"방(Room)"**을 만들어 시드머니와 기간을 정하고, 같은 조건에서 시작한 사람들끼리 수익률로 경쟁합니다. 거래 내역은 커뮤니티에 **투자 인증 카드**로 공유할 수 있어 신뢰도 있는 투자 인증 문화를 만듭니다.
 
@@ -35,10 +34,10 @@
 |---|---|
 | 🔐 회원가입 / 로그인 | 자체 로그인 + 카카오 소셜 로그인 |
 | 💰 모의투자 | 실시간 시세 기반 매수/매도, 동시성 제어 |
-| 🏆 방(Room) 배틀 | 시드머니·기간 설정, 공개/비공개 방, 실시간 랭킹 |
+| 🏆 방(Room) 배틀 | 시드머니·기간 설정, 공개/비공개 방, 실시간 랭킹, 종료 후 아카이브 |
 | 📊 포트폴리오 | 보유 종목, 평가손익, 자산 변동 히스토리 |
-| 💬 커뮤니티 | 종목 태그 게시글, 실거래 기반 투자 인증 카드 |
-| 🛠️ 백오피스 | 가입자·거래·랭킹 통계 대시보드 |
+| 💬 커뮤니티 | 종목 태그 게시글, 실거래 기반 투자 인증 카드, 좋아요/댓글 |
+| 🛠️ 백오피스 | 회원/신고/공지/방 관리, 가입자·거래·랭킹·커뮤니티 통계 대시보드 |
 
 ## 🧱 기술 스택
 
@@ -46,15 +45,14 @@
 - Java 21 / Spring Boot 4.1 / Gradle
 - Spring Data JPA / MySQL 8.0
 - Spring Security / JWT
-- Spring WebSocket (실시간 시세·랭킹)
-- Redis (실시간 랭킹 Sorted Set, Pub/Sub, 세션)
+- Spring WebSocket + STOMP (실시간 시세·랭킹 브로드캐스트)
+- Redis (실시간 랭킹 Sorted Set, 시세 캐시, KIS 인증 토큰 캐시, 분산 레이트리미터, 실시간 접속자 집계, Pub/Sub)
 
 **Infra**
 - Docker / Docker Compose
-- GitHub Actions (CI/CD)
 
 **External API**
-- 한국투자증권 Open API / 업비트·바이낸스 (실시간 시세)
+- 한국투자증권(KIS) Open API 
 - Kakao OAuth2 (소셜 로그인)
 
 ## 🏗️ 소프트웨어 아키텍처
@@ -71,18 +69,16 @@ flowchart TD
 ## 🖥️ 시스템 아키텍처
 
 ```mermaid
-flowchart TD
-    Client[클라이언트] --> App
-    CI[GitHub Actions<br/>CI/CD] --> App
+flowchart LR
+    Client[클라이언트<br/>웹] <-- REST /<br/>STOMP --> App[Spring Boot App]
 
     subgraph Docker[Docker 환경 - 서버]
-        App[Spring Boot App]
         App --> MySQL[(MySQL)]
         App --> Redis[(Redis)]
     end
 
-    App --> Kakao[카카오 로그인 API]
-    App --> StockAPI[시세 API<br/>증권사 · 업비트 등]
+    App -- OAuth2 --> Kakao[카카오 로그인 API]
+    App -- REST/WebSocket --> KIS[한국투자증권 KIS<br/>Open API]
 ```
 
 ## 📁 프로젝트 구조
@@ -92,15 +88,16 @@ talktocks/
 ├── src/main/java/com/talktocks/
 │   ├── global/            # 공통 설정 (Security, Exception 등)
 │   └── domain/
-│       ├── member/        # 회원
+│       ├── auth/          # 회원가입/로그인, 카카오 소셜 로그인
+│       ├── member/        # 회원, 관심종목
 │       ├── room/          # 방(모의투자 배틀)
 │       ├── trade/         # 매수/매도, 거래내역
-│       ├── price/         # 실시간 시세
+│       ├── price/         # 한국투자증권(KIS) 실시간/기간별 시세
 │       ├── ranking/       # 랭킹
 │       ├── portfolio/     # 포트폴리오
-│       ├── community/     # 게시글/댓글
-│       ├── admin/         # 관리자
-│       └── backoffice/    # 통계 대시보드
+│       ├── community/     # 게시글/댓글/투자 인증 카드
+│       ├── admin/         # 회원/신고/공지/방 관리
+│       └── backoffice/    # 일일 통계 스냅샷/대시보드
 ├── docker-compose.yml     # 로컬 MySQL + Redis
 └── Dockerfile
 ```
@@ -165,19 +162,20 @@ docker-compose down -v    # 데이터까지 완전히 초기화하고 싶을 때
 ## 🗺️ 개발 로드맵
 
 - [x] 프로젝트 뼈대 세팅 (도메인 구조, ERD, Docker 환경)
-- [ ] **1차** — 회원가입/로그인, 기본방 모의투자, 실시간 시세, 랭킹, 커뮤니티
-- [ ] **2차** — 유저 방 개설/참가, 방별 배틀 시스템, 방 아카이브
-- [ ] **챌린지** — 백오피스 통계 대시보드
+- [x] **1차** — 회원가입/로그인, 기본방 모의투자, 실시간 시세, 랭킹, 커뮤니티
+- [x] **2차** — 유저 방 개설/참가, 방별 배틀 시스템, 방 아카이브
+- [x] **챌린지** — 백오피스 통계 대시보드, 회원/신고/공지/방 관리
+- [x] **KIS 연동 안정화** — WebSocket 재연결/재구독, 구독 생명주기 관리, Redis 기반 분산 레이트리미터
 
 ## 👥 팀원
 
 | 이름 | GitHub | 역할 |
 |---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+| 이진희 (팀장) | [@gyulhongsy](https://github.com/gyulhongsy) | Portfolio, Backoffice — 포트폴리오, 평가손익, 통계 스냅샷/대시보드 |
+| 윤태형 | [@YunTaeng](https://github.com/YunTaeng) | Auth, Room — 회원가입/로그인, JWT, 카카오 소셜로그인, WebSocket 인증, 모의투자 배틀 |
+| 안제홍 | [@burindol3](https://github.com/burindol3) | Ranking, Community — Redis 실시간 랭킹, 게시글/댓글/인증카드, 방 아카이브 |
+| 최재웅 | [@yongmaru789](https://github.com/yongmaru789) | Price, Member — 외부 시세 API 연동, WebSocket 시세 브로드캐스트, 관심종목 설정 |
+| 박지훈 | [@parkjihun5](https://github.com/parkjihun5) | Trade — 매수/매도 동시성 제어 |
 
 ## 📄 라이선스
 
