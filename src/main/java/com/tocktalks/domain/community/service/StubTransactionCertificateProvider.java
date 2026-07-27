@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class StubTransactionCertificateProvider implements TransactionCertificateProvider {
 
     @Override
-    public TransactionSnapshot certifySellTransaction(Long transactionId, Long memberId) {
+    public TransactionSnapshot certifyTransaction(Long transactionId, Long memberId) {
         return new TransactionSnapshot(
                 BigDecimal.valueOf(10000),   // profitAmount 더미값
                 BigDecimal.valueOf(5.0),     // profitRate 더미값 (5%)

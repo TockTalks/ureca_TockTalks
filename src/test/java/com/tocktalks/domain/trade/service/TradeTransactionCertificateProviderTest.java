@@ -41,7 +41,7 @@ class TradeTransactionCertificateProviderTest {
                 .thenReturn(Optional.of(sellTransaction));
 
         var snapshot =
-                provider.certifySellTransaction(10L, 20L);
+                provider.certifyTransaction(10L, 20L);
 
         assertThat(snapshot.stockCode())
                 .isEqualTo("005930");
@@ -68,7 +68,7 @@ class TradeTransactionCertificateProviderTest {
 
         assertThatThrownBy(
                 () -> provider
-                        .certifySellTransaction(10L, 20L)
+                        .certifyTransaction(10L, 20L)
         )
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(
@@ -84,7 +84,7 @@ class TradeTransactionCertificateProviderTest {
 
         assertThatThrownBy(
                 () -> provider
-                        .certifySellTransaction(10L, 20L)
+                        .certifyTransaction(10L, 20L)
         )
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(
