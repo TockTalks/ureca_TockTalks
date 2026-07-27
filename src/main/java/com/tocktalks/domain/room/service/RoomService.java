@@ -7,6 +7,10 @@ import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
 import com.tocktalks.domain.ranking.service.RankingService;
 import com.tocktalks.domain.ranking.type.RankingType;
+import com.tocktalks.domain.trade.dto.response.HoldingResponse;
+import com.tocktalks.domain.trade.entity.HoldingArchive;
+import com.tocktalks.domain.trade.repository.HoldingArchiveRepository;
+import com.tocktalks.domain.trade.service.HoldingQueryService;
 import com.tocktalks.domain.trade.service.TradeRankingService;
 import com.tocktalks.domain.room.dto.CreateRoomRequest;
 import com.tocktalks.domain.room.dto.RoomHistoryResponse;
@@ -51,6 +55,8 @@ public class RoomService {
     private final MemberRepository memberRepository;
     private final RoomProperties roomProperties;
     private final RoomRankingArchiveRepository roomRankingArchiveRepository;
+    private final HoldingQueryService holdingQueryService;
+    private final HoldingArchiveRepository holdingArchiveRepository;
 
     @Transactional
     public RoomResponse createRoom(Long ownerId, CreateRoomRequest request) {
@@ -325,6 +331,7 @@ public class RoomService {
             tradeRankingService.updateRanking(
                     participant
             );
+            archiveHoldings(participant);
         }
 
         rankingService.finalizeRanking(
@@ -337,6 +344,17 @@ public class RoomService {
 
         room.close();
         log.info("[방 종료] roomId={}, participantCount={}", room.getId(), participants.size());
+    }
+
+    //방 종료 시점의 보유 종목 시세를 그대로 저장 (종료된 방 포트폴리오가 이후 시세 변동에 영향 받지 않도록)
+    private void archiveHoldings(RoomParticipant participant) {
+        List<HoldingResponse> holdings = holdingQueryService.getHoldings(
+                participant.getMemberId(), participant.getId()
+        );
+        List<HoldingArchive> archives = holdings.stream()
+                .map(HoldingArchive::from)
+                .toList();
+        holdingArchiveRepository.saveAll(archives);
     }
 
     private void endParticipationForWithdrawal(RoomParticipant participant) {
