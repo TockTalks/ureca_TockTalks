@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public record PostResponse(
         Long id,
         Long memberId,
+        String nickname,
         String content,
         String stockCode,
         String stockName,
@@ -22,10 +23,11 @@ public record PostResponse(
         LocalDateTime createAt,
         LocalDateTime updateAt
 ) {
-    public static PostResponse of(Post post, boolean likedByMe){
+    public static PostResponse of(Post post, boolean likedByMe, String nickname){
         return new PostResponse(
                 post.getId(),
                 post.getMemberId(),
+                nickname,
                 post.getContent(),
                 post.getStockCode(),
                 post.getStockName(),
