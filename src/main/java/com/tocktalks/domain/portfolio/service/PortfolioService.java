@@ -8,8 +8,11 @@ import com.tocktalks.domain.portfolio.dto.PortfolioSummaryResponse;
 import com.tocktalks.domain.portfolio.entity.AssetHistory;
 import com.tocktalks.domain.portfolio.event.AssetSnapshotRequestedEvent;
 import com.tocktalks.domain.portfolio.repository.AssetHistoryRepository;
+import com.tocktalks.domain.ranking.dto.response.RankingDto;
 import com.tocktalks.domain.ranking.entity.RoomRankingArchive;
 import com.tocktalks.domain.ranking.repository.RoomRankingArchiveRepository;
+import com.tocktalks.domain.ranking.service.RankingService;
+import com.tocktalks.domain.ranking.type.RankingType;
 import com.tocktalks.domain.room.entity.Room;
 import com.tocktalks.domain.room.entity.RoomParticipant;
 import com.tocktalks.domain.room.repository.RoomParticipantRepository;
@@ -41,6 +44,7 @@ public class PortfolioService {
     
     private final HoldingQueryService holdingQueryService;
     private final RoomRankingArchiveRepository roomRankingArchiveRepository;
+    private final RankingService rankingService;
 
     //내 포트폴리오 목록 조회
     @Transactional(readOnly = true)
@@ -198,6 +202,14 @@ public class PortfolioService {
                     .map(RoomRankingArchive::getFinalRank)
                     .orElse(null);
             totalParticipantCount = (int)roomRankingArchiveRepository.countDistinctMemberIdByRoomId(room.getId());
+        } else if ("ongoing".equals(room.getStatus())) {
+            List<RankingDto> live = rankingService.getAllRanking(room.getId(), RankingType.TOTAL_ASSET);
+            finalRank = live.stream()
+                    .filter(dto -> dto.memberId().equals(participant.getMemberId()))
+                    .map(RankingDto::rank)
+                    .findFirst()
+                    .orElse(null);
+            totalParticipantCount = live.isEmpty() ? null : live.size();
         }
         return PortfolioSummaryResponse.of(
                 participant, room, totalAssetValue, stockValuation,
