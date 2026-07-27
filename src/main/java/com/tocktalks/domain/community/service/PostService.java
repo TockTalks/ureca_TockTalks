@@ -38,7 +38,7 @@ public class PostService {
 
         if (request.transactionId() != null) {
             var snapshot = transactionCertificateProvider
-                    .certifySellTransaction(request.transactionId(), memberId);
+                    .certifyTransaction(request.transactionId(), memberId);
 
             post = Post.createWithCertificate(
                     memberId,
