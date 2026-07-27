@@ -19,6 +19,8 @@ import com.tocktalks.domain.room.repository.RoomParticipantRepository;
 import com.tocktalks.domain.room.repository.RoomRepository;
 import com.tocktalks.domain.trade.dto.response.HoldingResponse;
 import com.tocktalks.domain.trade.dto.response.HoldingSummaryResponse;
+import com.tocktalks.domain.trade.entity.HoldingArchive;
+import com.tocktalks.domain.trade.repository.HoldingArchiveRepository;
 import com.tocktalks.domain.trade.service.HoldingQueryService;
 
 import java.time.LocalDateTime;
@@ -45,6 +47,7 @@ public class PortfolioService {
     private final HoldingQueryService holdingQueryService;
     private final RoomRankingArchiveRepository roomRankingArchiveRepository;
     private final RankingService rankingService;
+    private final HoldingArchiveRepository holdingArchiveRepository;
 
     //내 포트폴리오 목록 조회
     @Transactional(readOnly = true)
@@ -83,6 +86,19 @@ public class PortfolioService {
             throw new IllegalArgumentException("해당 포트폴리오를 조회할 권한이 없습니다.");
         }
 
+        Room room = roomRepository.findById(participant.getRoomId())
+                .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
+
+        //1-2. 종료된 방은 실시간 조회가 아닌 종료 시점의 가격으로 고정
+        if ("closed".equals(room.getStatus())) {
+            List<HoldingArchive> archives = holdingArchiveRepository.findByRoomParticipantId(participant.getId());
+            List<PortfolioHoldingResponse> holdings = archives.stream()
+                    .map(PortfolioHoldingResponse::fromArchive)
+                    .toList();
+            PortfolioSummaryResponse summary = toClosedSummary(participant, room, archives);
+            return PortfolioDetailResponse.of(summary, holdings);
+        }
+
         //2. 보유 종목 조회
         List<HoldingResponse> holdingResponses = holdingQueryService.getHoldings(memberId, roomParticipantId);
         HoldingSummaryResponse holdingSummary = HoldingSummaryResponse.from(holdingResponses);
@@ -92,7 +108,7 @@ public class PortfolioService {
                 .toList();
 
         //3. 요약 정보 조립 후 holdings와 합쳐서 반환
-        PortfolioSummaryResponse summary = toSummary(participant, holdingSummary);
+        PortfolioSummaryResponse summary = toLiveSummary(participant, room, holdingSummary);
         return PortfolioDetailResponse.of(summary, holdings);
     }
 
@@ -167,42 +183,59 @@ public class PortfolioService {
 
     //RoomParticipant -> PortfolioSummaryResponse 변환 헬퍼 (목록, 상세 공용)
     private PortfolioSummaryResponse toSummary(RoomParticipant participant) {
-        HoldingSummaryResponse holdingSummary = holdingQueryService.getHoldingSummary(
-                participant.getMemberId(), participant.getId()
-        );
-        return toSummary(participant, holdingSummary);
-    }
-
-    private PortfolioSummaryResponse toSummary(RoomParticipant participant, HoldingSummaryResponse holdingSummary) {
         Room room = roomRepository.findById(participant.getRoomId())
                 .orElseThrow(() -> new IllegalArgumentException("방 정보를 찾을 수 없습니다."));
 
+        if ("closed".equals(room.getStatus())) {
+            List<HoldingArchive> archives = holdingArchiveRepository.findByRoomParticipantId(participant.getId());
+            return toClosedSummary(participant, room, archives);
+        }
+
+        HoldingSummaryResponse holdingSummary = holdingQueryService.getHoldingSummary(
+                participant.getMemberId(), participant.getId()
+        );
+        return toLiveSummary(participant, room, holdingSummary);
+    }
+
+    //종료된 방 스냅샷 기반으로 요약 조립
+    private PortfolioSummaryResponse toClosedSummary(RoomParticipant participant, Room room, List<HoldingArchive> archives) {
+        long stockValuation = archives.stream()
+                .mapToLong(archive -> archive.getEvaluationAmount().longValue())
+                .sum();
+
+        long totalAssetValue;
+        try {
+            totalAssetValue = Math.addExact(participant.getBalance(), stockValuation);
+        } catch (ArithmeticException exception) {
+            throw new IllegalArgumentException("총자산이 허용 범위를 초과합니다.", exception);
+        }
+
+        Integer finalRank = roomRankingArchiveRepository
+                .findByRoomIdAndMemberId(room.getId(), participant.getMemberId())
+                .stream()
+                .findFirst()
+                .map(RoomRankingArchive::getFinalRank)
+                .orElse(null);
+        Integer totalParticipantCount = (int)roomRankingArchiveRepository.countDistinctMemberIdByRoomId(room.getId());
+
+        return PortfolioSummaryResponse.of(
+                participant, room, totalAssetValue, stockValuation, archives.size(), finalRank, totalParticipantCount);
+    }
+
+    //기본방, 진행중 - 실시간 시세 기반으로 요약 조립
+    private PortfolioSummaryResponse toLiveSummary(RoomParticipant participant, Room room, HoldingSummaryResponse holdingSummary) {
         long stockValuation = holdingSummary.totalValuation().longValue();
 
         long totalAssetValue;
         try {
-            totalAssetValue = Math.addExact(
-                    participant.getBalance(),
-                    stockValuation
-            );
+            totalAssetValue = Math.addExact(participant.getBalance(), stockValuation);
         } catch (ArithmeticException exception) {
-            throw new IllegalArgumentException(
-                    "총자산이 허용 범위를 초과합니다.",
-                    exception
-            );
+            throw new IllegalArgumentException("총자산이 허용 범위를 초과합니다.", exception);
         }
 
         Integer finalRank = null;
         Integer totalParticipantCount = null;
-        if ("closed".equals(room.getStatus())) {
-            finalRank = roomRankingArchiveRepository
-                    .findByRoomIdAndMemberId(room.getId(), participant.getMemberId())
-                    .stream()
-                    .findFirst()
-                    .map(RoomRankingArchive::getFinalRank)
-                    .orElse(null);
-            totalParticipantCount = (int)roomRankingArchiveRepository.countDistinctMemberIdByRoomId(room.getId());
-        } else if ("ongoing".equals(room.getStatus())) {
+        if ("ongoing".equals(room.getStatus())) {
             List<RankingDto> live = rankingService.getAllRanking(room.getId(), RankingType.TOTAL_ASSET);
             finalRank = live.stream()
                     .filter(dto -> dto.memberId().equals(participant.getMemberId()))
@@ -211,10 +244,8 @@ public class PortfolioService {
                     .orElse(null);
             totalParticipantCount = live.isEmpty() ? null : live.size();
         }
+
         return PortfolioSummaryResponse.of(
-                participant, room, totalAssetValue, stockValuation,
-                holdingSummary.holdings().size(),
-                finalRank, totalParticipantCount
-        );
+                participant, room, totalAssetValue, stockValuation, holdingSummary.holdings().size(), finalRank, totalParticipantCount);
     }
 }
