@@ -13,6 +13,7 @@ public record RoomHistoryResponse(
         Integer finalRank,
         Long finalAsset,
         BigDecimal finalReturnRate,
+        boolean hasTraded,
         long participantCount
 ) {
     public static RoomHistoryResponse of(Room room, RoomRankingArchive archive, long participantCount) {
@@ -23,6 +24,7 @@ public record RoomHistoryResponse(
                 archive.getFinalRank(),
                 archive.getFinalAsset(),
                 archive.getFinalReturnRate(),
+                archive.isHasTraded(),
                 participantCount
         );
     }
