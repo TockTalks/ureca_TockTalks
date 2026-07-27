@@ -9,7 +9,8 @@ public record RankingArchiveResponse (
         String nickname,
         Long finalAsset,
         BigDecimal finalReturnRate,
-        Integer finalRank
+        Integer finalRank,
+        boolean hasTraded
 ) {
     public static RankingArchiveResponse from(RoomRankingArchive entity, String nickname){
         return new RankingArchiveResponse(
@@ -17,7 +18,8 @@ public record RankingArchiveResponse (
             nickname,
             entity.getFinalAsset(),
             entity.getFinalReturnRate(),
-            entity.getFinalRank()
+            entity.getFinalRank(),
+            entity.isHasTraded()
         );
     }
 }
