@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
@@ -47,6 +48,11 @@ public class KisPriceService {
     private final ObjectMapper objectMapper;
     private final KisRateLimiter kisRateLimiter;
 
+    // LATEST_KEY_PREFIX(Redis)만으로는 Redis 자체가 다운되면 마지막 성공 시세조차 못 읽는다.
+    // 같은 값을 JVM 로컬 메모리에도 한 벌 더 들고 있다가, Redis 조회가 실패할 때의 최후
+    // 보루로 쓴다. 인스턴스별로만 유효하지만(재시작하면 비워짐), 없는 것보다는 낫다.
+    private final Map<String, String> localLastKnownPrice = new ConcurrentHashMap<>();
+
     public KisPriceService(WebClient kisWebClient,
                            KisApiProperties kisApiProperties,
                            KisAuthService kisAuthService,
@@ -63,7 +69,7 @@ public class KisPriceService {
 
     public KisPriceResponse getCurrentPrice(String stockCode) {
         String cacheKey = CACHE_KEY_PREFIX + stockCode;
-        String cached = redisTemplate.opsForValue().get(cacheKey);
+        String cached = safeRedisGet(cacheKey);
         if (cached != null) {
             return objectMapper.readValue(cached, KisPriceResponse.class);
         }
@@ -71,11 +77,16 @@ public class KisPriceService {
         try {
             KisPriceResponse response = fetchFromKis(stockCode);
             String json = objectMapper.writeValueAsString(response);
-            redisTemplate.opsForValue().set(cacheKey, json, CACHE_TTL);
-            redisTemplate.opsForValue().set(LATEST_KEY_PREFIX + stockCode, json);
+            localLastKnownPrice.put(stockCode, json);
+            safeRedisSet(cacheKey, json, CACHE_TTL);
+            safeRedisSet(LATEST_KEY_PREFIX + stockCode, json, null);
             return response;
         } catch (RuntimeException exception) {
-            String lastKnown = redisTemplate.opsForValue().get(LATEST_KEY_PREFIX + stockCode);
+            String lastKnown = safeRedisGet(LATEST_KEY_PREFIX + stockCode);
+            if (lastKnown == null) {
+                // Redis가 응답을 못 주는 경우(다운/타임아웃)까지 포함해서 로컬 사본으로 대체한다.
+                lastKnown = localLastKnownPrice.get(stockCode);
+            }
             if (lastKnown == null) {
                 throw exception;
             }
@@ -83,6 +94,30 @@ public class KisPriceService {
             log.warn("KIS 현재가 조회 실패, 마지막으로 성공한 시세로 대체합니다. stockCode={}, message={}",
                     stockCode, exception.getMessage());
             return objectMapper.readValue(lastKnown, KisPriceResponse.class);
+        }
+    }
+
+    // Redis 조회 실패(다운/타임아웃 등)를 캐시 미스처럼 취급해서 흐름이 KIS 직접 호출로
+    // 이어지게 한다. 이 메서드가 없으면 Redis 장애가 곧바로 전체 요청 실패로 이어진다.
+    private String safeRedisGet(String key) {
+        try {
+            return redisTemplate.opsForValue().get(key);
+        } catch (RuntimeException redisException) {
+            log.warn("Redis 조회 실패, 캐시 없이 진행합니다. key={}", key, redisException);
+            return null;
+        }
+    }
+
+    // Redis 저장 실패는 로컬 캐시(localLastKnownPrice)가 이미 반영됐으니 무시하고 넘어간다.
+    private void safeRedisSet(String key, String value, Duration ttl) {
+        try {
+            if (ttl != null) {
+                redisTemplate.opsForValue().set(key, value, ttl);
+            } else {
+                redisTemplate.opsForValue().set(key, value);
+            }
+        } catch (RuntimeException redisException) {
+            log.warn("Redis 저장 실패, 로컬 캐시만 반영합니다. key={}", key, redisException);
         }
     }
 
