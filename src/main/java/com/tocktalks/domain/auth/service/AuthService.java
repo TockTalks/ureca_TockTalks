@@ -76,6 +76,14 @@ public class AuthService {
 
         Long memberId = jwtProvider.getMemberId(refreshToken);
         if (!refreshTokenService.matches(memberId, refreshToken)) {
+            // 저장된 토큰이 아예 없는(로그아웃/미로그인) 경우가 아니라, 이미 다른 토큰으로
+            // 로테이션된 상태에서 예전 토큰이 다시 들어온 것이라면 탈취 의심 신호로 본다.
+            // 정상 사용자와 공격자 중 누가 최신 토큰을 들고 있는지 알 수 없으므로, 그 회원의
+            // 세션 전체를 선제적으로 무효화한다.
+            if (refreshTokenService.exists(memberId)) {
+                refreshTokenService.delete(memberId);
+                accessTokenRevocationService.revoke(memberId);
+            }
             throw new IllegalArgumentException("유효하지 않은 리프레시 토큰입니다.");
         }
 
@@ -84,6 +92,7 @@ public class AuthService {
     }
 
     public void logout(Long memberId) {
+        accessTokenRevocationService.revoke(memberId);
         refreshTokenService.delete(memberId);
     }
 

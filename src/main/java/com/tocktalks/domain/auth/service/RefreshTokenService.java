@@ -24,6 +24,12 @@ public class RefreshTokenService {
         return refreshToken.equals(redisTemplate.opsForValue().get(key(memberId)));
     }
 
+    // matches()가 false인 이유가 "발급받은 적이 없어서"인지 "이미 로테이션된 예전 토큰이라서"인지
+    // 구분하는 용도. 후자는 재사용(탈취 의심) 신호로 다뤄야 한다.
+    public boolean exists(Long memberId) {
+        return Boolean.TRUE.equals(redisTemplate.hasKey(key(memberId)));
+    }
+
     public void delete(Long memberId) {
         redisTemplate.delete(key(memberId));
     }
