@@ -289,6 +289,19 @@ KIS와 Redis 각각의 장애 상황에 대해 별도로 대비했습니다.
 - CI/CD 파이프라인은 구성하지 않았습니다.
 - 별도 컨테이너 오케스트레이션(EC2 등) 배포 대신, 로컬/팀 공유 환경 검증에 집중했습니다.
 
+### 환경변수
+
+프로젝트 루트에 `.env` 파일을 만들고 채워야 합니다. `JWT_SECRET`은 기본값이 없어 반드시 채워야 서버가 기동됩니다.
+
+```bash
+JWT_SECRET=$(openssl rand -base64 64)   # 직접 생성해서 값만 옮겨 넣기
+STOCK_API_APP_KEY=your_key
+STOCK_API_APP_SECRET=your_secret
+KAKAO_CLIENT_ID=your_client_id
+KAKAO_CLIENT_SECRET=your_client_secret
+KAKAO_REDIRECT_URI=your_redirect_uri
+```
+
 ---
 
 ## 8. 트러블슈팅
