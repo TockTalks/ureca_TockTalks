@@ -72,32 +72,32 @@
 
 | 분류 | 기술 |
 |---|---|
-| 언어 / 프레임워크 | Java 21, Spring Boot 4.1, Gradle |
-| ORM | Spring Data JPA |
-| 인증 | Spring Security, JWT |
-| 분산 캐시 / 락 / Pub-Sub | Redis 7 |
-| 실시간 통신 | Spring WebSocket + STOMP |
-| 소셜 로그인 | Kakao OAuth2 |
+| 언어 / 프레임워크 | ![Java](https://img.shields.io/badge/Java-21-007396?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white) |
+| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-59666C?style=for-the-badge&logo=hibernate&logoColor=white) |
+| 인증 | ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) |
+| 분산 캐시 / 락 / Pub-Sub | ![Redis](https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white) |
+| 실시간 통신 | ![WebSocket](https://img.shields.io/badge/WebSocket-010101?style=for-the-badge) ![STOMP](https://img.shields.io/badge/STOMP-6DB33F?style=for-the-badge) |
+| 소셜 로그인 | ![Kakao](https://img.shields.io/badge/Kakao%20OAuth2-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=black) |
 
 ### Database
 
 | 분류 | 기술 |
 |---|---|
-| RDBMS | MySQL 8.0 |
-| 캐시 / 세션 / 분산락 스토어 | Redis 7 (Upstash) |
+| RDBMS | ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white) |
+| 캐시 / 세션 / 분산락 스토어 | ![Redis](https://img.shields.io/badge/Redis-7-DC382D?style=for-the-badge&logo=redis&logoColor=white) ![Upstash](https://img.shields.io/badge/Upstash-00E9A3?style=for-the-badge&logo=upstash&logoColor=black) |
 
 ### Infra
 
 | 분류 | 기술 |
 |---|---|
-| 컨테이너 | Docker, Docker Compose |
-| 외부 API | 한국투자증권(KIS) Open API |
+| 컨테이너 | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white) |
+| 외부 API | ![KIS](https://img.shields.io/badge/한국투자증권-KIS%20Open%20API-00857C?style=for-the-badge) |
 
 ### 협업 도구
 
 | 분류 | 도구 |
 |---|---|
-| AI 개발 도구 | Claude Code |
+| AI 개발 도구 | ![Claude Code](https://img.shields.io/badge/Claude%20Code-AI%20Pair%20Programming-D97757?style=for-the-badge&logo=anthropic&logoColor=white) |
 
 ---
 
